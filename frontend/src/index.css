@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap');
+
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+@layer base {
+  body {
+    @apply font-body bg-cream text-dark antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading text-primary;
+  }
+
+  ::selection {
+    @apply bg-gold/30 text-primary;
+  }
+
+  /* Typography Scale */
+  h1 { @apply text-4xl md:text-6xl lg:text-7xl leading-tight font-bold; }
+  h2 { @apply text-3xl md:text-5xl leading-tight font-bold; }
+  h3 { @apply text-2xl md:text-3xl leading-snug font-semibold; }
+  p { @apply text-base md:text-lg leading-relaxed text-dark/80; }
+  .caption { @apply text-sm md:text-base text-dark/60 font-light tracking-wide; }
+}
+
+@layer components {
+  /* Button System */
+  .btn-primary {
+    @apply bg-primary text-white px-8 py-3.5 rounded-none hover:bg-primary-light transition-all duration-300 font-medium tracking-wide flex items-center justify-center gap-2 shadow-premium hover:shadow-premium-hover disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  
+  .btn-secondary {
+    @apply bg-cream-dark text-primary px-8 py-3.5 rounded-none hover:bg-gray-200 transition-all duration-300 font-medium tracking-wide flex items-center justify-center gap-2;
+  }
+
+  .btn-outline {
+    @apply border-2 border-primary text-primary px-8 py-3.5 rounded-none hover:bg-primary hover:text-white transition-all duration-300 font-medium tracking-wide flex items-center justify-center gap-2;
+  }
+
+  .btn-gold {
+    @apply bg-gold text-dark px-8 py-3.5 rounded-none hover:bg-gold-hover transition-all duration-300 font-medium tracking-wide flex items-center justify-center gap-2;
+  }
+  
+  .btn-ghost {
+    @apply bg-transparent text-dark hover:text-primary hover:bg-cream-dark px-6 py-2 transition-all duration-300 font-medium;
+  }
+
+  /* Form Design System */
+  .input-premium {
+    @apply w-full bg-white border border-gray-200 rounded-none px-5 py-3.5 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-colors text-dark placeholder-gray-400;
+  }
+
+  /* Card Design System */
+  .premium-card {
+    @apply bg-white shadow-premium hover:shadow-premium-hover transition-all duration-500 overflow-hidden relative;
+  }
+
+  .glass-card {
+    @apply bg-glass-gradient backdrop-blur-md border border-white/20 shadow-glass rounded-2xl;
+  }
+
+  /* Loading Skeletons */
+  .skeleton {
+    @apply animate-pulse bg-gray-200 rounded;
+  }
+}
+
+/* Custom Scrollbar for a premium feel */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-cream;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/30 hover:bg-primary/50 transition-colors;
+}
+
+/* Hide scrollbar but allow scroll - useful for carousels */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

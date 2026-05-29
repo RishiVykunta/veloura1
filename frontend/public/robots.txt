@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Disallow admin and private user routes
+Disallow: /admin/
+Disallow: /profile/
+Disallow: /checkout/
+Disallow: /cart/
+Disallow: /api/
+
+# Sitemaps
+Sitemap: https://veloura.com/sitemap.xml
