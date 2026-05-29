@@ -49,7 +49,7 @@ const Navbar = () => {
 
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1778683336/Screenshot_2026-05-13_194015_rtsdbz.png" alt="Veloura" className="h-8" />
+            <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1778683336/Screenshot_2026-05-13_194015_rtsdbz.png" alt="Veloura" className="h-12 md:h-16 object-contain" />
           </Link>
 
           {/* Desktop Nav */}
@@ -98,7 +98,7 @@ const Navbar = () => {
               className="fixed top-0 left-0 bottom-0 w-[280px] bg-white z-50 shadow-2xl flex flex-col md:hidden"
             >
               <div className="p-4 flex justify-between items-center border-b border-cream">
-                <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1778683336/Screenshot_2026-05-13_194015_rtsdbz.png" alt="Veloura" className="h-6" />
+                <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1778683336/Screenshot_2026-05-13_194015_rtsdbz.png" alt="Veloura" className="h-10 object-contain" />
                 <button onClick={() => setMobileMenuOpen(false)} className="text-dark p-1">
                   <X size={24} />
                 </button>
