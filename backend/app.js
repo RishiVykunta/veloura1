@@ -26,6 +26,10 @@ app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'success', message: 'Veloura API is running smoothly' });
 });
 
+app.get('/', (req, res) => {
+  res.status(200).json({ status: 'success', message: 'Veloura API Backend is online. Use /api/v1 endpoints.' });
+});
+
 // Import Routes
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
