@@ -2,11 +2,15 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const os = require('os');
 const { uploadToCloudinary } = require('../utils/cloudinary');
 const asyncHandler = require('../utils/asyncHandler');
 
-// Ensure upload directory exists inside backend
-const uploadDir = path.join(__dirname, '../uploads');
+// Use /tmp for serverless environments (like Vercel)
+const uploadDir = process.env.NODE_ENV === 'production' 
+  ? path.join(os.tmpdir(), 'uploads')
+  : path.join(__dirname, '../uploads');
+
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }

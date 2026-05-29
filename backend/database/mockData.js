@@ -1,6 +1,6 @@
 const mockCategories = [
   {
-    id: "c1111111-1111-1111-1111-111111111111",
+    id: "f",
     name: "Dresses",
     slug: "dresses",
     description: "Sleek silhouettes, romantic slips, and effortless daywear.",
@@ -8,7 +8,7 @@ const mockCategories = [
     isActive: true
   },
   {
-    id: "c2222222-2222-2222-2222-222222222222",
+    id: "f",
     name: "Tops",
     slug: "tops",
     description: "Premium basics, tailored shirts, and statement corsets.",
@@ -16,7 +16,7 @@ const mockCategories = [
     isActive: true
   },
   {
-    id: "c3333333-3333-3333-3333-333333333333",
+    id: "f",
     name: "Bottoms",
     slug: "bottoms",
     description: "Tailored trousers, structured denim, and linen skirts.",
@@ -24,7 +24,7 @@ const mockCategories = [
     isActive: true
   },
   {
-    id: "c4444444-4444-4444-4444-444444444444",
+    id: "f",
     name: "Accessories",
     slug: "accessories",
     description: "Finishing touches, sculptural jewelry, and leather goods.",
@@ -35,7 +35,7 @@ const mockCategories = [
 
 const mockBanners = [
   {
-    id: "b1111111-1111-1111-1111-111111111111",
+    id: "f",
     title: "Elegance Reimagined",
     subtitle: "New Collection 2026 — Soft Luxury & Editorial Outfits",
     bannerType: "hero",
@@ -46,7 +46,7 @@ const mockBanners = [
     isActive: true
   },
   {
-    id: "b2222222-2222-2222-2222-222222222222",
+    id: "f",
     title: "Summer Knitwear",
     subtitle: "Breathable yarns, curated tones",
     bannerType: "promo",
@@ -60,13 +60,13 @@ const mockBanners = [
 
 const mockProducts = [
   {
-    id: "p1111111-1111-1111-1111-111111111111",
+    id: "f",
     name: "Aurelia Satin Slip Dress",
     slug: "aurelia-satin-slip-dress",
     shortDescription: "A liquid-like cowl neck satin slip dress designed for golden hour.",
     description: "The Aurelia Slip Dress is crafted from a heavy-weight, high-shine satin that drapes beautifully over the body. Features an adjustable cross-back detail, double lining for security, and a elegant side slit. Perfect for evening dinners, cocktails, or romantic lookbooks.",
     sku: "VEL-DR-AUR-001",
-    categoryId: "c1111111-1111-1111-1111-111111111111",
+    categoryId: "f",
     price: 3499.00,
     discountPrice: 2999.00,
     stockQuantity: 24,
@@ -99,13 +99,13 @@ const mockProducts = [
     tags: ["slip dress", "satin", "evening", "gold"]
   },
   {
-    id: "p2222222-2222-2222-2222-222222222222",
+    id: "f",
     name: "Seraphina Tailored Trousers",
     slug: "seraphina-tailored-trousers",
     shortDescription: "High-rise pleated trousers with a wide-leg fluid drape.",
     description: "The Seraphina pleated trousers offer an effortless blend of workwear structure and relaxed tailoring. Designed with a wide leg, double pleats at the waist, functional side pockets, and a clean belt loop waistband. Made from a fluid linen-rayon blend.",
     sku: "VEL-BT-SER-002",
-    categoryId: "c3333333-3333-3333-3333-333333333333",
+    categoryId: "f",
     price: 2499.00,
     discountPrice: null,
     stockQuantity: 15,
@@ -137,13 +137,13 @@ const mockProducts = [
     tags: ["trousers", "pleated", "wide leg", "cream"]
   },
   {
-    id: "p3333333-3333-3333-3333-333333333333",
+    id: "f",
     name: "Lyra Linen Ribbed Crop Top",
     slug: "lyra-linen-ribbed-crop-top",
     shortDescription: "A minimalist knit ribbed crop top with clean shoulder straps.",
     description: "Breathable and stretch-fit, the Lyra Crop Top is knitted with organic linen yarns for a luxurious rib texture. High neckline, fitted bodice, and crop length makes it the perfect coordinate for high-waisted linen trousers or skirts.",
     sku: "VEL-TP-LYR-003",
-    categoryId: "c2222222-2222-2222-2222-222222222222",
+    categoryId: "f",
     price: 1599.00,
     discountPrice: 1299.00,
     stockQuantity: 40,
@@ -176,13 +176,13 @@ const mockProducts = [
     tags: ["crop top", "ribbed", "linen", "sage"]
   },
   {
-    id: "p4444444-4444-4444-4444-444444444444",
+    id: "f",
     name: "Baroque Pearl Drop Earrings",
     slug: "baroque-pearl-drop-earrings",
     shortDescription: "Irregular sculptural freshwater baroque pearls on 18k gold plated hoops.",
     description: "Each Baroque Pearl Drop Earring is completely unique, highlighting natural organic contours. Features sculptural 18k gold plated sterling silver huggie hoops, lightweight design, and removable pearl charms. Made for everyday luxury accessorizing.",
     sku: "VEL-AC-PRL-004",
-    categoryId: "c4444444-4444-4444-4444-444444444444",
+    categoryId: "f",
     price: 1899.00,
     discountPrice: 1699.00,
     stockQuantity: 50,
@@ -211,13 +211,13 @@ const mockProducts = [
     tags: ["earrings", "pearl", "gold", "jewelry"]
   },
   {
-    id: "p5555555-5555-5555-5555-555555555555",
+    id: "f",
     name: "Selene Linen Vest & Trousers Set",
     slug: "selene-linen-vest-trousers-set",
     shortDescription: "Coordinating tailored vest and high-waist trousers in soft oat linen.",
     description: "The Selene Set is the ultimate editorial summer suit. Comprises a fitted, button-up waistcoat with a V-neckline and pointed hem, and matching tailored linen trousers. Lightweight, fully lined vest, and relaxed trouser drape.",
     sku: "VEL-CO-SEL-005",
-    categoryId: "c1111111-1111-1111-1111-111111111111",
+    categoryId: "f",
     price: 5299.00,
     discountPrice: 4599.00,
     stockQuantity: 12,
