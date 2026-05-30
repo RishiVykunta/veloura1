@@ -141,7 +141,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Featured Categories Grid */}
+      {/* New Arrivals Grid */}
       <section className="py-12 md:py-24 bg-white">
         <div className="container mx-auto px-3 md:px-8">
           <div className="text-center mb-8 md:mb-16">
@@ -151,24 +151,36 @@ const Home = () => {
           
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
             {categories.map((cat, idx) => (
-              <div 
+              <div
                 key={cat.id || idx}
-                className="group relative overflow-hidden bg-cream rounded shadow-sm aspect-[3/4] border border-cream/20 flex flex-col justify-end p-3 md:p-6"
+                className="group bg-white border border-cream/50 rounded overflow-hidden shadow-premium hover:shadow-premium-hover transition-all duration-300"
               >
-                <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/35 duration-300" />
-                <img
-                  src={cat.imageUrl}
-                  alt={cat.name}
-                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                />
-                <div className="relative z-20 text-white">
-                  <h3 className="font-heading font-bold text-sm md:text-lg">{cat.name}</h3>
-                  <Link 
-                    to={`/shop?category=${cat.slug}`}
-                    className="inline-flex items-center gap-1 text-[9px] md:text-[10px] font-semibold uppercase tracking-widest mt-1 md:mt-2 border-b border-white hover:text-gold hover:border-gold transition-colors pb-0.5"
-                  >
-                    View pieces &rarr;
-                  </Link>
+                {/* Image */}
+                <div className="aspect-[3/4] bg-cream/20 overflow-hidden relative">
+                  <img
+                    src={cat.imageUrl}
+                    alt={cat.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-primary/25 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <Link
+                      to={`/shop?category=${cat.slug}`}
+                      className="bg-white text-primary p-2.5 rounded-full shadow hover:bg-gold hover:text-white transition-colors"
+                    >
+                      <Eye size={16} />
+                    </Link>
+                  </div>
+                </div>
+                {/* Info */}
+                <div className="p-3 md:p-4">
+                  <span className="text-[9px] text-gold uppercase tracking-widest font-semibold">New Arrival</span>
+                  <h3 className="font-heading font-bold text-primary text-xs md:text-sm truncate mt-0.5">{cat.name}</h3>
+                  <div className="flex justify-between items-center mt-2 md:mt-3">
+                    <span className="text-[9px] md:text-[10px] text-dark/50 font-light">Explore Collection</span>
+                    <Link to={`/shop?category=${cat.slug}`} className="text-[9px] md:text-[10px] font-bold text-gold hover:underline">
+                      Shop Now
+                    </Link>
+                  </div>
                 </div>
               </div>
             ))}
