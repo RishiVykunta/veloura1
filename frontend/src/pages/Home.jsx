@@ -39,7 +39,7 @@ const Home = () => {
   const heroBanner = banners[0] || {
     title: "Elegance Reimagined",
     subtitle: "New Collection 2026 — Soft Luxury & Editorial Outfits",
-    desktopImageUrl: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1600",
+    desktopImageUrl: "https://res.cloudinary.com/dqcxekzxn/image/upload/v1780155306/WhatsApp_Image_2026-05-29_at_10.06.09_AM_hexvgh.jpg",
     redirectUrl: "/shop"
   };
 
