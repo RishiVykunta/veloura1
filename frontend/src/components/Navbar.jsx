@@ -49,7 +49,7 @@ const Navbar = () => {
 
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1778683336/Screenshot_2026-05-13_194015_rtsdbz.png" alt="Veloura" className="h-12 md:h-16 object-contain" />
+            <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1778683336/Screenshot_2026-05-13_194015_rtsdbz.png" alt="Veloura" className="h-10 md:h-12 w-auto object-contain rounded-sm shadow-sm" />
           </Link>
 
           {/* Desktop Nav */}
