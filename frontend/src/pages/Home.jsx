@@ -232,40 +232,44 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Mobile layout - 2x2 compact grid */}
-          <div className="grid md:hidden grid-cols-2 gap-3">
-            <Link to="/shop?category=sharara" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm aspect-[3/4]">
-              <div className="absolute inset-0 bg-primary/25 z-10" />
+          {/* Mobile layout - bento-box matching desktop style */}
+          <div className="md:hidden grid grid-cols-2 gap-2 h-[420px]">
+            {/* Large left card - Sharara spans full height */}
+            <Link to="/shop?category=sharara" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm row-span-2">
+              <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
               <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=600" alt="Sharara" className="absolute inset-0 w-full h-full object-cover" />
-              <div className="absolute bottom-3 left-3 z-20">
-                <h3 className="font-heading font-bold text-base text-white drop-shadow-md">Sharara</h3>
+              <div className="absolute bottom-4 left-3 z-20">
+                <h3 className="font-heading font-bold text-xl text-white drop-shadow-md">Sharara</h3>
                 <span className="text-[9px] text-gold font-semibold uppercase tracking-wider">Explore →</span>
               </div>
             </Link>
-            <Link to="/shop?category=tops" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm aspect-[3/4]">
-              <div className="absolute inset-0 bg-primary/25 z-10" />
+
+            {/* Right column - Tops on top */}
+            <Link to="/shop?category=tops" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm">
+              <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
               <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=600" alt="Tops" className="absolute inset-0 w-full h-full object-cover" />
               <div className="absolute bottom-3 left-3 z-20">
                 <h3 className="font-heading font-bold text-base text-white drop-shadow-md">Tops</h3>
-                <span className="text-[9px] text-gold font-semibold uppercase tracking-wider">Explore →</span>
               </div>
             </Link>
-            <Link to="/shop?category=anarkali" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm aspect-[3/4]">
-              <div className="absolute inset-0 bg-primary/25 z-10" />
-              <img src="https://images.unsplash.com/photo-1583391733959-f18305540a97?q=80&w=600" alt="Anarkali" className="absolute inset-0 w-full h-full object-cover" />
-              <div className="absolute bottom-3 left-3 z-20">
-                <h3 className="font-heading font-bold text-base text-white drop-shadow-md">Anarkali</h3>
-                <span className="text-[9px] text-gold font-semibold uppercase tracking-wider">Explore →</span>
-              </div>
-            </Link>
-            <Link to="/shop?category=short-kurtha" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm aspect-[3/4]">
-              <div className="absolute inset-0 bg-primary/25 z-10" />
-              <img src="https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?q=80&w=600" alt="Short Kurtha" className="absolute inset-0 w-full h-full object-cover" />
-              <div className="absolute bottom-3 left-3 z-20">
-                <h3 className="font-heading font-bold text-base text-white drop-shadow-md">Short Kurtha</h3>
-                <span className="text-[9px] text-gold font-semibold uppercase tracking-wider">Explore →</span>
-              </div>
-            </Link>
+
+            {/* Right column bottom - Anarkali & Short Kurtha side by side */}
+            <div className="grid grid-cols-2 gap-2">
+              <Link to="/shop?category=anarkali" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm">
+                <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
+                <img src="https://images.unsplash.com/photo-1583391733959-f18305540a97?q=80&w=400" alt="Anarkali" className="absolute inset-0 w-full h-full object-cover" />
+                <div className="absolute bottom-2 left-2 z-20">
+                  <h3 className="font-heading font-bold text-xs text-white drop-shadow-md">Anarkali</h3>
+                </div>
+              </Link>
+              <Link to="/shop?category=short-kurtha" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm">
+                <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
+                <img src="https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?q=80&w=400" alt="Short Kurtha" className="absolute inset-0 w-full h-full object-cover" />
+                <div className="absolute bottom-2 left-2 z-20">
+                  <h3 className="font-heading font-bold text-xs text-white drop-shadow-md">Short Kurtha</h3>
+                </div>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
