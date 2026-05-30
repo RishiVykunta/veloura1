@@ -235,6 +235,57 @@ const Home = () => {
           )}
         </div>
       </section>
+
+      {/* Our Story Section */}
+      <section className="py-24 bg-white relative overflow-hidden">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="flex flex-col lg:flex-row items-center gap-16">
+            
+            {/* Image Side */}
+            <div className="w-full lg:w-5/12 flex justify-center lg:justify-end">
+              <div className="relative">
+                {/* Decorative background element */}
+                <div className="absolute inset-0 bg-cream/50 rounded-full scale-105 -z-10 translate-x-3 translate-y-3"></div>
+                
+                <img 
+                  src="https://images.unsplash.com/photo-1589465885855-447234855567?q=80&w=800" 
+                  alt="Veloura Founders" 
+                  className="w-[280px] h-[280px] md:w-[400px] md:h-[400px] object-cover rounded-full border-[10px] border-white shadow-2xl"
+                />
+              </div>
+            </div>
+
+            {/* Text Side */}
+            <div className="w-full lg:w-7/12 lg:pl-8">
+              <span className="text-gold tracking-widest uppercase text-xs font-bold border-b border-gold pb-1">About Veloura</span>
+              <h2 className="text-3xl md:text-4xl lg:text-[42px] font-heading font-bold text-primary mt-5 mb-8 leading-[1.2]">
+                Empowering Women Through Style, Elegance & Confidence
+              </h2>
+              
+              <div className="space-y-6 text-dark/75 font-light leading-relaxed text-[15px] md:text-base max-w-2xl">
+                <p>
+                  Veloura is a women's fashion brand founded by Yashvi and Prathiksha with a vision to bring together elegance, quality, and affordability in ethnic fashion. What began as a shared passion for style and entrepreneurship has grown into an online destination for women seeking fashionable and comfortable Indian wear.
+                </p>
+                <p>
+                  At Veloura, we specialize in thoughtfully curated collections including shararas, anarkalis, tops, short kurtas, and other contemporary ethnic wear. Every piece is selected with attention to quality, design, and comfort, ensuring that our customers can express their individuality with confidence.
+                </p>
+                <p>
+                  As a women-led brand, we understand the importance of fashion that not only follows trends but also celebrates personal style. Our goal is to make premium-looking ethnic wear accessible to every woman without compromising on quality or affordability.
+                </p>
+                <p className="font-medium text-primary text-lg mt-8 mb-6 italic">
+                  "At Veloura, fashion is more than clothing—it's confidence, self-expression, and the freedom to embrace your unique identity."
+                </p>
+                <div className="pt-6 mt-4 border-t border-cream/50">
+                  <p className="font-heading font-bold text-xl text-gold">
+                    Veloura <span className="font-normal text-dark/40 mx-2">|</span> <span className="font-light italic text-primary">Timeless Elegance, Modern Confidence.</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
