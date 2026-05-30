@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Brand Info */}
           <div>
-            <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1778683336/Screenshot_2026-05-13_194015_rtsdbz.png" alt="Veloura" className="h-10 mb-4" />
+            <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1778683336/Screenshot_2026-05-13_194015_rtsdbz.png" alt="Veloura" className="h-10 mb-4 border border-gold rounded-sm shadow-sm" />
             <p className="text-gray-300 mb-6 text-sm leading-relaxed">
               Premium Gen-Z women's fashion brand offering elegant feminine aesthetics with modern designs.
             </p>
@@ -26,9 +26,9 @@ const Footer = () => {
             <h4 className="text-lg font-heading font-semibold mb-4 text-white">Shop</h4>
             <ul className="space-y-2 text-sm text-gray-300">
               <li><Link to="/new-arrivals" className="hover:text-gold transition-colors">New Arrivals</Link></li>
-              <li><Link to="/best-sellers" className="hover:text-gold transition-colors">Best Sellers</Link></li>
-              <li><Link to="/clothing" className="hover:text-gold transition-colors">Clothing</Link></li>
               <li><Link to="/collections" className="hover:text-gold transition-colors">Collections</Link></li>
+              <li><Link to="/shop" className="hover:text-gold transition-colors">Shop</Link></li>
+              <li><Link to="/about" className="hover:text-gold transition-colors">About Us</Link></li>
             </ul>
           </div>
 
