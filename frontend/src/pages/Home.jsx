@@ -129,6 +129,69 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Shop by Category Interactive Section */}
+      <section className="py-24 bg-cream/10 border-t border-cream/30">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mt-1">Shop by Category</h2>
+            <div className="w-12 h-[2px] bg-gold mx-auto mt-4"></div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-auto md:h-[600px]">
+            {/* Large Category - Sharara */}
+            <Link to="/shop?category=sharara" className="group relative overflow-hidden bg-cream rounded shadow-sm h-[400px] md:h-auto md:row-span-2">
+              <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
+              <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=800" alt="Sharara" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms] ease-out" />
+              <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                <h3 className="font-heading font-bold text-4xl mb-3 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Sharara</h3>
+                <span className="text-sm uppercase tracking-widest border-b border-gold text-gold font-semibold">Explore</span>
+              </div>
+              <div className="absolute bottom-6 left-6 z-20 group-hover:opacity-0 transition-opacity duration-500">
+                 <h3 className="font-heading font-bold text-3xl text-white drop-shadow-md">Sharara</h3>
+              </div>
+            </Link>
+
+            {/* Top Right - Tops */}
+            <Link to="/shop?category=tops" className="group relative overflow-hidden bg-cream rounded shadow-sm h-[300px] md:h-auto">
+              <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
+              <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=800" alt="Tops" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms] ease-out" />
+              <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                <h3 className="font-heading font-bold text-3xl mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Tops</h3>
+                <span className="text-xs uppercase tracking-widest border-b border-gold text-gold font-semibold">Explore</span>
+              </div>
+              <div className="absolute bottom-6 left-6 z-20 group-hover:opacity-0 transition-opacity duration-500">
+                 <h3 className="font-heading font-bold text-2xl text-white drop-shadow-md">Tops</h3>
+              </div>
+            </Link>
+
+            {/* Bottom Right - 2 small ones */}
+            <div className="grid grid-cols-2 gap-4 h-[300px] md:h-auto">
+              <Link to="/shop?category=anarkali" className="group relative overflow-hidden bg-cream rounded shadow-sm">
+                <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
+                <img src="https://images.unsplash.com/photo-1583391733959-f18305540a97?q=80&w=800" alt="Anarkali" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms] ease-out" />
+                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <h3 className="font-heading font-bold text-2xl mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Anarkali</h3>
+                </div>
+                <div className="absolute bottom-4 left-4 z-20 group-hover:opacity-0 transition-opacity duration-500">
+                   <h3 className="font-heading font-bold text-xl text-white drop-shadow-md">Anarkali</h3>
+                </div>
+              </Link>
+              
+              <Link to="/shop?category=short-kurtha" className="group relative overflow-hidden bg-cream rounded shadow-sm">
+                <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
+                <img src="https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?q=80&w=800" alt="Short Kurtha" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms] ease-out" />
+                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <h3 className="font-heading font-bold text-2xl text-center mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Short<br/>Kurtha</h3>
+                </div>
+                <div className="absolute bottom-4 left-4 z-20 group-hover:opacity-0 transition-opacity duration-500">
+                   <h3 className="font-heading font-bold text-xl text-white drop-shadow-md">Short Kurtha</h3>
+                </div>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Featured Products Grid */}
       <section className="py-24 bg-cream/15 border-t border-b border-cream/30">
         <div className="container mx-auto px-4 md:px-8">
