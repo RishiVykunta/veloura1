@@ -49,20 +49,20 @@ const Home = () => {
       <section className="relative h-[85vh] w-full flex items-center justify-center overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-primary/20 z-10" />
+          <div className="absolute inset-0 bg-black/40 md:bg-primary/20 z-10 transition-colors" />
           <img
             src={heroBanner.desktopImageUrl}
             alt={heroBanner.title}
-            className="w-full h-full object-cover transform scale-102 hover:scale-100 transition-transform duration-[4000ms]"
+            className="w-full h-full object-cover object-top md:object-center transform scale-102 hover:scale-100 transition-transform duration-[4000ms]"
           />
         </div>
         
-        <div className="container mx-auto px-4 z-10 text-center flex flex-col items-center">
+        <div className="container mx-auto px-4 z-10 text-center flex flex-col items-center mt-12 md:mt-0">
           <motion.span 
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-gold tracking-widest uppercase text-xs font-semibold mb-3 bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full border border-white/20"
+            className="text-gold tracking-widest uppercase text-[10px] md:text-xs font-semibold mb-4 bg-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/20"
           >
             New Season 2026
           </motion.span>
@@ -70,7 +70,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-4xl sm:text-5xl md:text-7xl font-heading font-bold text-white mb-6 max-w-4xl leading-tight shadow-sm"
+            className="text-[40px] leading-[1.15] sm:text-5xl md:text-7xl font-heading font-bold text-white mb-4 md:mb-6 max-w-4xl md:leading-tight drop-shadow-2xl md:drop-shadow-sm"
           >
             {heroBanner.title}
           </motion.h1>
@@ -78,7 +78,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-sm sm:text-base text-cream/90 mb-10 max-w-xl font-light shadow-sm"
+            className="text-sm sm:text-base text-cream/95 md:text-cream/90 mb-8 md:mb-10 max-w-xl font-light drop-shadow-md md:drop-shadow-sm px-2"
           >
             {heroBanner.subtitle}
           </motion.p>
