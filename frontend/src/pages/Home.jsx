@@ -142,18 +142,18 @@ const Home = () => {
       </section>
 
       {/* Featured Categories Grid */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-4 md:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mt-1">New Arrivals</h2>
-            <div className="w-12 h-[2px] bg-gold mx-auto mt-4"></div>
+      <section className="py-12 md:py-24 bg-white">
+        <div className="container mx-auto px-3 md:px-8">
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-2xl md:text-4xl font-heading font-bold text-primary mt-1">New Arrivals</h2>
+            <div className="w-10 h-[2px] bg-gold mx-auto mt-3"></div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
             {categories.map((cat, idx) => (
               <div 
                 key={cat.id || idx}
-                className="group relative overflow-hidden bg-cream rounded shadow-sm aspect-[4/5] border border-cream/20 flex flex-col justify-end p-6"
+                className="group relative overflow-hidden bg-cream rounded shadow-sm aspect-[3/4] border border-cream/20 flex flex-col justify-end p-3 md:p-6"
               >
                 <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/35 duration-300" />
                 <img
@@ -162,10 +162,10 @@ const Home = () => {
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                 />
                 <div className="relative z-20 text-white">
-                  <h3 className="font-heading font-bold text-lg">{cat.name}</h3>
+                  <h3 className="font-heading font-bold text-sm md:text-lg">{cat.name}</h3>
                   <Link 
                     to={`/shop?category=${cat.slug}`}
-                    className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-widest mt-2 border-b border-white hover:text-gold hover:border-gold transition-colors pb-0.5"
+                    className="inline-flex items-center gap-1 text-[9px] md:text-[10px] font-semibold uppercase tracking-widest mt-1 md:mt-2 border-b border-white hover:text-gold hover:border-gold transition-colors pb-0.5"
                   >
                     View pieces &rarr;
                   </Link>
@@ -177,16 +177,16 @@ const Home = () => {
       </section>
 
       {/* Shop by Category Interactive Section */}
-      <section className="py-24 bg-cream/10 border-t border-cream/30">
-        <div className="container mx-auto px-4 md:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mt-1">Shop by Category</h2>
-            <div className="w-12 h-[2px] bg-gold mx-auto mt-4"></div>
+      <section className="py-12 md:py-24 bg-cream/10 border-t border-cream/30">
+        <div className="container mx-auto px-3 md:px-8">
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-2xl md:text-4xl font-heading font-bold text-primary mt-1">Shop by Category</h2>
+            <div className="w-10 h-[2px] bg-gold mx-auto mt-3"></div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-auto md:h-[600px]">
-            {/* Large Category - Sharara */}
-            <Link to="/shop?category=sharara" className="group relative overflow-hidden bg-cream rounded shadow-sm h-[400px] md:h-auto md:row-span-2">
+          {/* Desktop layout */}
+          <div className="hidden md:grid md:grid-cols-2 gap-4 h-[600px]">
+            <Link to="/shop?category=sharara" className="group relative overflow-hidden bg-cream rounded shadow-sm row-span-2">
               <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
               <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=800" alt="Sharara" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms] ease-out" />
               <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -194,12 +194,10 @@ const Home = () => {
                 <span className="text-sm uppercase tracking-widest border-b border-gold text-gold font-semibold">Explore</span>
               </div>
               <div className="absolute bottom-6 left-6 z-20 group-hover:opacity-0 transition-opacity duration-500">
-                 <h3 className="font-heading font-bold text-3xl text-white drop-shadow-md">Sharara</h3>
+                <h3 className="font-heading font-bold text-3xl text-white drop-shadow-md">Sharara</h3>
               </div>
             </Link>
-
-            {/* Top Right - Tops */}
-            <Link to="/shop?category=tops" className="group relative overflow-hidden bg-cream rounded shadow-sm h-[300px] md:h-auto">
+            <Link to="/shop?category=tops" className="group relative overflow-hidden bg-cream rounded shadow-sm">
               <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
               <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=800" alt="Tops" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms] ease-out" />
               <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -207,12 +205,10 @@ const Home = () => {
                 <span className="text-xs uppercase tracking-widest border-b border-gold text-gold font-semibold">Explore</span>
               </div>
               <div className="absolute bottom-6 left-6 z-20 group-hover:opacity-0 transition-opacity duration-500">
-                 <h3 className="font-heading font-bold text-2xl text-white drop-shadow-md">Tops</h3>
+                <h3 className="font-heading font-bold text-2xl text-white drop-shadow-md">Tops</h3>
               </div>
             </Link>
-
-            {/* Bottom Right - 2 small ones */}
-            <div className="grid grid-cols-2 gap-4 h-[300px] md:h-auto">
+            <div className="grid grid-cols-2 gap-4">
               <Link to="/shop?category=anarkali" className="group relative overflow-hidden bg-cream rounded shadow-sm">
                 <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
                 <img src="https://images.unsplash.com/photo-1583391733959-f18305540a97?q=80&w=800" alt="Anarkali" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms] ease-out" />
@@ -220,10 +216,9 @@ const Home = () => {
                   <h3 className="font-heading font-bold text-2xl mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Anarkali</h3>
                 </div>
                 <div className="absolute bottom-4 left-4 z-20 group-hover:opacity-0 transition-opacity duration-500">
-                   <h3 className="font-heading font-bold text-xl text-white drop-shadow-md">Anarkali</h3>
+                  <h3 className="font-heading font-bold text-xl text-white drop-shadow-md">Anarkali</h3>
                 </div>
               </Link>
-              
               <Link to="/shop?category=short-kurtha" className="group relative overflow-hidden bg-cream rounded shadow-sm">
                 <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
                 <img src="https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?q=80&w=800" alt="Short Kurtha" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms] ease-out" />
@@ -231,20 +226,56 @@ const Home = () => {
                   <h3 className="font-heading font-bold text-2xl text-center mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Short<br/>Kurtha</h3>
                 </div>
                 <div className="absolute bottom-4 left-4 z-20 group-hover:opacity-0 transition-opacity duration-500">
-                   <h3 className="font-heading font-bold text-xl text-white drop-shadow-md">Short Kurtha</h3>
+                  <h3 className="font-heading font-bold text-xl text-white drop-shadow-md">Short Kurtha</h3>
                 </div>
               </Link>
             </div>
+          </div>
+
+          {/* Mobile layout - 2x2 compact grid */}
+          <div className="grid md:hidden grid-cols-2 gap-3">
+            <Link to="/shop?category=sharara" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm aspect-[3/4]">
+              <div className="absolute inset-0 bg-primary/25 z-10" />
+              <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=600" alt="Sharara" className="absolute inset-0 w-full h-full object-cover" />
+              <div className="absolute bottom-3 left-3 z-20">
+                <h3 className="font-heading font-bold text-base text-white drop-shadow-md">Sharara</h3>
+                <span className="text-[9px] text-gold font-semibold uppercase tracking-wider">Explore →</span>
+              </div>
+            </Link>
+            <Link to="/shop?category=tops" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm aspect-[3/4]">
+              <div className="absolute inset-0 bg-primary/25 z-10" />
+              <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=600" alt="Tops" className="absolute inset-0 w-full h-full object-cover" />
+              <div className="absolute bottom-3 left-3 z-20">
+                <h3 className="font-heading font-bold text-base text-white drop-shadow-md">Tops</h3>
+                <span className="text-[9px] text-gold font-semibold uppercase tracking-wider">Explore →</span>
+              </div>
+            </Link>
+            <Link to="/shop?category=anarkali" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm aspect-[3/4]">
+              <div className="absolute inset-0 bg-primary/25 z-10" />
+              <img src="https://images.unsplash.com/photo-1583391733959-f18305540a97?q=80&w=600" alt="Anarkali" className="absolute inset-0 w-full h-full object-cover" />
+              <div className="absolute bottom-3 left-3 z-20">
+                <h3 className="font-heading font-bold text-base text-white drop-shadow-md">Anarkali</h3>
+                <span className="text-[9px] text-gold font-semibold uppercase tracking-wider">Explore →</span>
+              </div>
+            </Link>
+            <Link to="/shop?category=short-kurtha" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm aspect-[3/4]">
+              <div className="absolute inset-0 bg-primary/25 z-10" />
+              <img src="https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?q=80&w=600" alt="Short Kurtha" className="absolute inset-0 w-full h-full object-cover" />
+              <div className="absolute bottom-3 left-3 z-20">
+                <h3 className="font-heading font-bold text-base text-white drop-shadow-md">Short Kurtha</h3>
+                <span className="text-[9px] text-gold font-semibold uppercase tracking-wider">Explore →</span>
+              </div>
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Featured Products Grid */}
-      <section className="py-24 bg-cream/15 border-t border-b border-cream/30">
-        <div className="container mx-auto px-4 md:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mt-1">Featured Products</h2>
-            <div className="w-12 h-[2px] bg-gold mx-auto mt-4"></div>
+      <section className="py-12 md:py-24 bg-cream/15 border-t border-b border-cream/30">
+        <div className="container mx-auto px-3 md:px-8">
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-2xl md:text-4xl font-heading font-bold text-primary mt-1">Featured Products</h2>
+            <div className="w-10 h-[2px] bg-gold mx-auto mt-3"></div>
           </div>
 
           {loading ? (
@@ -252,7 +283,7 @@ const Home = () => {
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gold" />
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-8">
               {featuredProducts.slice(0, 4).map((p) => {
                 const primaryImage = p.images?.[0]?.imageUrl || p.primaryImage || 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=400';
                 return (
