@@ -98,8 +98,7 @@ const Home = () => {
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4 md:px-8">
           <div className="text-center mb-16">
-            <span className="text-gold uppercase tracking-widest text-[10px] font-bold">Categories</span>
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mt-1">Shop by Department</h2>
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mt-1">New Arrivals</h2>
             <div className="w-12 h-[2px] bg-gold mx-auto mt-4"></div>
           </div>
           
@@ -134,8 +133,7 @@ const Home = () => {
       <section className="py-24 bg-cream/15 border-t border-b border-cream/30">
         <div className="container mx-auto px-4 md:px-8">
           <div className="text-center mb-16">
-            <span className="text-gold uppercase tracking-widest text-[10px] font-bold">Atelier Curations</span>
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mt-1">Featured Essentials</h2>
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mt-1">Featured Products</h2>
             <div className="w-12 h-[2px] bg-gold mx-auto mt-4"></div>
           </div>
 
@@ -172,21 +170,6 @@ const Home = () => {
               })}
             </div>
           )}
-        </div>
-      </section>
-
-      {/* Brand Value Section */}
-      <section className="py-24 bg-white text-center">
-        <div className="container mx-auto px-4 max-w-3xl">
-          <span className="text-gold tracking-widest uppercase text-xs font-semibold">Our Philosophy</span>
-          <h2 className="text-3xl font-heading font-bold text-primary mt-2 mb-6">Pinterest Inspired. ZARA Refined.</h2>
-          <p className="text-sm text-dark/70 font-light leading-relaxed mb-8">
-            Veloura is a women's fashion house crafting soft premium garments and accessories that reflect high-editorial romance, relaxed tailoring, and minimalist wear. Every piece is constructed with lightweight linens, liquid-like satins, and organic knits.
-          </p>
-          <div className="flex justify-center gap-6">
-            <Link to="/shop" className="btn-primary">Shop The Atelier</Link>
-            <Link to="/collections" className="py-2.5 px-6 border border-cream hover:border-gold hover:text-gold text-xs font-semibold rounded transition-colors text-primary bg-white">Lookbook</Link>
-          </div>
         </div>
       </section>
     </div>
