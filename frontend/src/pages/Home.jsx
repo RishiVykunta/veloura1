@@ -45,24 +45,23 @@ const Home = () => {
 
   return (
     <div className="w-full bg-white">
-      {/* Dynamic Hero Section */}
-      <section className="relative h-[85vh] w-full flex items-center justify-center overflow-hidden">
-        {/* Background Image */}
+      {/* Desktop Hero Section */}
+      <section className="hidden md:flex relative h-[85vh] w-full items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-black/40 md:bg-primary/20 z-10 transition-colors" />
+          <div className="absolute inset-0 bg-primary/20 z-10" />
           <img
             src={heroBanner.desktopImageUrl}
             alt={heroBanner.title}
-            className="w-full h-full object-cover object-top md:object-center transform scale-102 hover:scale-100 transition-transform duration-[4000ms]"
+            className="w-full h-full object-cover object-center transform scale-102 hover:scale-100 transition-transform duration-[4000ms]"
           />
         </div>
         
-        <div className="container mx-auto px-4 z-10 text-center flex flex-col items-center mt-12 md:mt-0">
+        <div className="container mx-auto px-4 z-10 text-center flex flex-col items-center">
           <motion.span 
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-gold tracking-widest uppercase text-[10px] md:text-xs font-semibold mb-4 bg-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/20"
+            className="text-gold tracking-widest uppercase text-xs font-semibold mb-3 bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full border border-white/20"
           >
             New Season 2026
           </motion.span>
@@ -70,7 +69,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-[40px] leading-[1.15] sm:text-5xl md:text-7xl font-heading font-bold text-white mb-4 md:mb-6 max-w-4xl md:leading-tight drop-shadow-2xl md:drop-shadow-sm"
+            className="text-7xl font-heading font-bold text-white mb-6 max-w-4xl leading-tight shadow-sm"
           >
             {heroBanner.title}
           </motion.h1>
@@ -78,7 +77,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-sm sm:text-base text-cream/95 md:text-cream/90 mb-8 md:mb-10 max-w-xl font-light drop-shadow-md md:drop-shadow-sm px-2"
+            className="text-base text-cream/90 mb-10 max-w-xl font-light shadow-sm"
           >
             {heroBanner.subtitle}
           </motion.p>
@@ -89,6 +88,54 @@ const Home = () => {
           >
             <Link to={heroBanner.redirectUrl || "/shop"} className="btn-primary inline-flex items-center gap-2 px-8 py-3.5 bg-white text-primary border border-white hover:bg-transparent hover:text-white transition-all shadow-premium">
               Shop The Look <ArrowRight size={16} />
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Mobile Hero Section */}
+      <section className="flex md:hidden relative h-[75vh] w-full items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-black/50 z-10" />
+          <img
+            src={heroBanner.desktopImageUrl}
+            alt={heroBanner.title}
+            className="w-full h-full object-cover object-[center_top] transform scale-102"
+          />
+        </div>
+        
+        <div className="container mx-auto px-6 z-10 text-center flex flex-col items-center mt-8">
+          <motion.span 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-gold tracking-widest uppercase text-[9px] font-semibold mb-4 bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full border border-white/20 shadow-md"
+          >
+            New Season 2026
+          </motion.span>
+          <motion.h1 
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-4xl leading-[1.2] font-heading font-bold text-white mb-4 drop-shadow-2xl"
+          >
+            {heroBanner.title}
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-sm text-cream/95 mb-8 font-light drop-shadow-md leading-relaxed px-2"
+          >
+            {heroBanner.subtitle}
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <Link to={heroBanner.redirectUrl || "/shop"} className="inline-flex items-center gap-2 px-6 py-3 bg-white text-primary text-sm font-semibold border border-white rounded shadow-xl">
+              Shop The Look <ArrowRight size={14} />
             </Link>
           </motion.div>
         </div>
