@@ -9,6 +9,7 @@ const Home = () => {
   const [banners, setBanners] = useState([]);
   const [categories, setCategories] = useState([]);
   const [featuredProducts, setFeaturedProducts] = useState([]);
+  const [newArrivals, setNewArrivals] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const loadHomepageData = async () => {
@@ -25,6 +26,10 @@ const Home = () => {
       // Fetch featured products
       const featuredRes = await productService.getFeatured();
       if (featuredRes.success) setFeaturedProducts(featuredRes.data);
+
+      // Fetch new arrivals
+      const newArrRes = await productService.getNewArrivals();
+      if (newArrRes.success) setNewArrivals(newArrRes.data);
     } catch (err) {
       console.error('Error loading homepage integrations:', err);
     } finally {
@@ -148,43 +153,40 @@ const Home = () => {
             <h2 className="text-2xl md:text-4xl font-heading font-bold text-primary mt-1">New Arrivals</h2>
             <div className="w-10 h-[2px] bg-gold mx-auto mt-3"></div>
           </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
-            {categories.map((cat, idx) => (
-              <div
-                key={cat.id || idx}
-                className="group bg-white border border-cream/50 rounded overflow-hidden shadow-premium hover:shadow-premium-hover transition-all duration-300"
-              >
-                {/* Image */}
-                <div className="aspect-[3/4] bg-cream/20 overflow-hidden relative">
-                  <img
-                    src={cat.imageUrl}
-                    alt={cat.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-primary/25 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <Link
-                      to={`/shop?category=${cat.slug}`}
-                      className="bg-white text-primary p-2.5 rounded-full shadow hover:bg-gold hover:text-white transition-colors"
-                    >
-                      <Eye size={16} />
-                    </Link>
+
+          {loading ? (
+            <div className="flex justify-center items-center h-48">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gold" />
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-8">
+              {newArrivals.slice(0, 4).map((p) => {
+                const primaryImage = p.images?.[0]?.imageUrl || p.primaryImage || 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=400';
+                return (
+                  <div key={p.id} className="premium-card group bg-white border border-cream/50 rounded overflow-hidden shadow-premium hover:shadow-premium-hover transition-all duration-300 relative">
+                    <div className="aspect-[3/4] bg-cream/20 overflow-hidden relative">
+                      <img src={primaryImage} alt={p.name} className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500" />
+                      <div className="absolute inset-0 bg-primary/25 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
+                        <Link to={`/product/${p.slug}`} className="bg-white text-primary p-2.5 rounded-full shadow hover:bg-gold hover:text-white transition-colors">
+                          <Eye size={16} />
+                        </Link>
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <span className="text-[9px] text-gold uppercase tracking-widest font-semibold">{p.collectionType || 'New Arrival'}</span>
+                      <h3 className="font-heading font-bold text-primary text-sm truncate mt-0.5">{p.name}</h3>
+                      <div className="flex justify-between items-center mt-3">
+                        <span className="font-bold text-primary text-xs">₹{p.price}</span>
+                        <Link to={`/product/${p.slug}`} className="text-[10px] font-bold text-gold hover:underline">
+                          View details
+                        </Link>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                {/* Info */}
-                <div className="p-3 md:p-4">
-                  <span className="text-[9px] text-gold uppercase tracking-widest font-semibold">New Arrival</span>
-                  <h3 className="font-heading font-bold text-primary text-xs md:text-sm truncate mt-0.5">{cat.name}</h3>
-                  <div className="flex justify-between items-center mt-2 md:mt-3">
-                    <span className="text-[9px] md:text-[10px] text-dark/50 font-light">Explore Collection</span>
-                    <Link to={`/shop?category=${cat.slug}`} className="text-[9px] md:text-[10px] font-bold text-gold hover:underline">
-                      Shop Now
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </section>
 
