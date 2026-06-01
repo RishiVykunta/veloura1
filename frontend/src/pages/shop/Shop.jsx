@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, SlidersHorizontal, Heart, ShoppingBag, Eye, X } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { productService } from '../../services/product.service';
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
+  const [searchParams] = useSearchParams();
+  const activeFilter = searchParams.get('filter'); // 'new-arrivals', 'featured', or null
   
   // Filter States
   const [searchQuery, setSearchQuery] = useState('');
@@ -38,17 +40,26 @@ const Shop = () => {
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      const filters = {
-        category: selectedCategory,
-        maxPrice: priceRange,
-        size: selectedSize,
-        color: selectedColor,
-        search: searchQuery,
-        sort: sortOption
-      };
-      const res = await productService.getProducts(filters);
-      if (res.success) {
-        setProducts(res.data);
+      // If a special filter is active (from homepage "See All"), use dedicated endpoints
+      if (activeFilter === 'new-arrivals') {
+        const res = await productService.getNewArrivals();
+        if (res.success) setProducts(res.data);
+      } else if (activeFilter === 'featured') {
+        const res = await productService.getFeatured();
+        if (res.success) setProducts(res.data);
+      } else {
+        const filters = {
+          category: selectedCategory,
+          maxPrice: priceRange,
+          size: selectedSize,
+          color: selectedColor,
+          search: searchQuery,
+          sort: sortOption
+        };
+        const res = await productService.getProducts(filters);
+        if (res.success) {
+          setProducts(res.data);
+        }
       }
     } catch (error) {
       console.error('Error loading products:', error);
@@ -62,7 +73,7 @@ const Shop = () => {
       fetchProducts();
     }, 300); // Debounce queries
     return () => clearTimeout(delayDebounce);
-  }, [selectedCategory, priceRange, selectedSize, selectedColor, searchQuery, sortOption]);
+  }, [selectedCategory, priceRange, selectedSize, selectedColor, searchQuery, sortOption, activeFilter]);
 
   const resetFilters = () => {
     setSelectedCategory('');
@@ -78,10 +89,16 @@ const Shop = () => {
       {/* Editorial Title */}
       <div className="text-center max-w-xl mx-auto mb-12">
         <span className="text-gold uppercase tracking-widest text-xs font-semibold">Veloura Atelier</span>
-        <h1 className="text-4xl md:text-5xl font-heading font-bold text-primary mt-2">The Collections</h1>
+        <h1 className="text-4xl md:text-5xl font-heading font-bold text-primary mt-2">
+          {activeFilter === 'new-arrivals' ? 'New Arrivals' : activeFilter === 'featured' ? 'Featured Products' : 'The Collections'}
+        </h1>
         <div className="w-12 h-[2px] bg-gold mx-auto mt-4 mb-6"></div>
         <p className="text-dark/70 font-light text-sm">
-          Carefully tailored silhouettes inspired by editorial romance, everyday minimalism, and Gen-Z aesthetics.
+          {activeFilter === 'new-arrivals'
+            ? 'Discover our latest additions — fresh styles curated just for you.'
+            : activeFilter === 'featured'
+            ? 'Hand-picked favourites our customers love the most.'
+            : 'Carefully tailored silhouettes inspired by editorial romance, everyday minimalism, and Gen-Z aesthetics.'}
         </p>
       </div>
 

@@ -152,6 +152,9 @@ const Home = () => {
           <div className="text-center mb-8 md:mb-16">
             <h2 className="text-2xl md:text-4xl font-heading font-bold text-primary mt-1">New Arrivals</h2>
             <div className="w-10 h-[2px] bg-gold mx-auto mt-3"></div>
+            <Link to="/shop?filter=new-arrivals" className="inline-flex items-center gap-1 mt-4 text-xs font-semibold text-gold hover:underline tracking-wide uppercase">
+              See All <ArrowRight size={14} />
+            </Link>
           </div>
 
           {loading ? (
@@ -293,6 +296,9 @@ const Home = () => {
           <div className="text-center mb-8 md:mb-16">
             <h2 className="text-2xl md:text-4xl font-heading font-bold text-primary mt-1">Featured Products</h2>
             <div className="w-10 h-[2px] bg-gold mx-auto mt-3"></div>
+            <Link to="/shop?filter=featured" className="inline-flex items-center gap-1 mt-4 text-xs font-semibold text-gold hover:underline tracking-wide uppercase">
+              See All <ArrowRight size={14} />
+            </Link>
           </div>
 
           {loading ? (
