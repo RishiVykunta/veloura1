@@ -225,7 +225,7 @@ const Home = () => {
             <div className="grid grid-cols-2 gap-4">
               <Link to="/shop?category=anarkali" className="group relative overflow-hidden bg-cream rounded shadow-sm">
                 <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
-                <img src="https://images.unsplash.com/photo-1583391733959-f18305540a97?q=80&w=800" alt="Anarkali" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms] ease-out" />
+                <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328726/Teal_Elegance__The_Perfect_Festive_Anarkali_Gown_uyxrwo.jpg" alt="Anarkali" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms] ease-out" />
                 <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                   <h3 className="font-heading font-bold text-2xl mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Anarkali</h3>
                 </div>
@@ -235,7 +235,7 @@ const Home = () => {
               </Link>
               <Link to="/shop?category=short-kurtha" className="group relative overflow-hidden bg-cream rounded shadow-sm">
                 <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
-                <img src="https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?q=80&w=800" alt="Short Kurtha" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms] ease-out" />
+                <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328835/https___amzn_in_d_hOYJNnm_tcwlzm.jpg" alt="Short Kurtha" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms] ease-out" />
                 <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                   <h3 className="font-heading font-bold text-2xl text-center mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Short<br/>Kurtha</h3>
                 </div>
@@ -271,14 +271,14 @@ const Home = () => {
             <div className="grid grid-cols-2 gap-2">
               <Link to="/shop?category=anarkali" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm">
                 <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
-                <img src="https://images.unsplash.com/photo-1583391733959-f18305540a97?q=80&w=400" alt="Anarkali" className="absolute inset-0 w-full h-full object-cover" />
+                <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328726/Teal_Elegance__The_Perfect_Festive_Anarkali_Gown_uyxrwo.jpg" alt="Anarkali" className="absolute inset-0 w-full h-full object-cover" />
                 <div className="absolute bottom-2 left-2 z-20">
                   <h3 className="font-heading font-bold text-xs text-white drop-shadow-md">Anarkali</h3>
                 </div>
               </Link>
               <Link to="/shop?category=short-kurtha" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm">
                 <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
-                <img src="https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?q=80&w=400" alt="Short Kurtha" className="absolute inset-0 w-full h-full object-cover" />
+                <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328835/https___amzn_in_d_hOYJNnm_tcwlzm.jpg" alt="Short Kurtha" className="absolute inset-0 w-full h-full object-cover" />
                 <div className="absolute bottom-2 left-2 z-20">
                   <h3 className="font-heading font-bold text-xs text-white drop-shadow-md">Short Kurtha</h3>
                 </div>
