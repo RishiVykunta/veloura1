@@ -235,7 +235,7 @@ const Home = () => {
               </Link>
               <Link to="/shop?category=short-kurtha" className="group relative overflow-hidden bg-cream rounded shadow-sm">
                 <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
-                <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328835/https___amzn_in_d_hOYJNnm_tcwlzm.jpg" alt="Short Kurtha" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms] ease-out" />
+                <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780329369/download_1_gwrbim.jpg" alt="Short Kurtha" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms] ease-out" />
                 <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                   <h3 className="font-heading font-bold text-2xl text-center mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Short<br/>Kurtha</h3>
                 </div>
@@ -277,7 +277,7 @@ const Home = () => {
 
             <Link to="/shop?category=short-kurtha" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm aspect-square">
               <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
-              <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328835/https___amzn_in_d_hOYJNnm_tcwlzm.jpg" alt="Short Kurtha" className="absolute inset-0 w-full h-full object-cover" />
+              <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780329369/download_1_gwrbim.jpg" alt="Short Kurtha" className="absolute inset-0 w-full h-full object-cover" />
               <div className="absolute bottom-3 left-3 z-20">
                 <h3 className="font-heading font-bold text-base text-white drop-shadow-md">Short Kurtha</h3>
                 <span className="text-[9px] text-gold font-semibold uppercase tracking-wider">Explore →</span>
