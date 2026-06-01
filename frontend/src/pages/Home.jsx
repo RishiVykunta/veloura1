@@ -202,7 +202,7 @@ const Home = () => {
           <div className="hidden md:grid md:grid-cols-2 gap-4 h-[600px]">
             <Link to="/shop?category=sharara" className="group relative overflow-hidden bg-cream rounded shadow-sm row-span-2">
               <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
-              <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780327880/Elegant_Sharara_Set___Festive_Ethnic_Outfit_atlumd.jpg" alt="Sharara" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms] ease-out" />
+              <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328123/Blue_Sharara_Suit_for_Girls___Elegant_Ethnic_Look_for_Functions_uttyeg.jpg" alt="Sharara" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms] ease-out" />
               <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                 <h3 className="font-heading font-bold text-4xl mb-3 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Sharara</h3>
                 <span className="text-sm uppercase tracking-widest border-b border-gold text-gold font-semibold">Explore</span>
@@ -251,7 +251,7 @@ const Home = () => {
             {/* Large left card - Sharara spans full height */}
             <Link to="/shop?category=sharara" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm row-span-2">
               <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
-              <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780327880/Elegant_Sharara_Set___Festive_Ethnic_Outfit_atlumd.jpg" alt="Sharara" className="absolute inset-0 w-full h-full object-cover" />
+              <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328123/Blue_Sharara_Suit_for_Girls___Elegant_Ethnic_Look_for_Functions_uttyeg.jpg" alt="Sharara" className="absolute inset-0 w-full h-full object-cover" />
               <div className="absolute bottom-4 left-3 z-20">
                 <h3 className="font-heading font-bold text-xl text-white drop-shadow-md">Sharara</h3>
                 <span className="text-[9px] text-gold font-semibold uppercase tracking-wider">Explore →</span>
