@@ -99,7 +99,7 @@ const Home = () => {
       </section>
 
       {/* Mobile Hero Section */}
-      <section className="flex md:hidden relative h-[75vh] w-full items-center justify-center overflow-hidden">
+      <section className="flex md:hidden relative w-full aspect-[1080/1212] items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-black/50 z-10" />
           <img
