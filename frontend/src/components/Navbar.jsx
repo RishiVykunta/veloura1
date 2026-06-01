@@ -73,7 +73,7 @@ const Navbar = () => {
             <button className="hover:text-gold transition-colors">
               <Search size={20} />
             </button>
-            <Link to="/profile" className="hidden md:block hover:text-gold transition-colors">
+            <Link to="/profile" className="hover:text-gold transition-colors">
               <User size={20} />
             </Link>
             <Link to="/wishlist" className="hover:text-gold transition-colors">
