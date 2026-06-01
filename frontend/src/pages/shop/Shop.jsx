@@ -252,7 +252,7 @@ const Shop = () => {
           ) : (
             <motion.div
               layout
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+              className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8"
             >
               <AnimatePresence>
                 {products.map((product) => {
@@ -304,12 +304,12 @@ const Shop = () => {
                       </div>
 
                       {/* Info Frame */}
-                      <div className="p-5">
-                        <span className="text-[10px] text-gold tracking-widest uppercase font-semibold">
+                      <div className="p-3 md:p-5">
+                        <span className="text-[9px] md:text-[10px] text-gold tracking-widest uppercase font-semibold">
                           {product.collectionType || 'Luxury Outfits'}
                         </span>
-                        <Link to={`/product/${product.slug}`} className="block mt-1">
-                          <h3 className="font-heading font-bold text-primary group-hover:text-gold transition-colors text-base truncate">
+                        <Link to={`/product/${product.slug}`} className="block mt-0.5 md:mt-1">
+                          <h3 className="font-heading font-bold text-primary group-hover:text-gold transition-colors text-sm md:text-base truncate">
                             {product.name}
                           </h3>
                         </Link>
@@ -322,16 +322,16 @@ const Shop = () => {
                           </div>
                         )}
 
-                        <div className="mt-4 flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <span className="font-bold text-primary text-sm">₹{displayPrice}</span>
+                        <div className="mt-2 md:mt-4 flex items-center justify-between">
+                          <div className="flex items-center gap-1 md:gap-2">
+                            <span className="font-bold text-primary text-xs md:text-sm">₹{displayPrice}</span>
                             {hasDiscount && (
-                              <span className="text-xs text-dark/40 line-through">₹{product.price}</span>
+                              <span className="text-[10px] md:text-xs text-dark/40 line-through">₹{product.price}</span>
                             )}
                           </div>
                           <Link
                             to={`/product/${product.slug}`}
-                            className="text-xs font-semibold text-gold hover:underline flex items-center gap-1"
+                            className="text-[10px] md:text-xs font-semibold text-gold hover:underline flex items-center gap-1"
                           >
                             Details &rarr;
                           </Link>
