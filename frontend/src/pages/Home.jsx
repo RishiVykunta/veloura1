@@ -344,7 +344,7 @@ const Home = () => {
                 <div className="absolute inset-0 bg-cream/50 rounded-full scale-105 -z-10 translate-x-3 translate-y-3"></div>
                 
                 <img 
-                  src="https://images.unsplash.com/photo-1589465885855-447234855567?q=80&w=800" 
+                  src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780327584/WhatsApp_Image_2026-06-01_at_8.55.40_PM_ugebec.jpg" 
                   alt="Veloura Founders" 
                   className="w-[280px] h-[280px] md:w-[400px] md:h-[400px] object-cover rounded-full border-[10px] border-white shadow-2xl"
                 />
