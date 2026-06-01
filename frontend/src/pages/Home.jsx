@@ -246,44 +246,43 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Mobile layout - bento-box matching desktop style */}
-          <div className="md:hidden grid grid-cols-2 gap-2 h-[420px]">
-            {/* Large left card - Sharara spans full height */}
-            <Link to="/shop?category=sharara" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm row-span-2">
+          {/* Mobile layout - uniform 2x2 grid */}
+          <div className="md:hidden grid grid-cols-2 gap-2">
+            <Link to="/shop?category=sharara" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm aspect-square">
               <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
               <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328123/Blue_Sharara_Suit_for_Girls___Elegant_Ethnic_Look_for_Functions_uttyeg.jpg" alt="Sharara" className="absolute inset-0 w-full h-full object-cover" />
-              <div className="absolute bottom-4 left-3 z-20">
-                <h3 className="font-heading font-bold text-xl text-white drop-shadow-md">Sharara</h3>
+              <div className="absolute bottom-3 left-3 z-20">
+                <h3 className="font-heading font-bold text-base text-white drop-shadow-md">Sharara</h3>
                 <span className="text-[9px] text-gold font-semibold uppercase tracking-wider">Explore →</span>
               </div>
             </Link>
 
-            {/* Right column - Tops on top */}
-            <Link to="/shop?category=tops" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm">
+            <Link to="/shop?category=tops" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm aspect-square">
               <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
               <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328447/download_wrtkxn.jpg" alt="Tops" className="absolute inset-0 w-full h-full object-cover" />
               <div className="absolute bottom-3 left-3 z-20">
                 <h3 className="font-heading font-bold text-base text-white drop-shadow-md">Tops</h3>
+                <span className="text-[9px] text-gold font-semibold uppercase tracking-wider">Explore →</span>
               </div>
             </Link>
 
-            {/* Right column bottom - Anarkali & Short Kurtha side by side */}
-            <div className="grid grid-cols-2 gap-2">
-              <Link to="/shop?category=anarkali" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm">
-                <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
-                <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328726/Teal_Elegance__The_Perfect_Festive_Anarkali_Gown_uyxrwo.jpg" alt="Anarkali" className="absolute inset-0 w-full h-full object-cover" />
-                <div className="absolute bottom-2 left-2 z-20">
-                  <h3 className="font-heading font-bold text-xs text-white drop-shadow-md">Anarkali</h3>
-                </div>
-              </Link>
-              <Link to="/shop?category=short-kurtha" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm">
-                <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
-                <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328835/https___amzn_in_d_hOYJNnm_tcwlzm.jpg" alt="Short Kurtha" className="absolute inset-0 w-full h-full object-cover" />
-                <div className="absolute bottom-2 left-2 z-20">
-                  <h3 className="font-heading font-bold text-xs text-white drop-shadow-md">Short Kurtha</h3>
-                </div>
-              </Link>
-            </div>
+            <Link to="/shop?category=anarkali" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm aspect-square">
+              <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
+              <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328726/Teal_Elegance__The_Perfect_Festive_Anarkali_Gown_uyxrwo.jpg" alt="Anarkali" className="absolute inset-0 w-full h-full object-cover" />
+              <div className="absolute bottom-3 left-3 z-20">
+                <h3 className="font-heading font-bold text-base text-white drop-shadow-md">Anarkali</h3>
+                <span className="text-[9px] text-gold font-semibold uppercase tracking-wider">Explore →</span>
+              </div>
+            </Link>
+
+            <Link to="/shop?category=short-kurtha" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm aspect-square">
+              <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
+              <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328835/https___amzn_in_d_hOYJNnm_tcwlzm.jpg" alt="Short Kurtha" className="absolute inset-0 w-full h-full object-cover" />
+              <div className="absolute bottom-3 left-3 z-20">
+                <h3 className="font-heading font-bold text-base text-white drop-shadow-md">Short Kurtha</h3>
+                <span className="text-[9px] text-gold font-semibold uppercase tracking-wider">Explore →</span>
+              </div>
+            </Link>
           </div>
         </div>
       </section>
