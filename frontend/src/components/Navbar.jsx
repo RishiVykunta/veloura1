@@ -38,17 +38,22 @@ const Navbar = () => {
           isScrolled ? 'bg-white shadow-premium py-3' : 'bg-transparent py-5'
         }`}
       >
-        <div className="container mx-auto px-4 md:px-8 flex items-center justify-between">
-          {/* Mobile Menu Toggle */}
-          <button 
-            className="md:hidden text-primary"
-            onClick={() => setMobileMenuOpen(true)}
-          >
-            <Menu size={24} />
-          </button>
+        <div className="container mx-auto px-4 md:px-8 flex items-center justify-between relative">
+          {/* Left side: Mobile Menu Toggle + Account icon (mobile) / Logo (desktop) */}
+          <div className="flex items-center gap-3">
+            <button 
+              className="md:hidden text-primary"
+              onClick={() => setMobileMenuOpen(true)}
+            >
+              <Menu size={24} />
+            </button>
+            <Link to="/profile" className="md:hidden hover:text-gold transition-colors text-primary">
+              <User size={20} />
+            </Link>
+          </div>
 
-          {/* Logo */}
-          <Link to="/" className="flex items-center">
+          {/* Logo - centered on mobile, left-aligned on desktop */}
+          <Link to="/" className="flex items-center md:static absolute left-1/2 -translate-x-1/2 md:translate-x-0">
             <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1778683336/Screenshot_2026-05-13_194015_rtsdbz.png" alt="Veloura" className="h-10 md:h-12 w-auto object-contain rounded-sm shadow-sm" />
           </Link>
 
@@ -68,12 +73,12 @@ const Navbar = () => {
             <Link to="/about" className="text-dark hover:text-gold transition-colors font-medium">About</Link>
           </nav>
 
-          {/* Icons */}
+          {/* Right side Icons */}
           <div className="flex items-center space-x-4 text-primary">
             <button className="hover:text-gold transition-colors">
               <Search size={20} />
             </button>
-            <Link to="/profile" className="hover:text-gold transition-colors">
+            <Link to="/profile" className="hidden md:block hover:text-gold transition-colors">
               <User size={20} />
             </Link>
             <Link to="/wishlist" className="hover:text-gold transition-colors">
