@@ -1,12 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Ghost } from 'lucide-react';
+import { Ghost, Package } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const ProductList = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-heading font-bold text-primary">Products</h1>
+        <Link to="/admin/products/new" className="btn-primary flex items-center gap-2">
+          <Package size={18} /> Add Product
+        </Link>
       </div>
       <motion.div 
         initial={{ opacity: 0, y: 20 }}

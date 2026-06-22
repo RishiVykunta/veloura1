@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { IndianRupee, ShoppingBag, Users, TrendingUp, Package } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const data = [
@@ -39,9 +40,9 @@ const AdminDashboard = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-heading font-bold text-primary">Dashboard Overview</h1>
-        <button className="btn-primary flex items-center gap-2">
+        <Link to="/admin/products/new" className="btn-primary flex items-center gap-2">
           <Package size={18} /> Add Product
-        </button>
+        </Link>
       </div>
 
       {/* Stats Grid */}
