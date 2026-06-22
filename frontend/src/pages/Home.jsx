@@ -358,30 +358,15 @@ const Home = () => {
       {/* Our Story Section */}
       <section id="about" className="py-24 bg-white relative overflow-hidden scroll-mt-24">
         <div className="container mx-auto px-4 md:px-8">
-          <div className="flex flex-col lg:flex-row items-center gap-16">
-            
-            {/* Image Side */}
-            <div className="w-full lg:w-5/12 flex justify-center lg:justify-end">
-              <div className="relative">
-                {/* Decorative background element */}
-                <div className="absolute inset-0 bg-cream/50 rounded-full scale-105 -z-10 translate-x-3 translate-y-3"></div>
-                
-                <img 
-                  src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1778683336/Screenshot_2026-05-13_194015_rtsdbz.png" 
-                  alt="Veloura logo" 
-                  className="w-[280px] h-[280px] md:w-[400px] md:h-[400px] object-contain rounded-full border-[10px] border-white shadow-2xl bg-white p-8"
-                />
-              </div>
-            </div>
-
+          <div className="flex flex-col items-center">
             {/* Text Side */}
-            <div className="w-full lg:w-7/12 lg:pl-8">
+            <div className="w-full max-w-4xl">
               <span className="text-gold tracking-widest uppercase text-xs font-bold border-b border-gold pb-1">About Veloura</span>
               <h2 className="text-3xl md:text-4xl lg:text-[42px] font-heading font-bold text-primary mt-5 mb-8 leading-[1.2]">
                 Empowering Women Through Style, Elegance & Confidence
               </h2>
               
-              <div className="space-y-6 text-dark/75 font-light leading-relaxed text-[15px] md:text-base max-w-2xl">
+              <div className="space-y-6 text-dark/75 font-light leading-relaxed text-[15px] md:text-base">
                 <p>
                   It started with a simple idea - to create clothing that feels as good as it looks. What began as a vision grew into something more meaningful - a space where style meets emotion, and fashion becomes a reflection of individuality. We believe clothing is not just about trends, but about how it makes you feel every day.
                 </p>
