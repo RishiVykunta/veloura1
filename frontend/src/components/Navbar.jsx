@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, ShoppingBag, Heart, User, Menu, X } from 'lucide-react';
+import { Search, Heart, User, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 
@@ -8,22 +8,6 @@ const Navbar = () => {
   const { user } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [cartCount, setCartCount] = useState(0);
-
-  useEffect(() => {
-    const updateCount = () => {
-      const cart = JSON.parse(localStorage.getItem('veloura_cart') || '[]');
-      const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-      setCartCount(count);
-    };
-    updateCount();
-    window.addEventListener('storage', updateCount);
-    const interval = setInterval(updateCount, 1000);
-    return () => {
-      window.removeEventListener('storage', updateCount);
-      clearInterval(interval);
-    };
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -87,10 +71,6 @@ const Navbar = () => {
             </Link>
             <Link to="/wishlist" className="hover:text-gold transition-colors">
               <Heart size={20} />
-            </Link>
-            <Link to="/cart" className="hover:text-gold transition-colors relative">
-              <ShoppingBag size={20} />
-              <span className="absolute -top-2 -right-2 bg-gold text-white text-xs w-4 h-4 rounded-full flex items-center justify-center">{cartCount}</span>
             </Link>
           </div>
         </div>

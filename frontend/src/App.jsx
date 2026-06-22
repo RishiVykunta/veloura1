@@ -5,8 +5,6 @@ import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home';
 import Shop from './pages/shop/Shop';
 import ProductDetail from './pages/product/ProductDetail';
-import Cart from './pages/cart/Cart';
-import Checkout from './pages/checkout/Checkout';
 import Wishlist from './pages/wishlist/Wishlist';
 import Collections from './pages/collections/Collections';
 import Login from './pages/auth/Login';
@@ -36,8 +34,6 @@ function App() {
             <Route index element={<Home />} />
             <Route path="shop" element={<Shop />} />
             <Route path="product/:slug" element={<ProductDetail />} />
-            <Route path="cart" element={<Cart />} />
-            <Route path="checkout" element={<Checkout />} />
             <Route path="wishlist" element={<Wishlist />} />
             <Route path="collections" element={<Collections />} />
             

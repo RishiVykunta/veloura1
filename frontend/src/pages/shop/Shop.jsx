@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, SlidersHorizontal, Heart, ShoppingBag, Eye, X } from 'lucide-react';
+import { Search, SlidersHorizontal, Heart, Eye, X } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { productService } from '../../services/product.service';
 

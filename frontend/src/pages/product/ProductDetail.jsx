@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Heart, ShoppingBag, ArrowLeft, Star, ChevronDown, Check } from 'lucide-react';
+import { Heart, MessageCircle, ArrowLeft, Star, ChevronDown, Check } from 'lucide-react';
 import { productService } from '../../services/product.service';
+
+const WHATSAPP_NUMBER = '916261802019';
 
 const ProductDetail = () => {
   const { slug } = useParams();
-  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeImage, setActiveImage] = useState('');
@@ -15,7 +16,6 @@ const ProductDetail = () => {
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
   const [quantity, setQuantity] = useState(1);
-  const [message, setMessage] = useState('');
   const [wishlisted, setWishlisted] = useState(false);
 
   // Accordion Toggle States
@@ -50,46 +50,6 @@ const ProductDetail = () => {
     const currentWishlist = JSON.parse(localStorage.getItem('veloura_wishlist') || '[]');
     setWishlisted(currentWishlist.some(item => item.slug === slug));
   }, [slug]);
-
-  const handleAddToCart = () => {
-    if (!product) return;
-    
-    // Find matching variant SKU
-    const matchedVariant = product.variants?.find(
-      v => v.size === selectedSize && v.color === selectedColor
-    ) || product.variants?.[0];
-
-    const cartItem = {
-      id: product.id,
-      name: product.name,
-      slug: product.slug,
-      price: product.discountPrice || product.price,
-      image: activeImage,
-      size: selectedSize,
-      color: selectedColor,
-      variantId: matchedVariant?.id || 'default',
-      sku: matchedVariant?.sku || product.sku,
-      quantity
-    };
-
-    // Retrieve and append to LocalStorage Cart
-    const currentCart = JSON.parse(localStorage.getItem('veloura_cart') || '[]');
-    const existingIndex = currentCart.findIndex(
-      item => item.id === cartItem.id && item.size === cartItem.size && item.color === cartItem.color
-    );
-
-    if (existingIndex > -1) {
-      currentCart[existingIndex].quantity += quantity;
-    } else {
-      currentCart.push(cartItem);
-    }
-
-    localStorage.setItem('veloura_cart', JSON.stringify(currentCart));
-    
-    // Trigger header dispatch or update visually
-    setMessage('Added to bag successfully!');
-    setTimeout(() => setMessage(''), 3000);
-  };
 
   const handleWishlistToggle = () => {
     if (!product) return;
@@ -136,6 +96,16 @@ const ProductDetail = () => {
 
   const hasDiscount = product.discountPrice !== null && product.discountPrice !== undefined;
   const displayPrice = hasDiscount ? product.discountPrice : product.price;
+  const productLink = typeof window !== 'undefined' ? window.location.href : '';
+  const selectedDetails = [
+    selectedSize && `Size: ${selectedSize}`,
+    selectedColor && `Color: ${selectedColor}`,
+    `Quantity: ${quantity}`,
+  ].filter(Boolean).join('\n');
+  const orderMessage = `Hi Veloura, I would like to order this product:\n\n${product.name}\nPrice: Rs. ${displayPrice}\n${selectedDetails}\n${productLink}`;
+  const enquiryMessage = `Hi Veloura, I want to enquire about this product:\n\n${product.name}\nPrice: Rs. ${displayPrice}\n${selectedSize ? `Size: ${selectedSize}\n` : ''}${selectedColor ? `Color: ${selectedColor}\n` : ''}${productLink}`;
+  const orderWhatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(orderMessage)}`;
+  const enquiryWhatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(enquiryMessage)}`;
 
   // Extract unique sizes and colors available for variants
   const uniqueSizes = [...new Set(product.variants?.map(v => v.size).filter(Boolean))];
@@ -293,12 +263,23 @@ const ProductDetail = () => {
 
             {/* ACTION TRIGGERS */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4 pb-8 border-b border-cream">
-              <button
-                onClick={handleAddToCart}
+              <a
+                href={orderWhatsappUrl}
+                target="_blank"
+                rel="noreferrer"
                 className="flex-grow btn-primary flex items-center justify-center gap-2 py-3"
               >
-                <ShoppingBag size={18} /> Add to bag
-              </button>
+                <MessageCircle size={18} /> Order on WhatsApp
+              </a>
+              
+              <a
+                href={enquiryWhatsappUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="flex-grow py-3 px-4 border border-gold text-gold rounded flex items-center justify-center gap-2 font-semibold hover:bg-gold/5 transition-all"
+              >
+                <MessageCircle size={18} /> Enquire on WhatsApp
+              </a>
               
               <button
                 onClick={handleWishlistToggle}
@@ -312,18 +293,6 @@ const ProductDetail = () => {
                 {wishlisted ? 'Saved' : 'Save to wishlist'}
               </button>
             </div>
-
-            {/* FEEDBACK MSG */}
-            {message && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="bg-green-50 border border-green-200 text-green-700 text-xs py-2.5 px-4 mt-4 rounded-sm flex items-center gap-2 font-medium"
-              >
-                <span className="w-2 h-2 bg-green-500 rounded-full animate-ping" />
-                {message}
-              </motion.div>
-            )}
 
             {/* ACCORDION DETAILS PANELS */}
             <div className="mt-8 space-y-4">

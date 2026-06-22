@@ -2,7 +2,7 @@ import React from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { LogOut, User, Settings, Package, Heart } from 'lucide-react';
+import { LogOut, User, Settings, Heart } from 'lucide-react';
 
 const Profile = () => {
   const { user, logout } = useAuth();
@@ -49,10 +49,6 @@ const Profile = () => {
                   <Link to="/profile" className="flex items-center space-x-3 w-full p-3 bg-white text-gold font-medium shadow-sm transition-all border-l-2 border-gold">
                     <User size={18} />
                     <span>Profile Details</span>
-                  </Link>
-                  <Link to="/orders" className="flex items-center space-x-3 w-full p-3 text-dark/70 hover:text-gold hover:bg-white transition-all">
-                    <Package size={18} />
-                    <span>My Orders</span>
                   </Link>
                   <Link to="/wishlist" className="flex items-center space-x-3 w-full p-3 text-dark/70 hover:text-gold hover:bg-white transition-all">
                     <Heart size={18} />
