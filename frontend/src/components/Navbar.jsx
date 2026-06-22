@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, ShoppingBag, Heart, User, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -31,6 +31,8 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const homeSectionLink = (sectionId) => `/#${sectionId}`;
+
   return (
     <>
       <header
@@ -59,10 +61,10 @@ const Navbar = () => {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link to="/new-arrivals" className="text-dark hover:text-gold transition-colors font-medium">New Arrivals</Link>
-            <Link to="/shop" className="text-dark hover:text-gold transition-colors font-medium">Shop</Link>
+            <Link to={homeSectionLink('new-arrivals')} className="text-dark hover:text-gold transition-colors font-medium">New Arrivals</Link>
+            <Link to={homeSectionLink('shop')} className="text-dark hover:text-gold transition-colors font-medium">Shop</Link>
             <div className="group relative py-2">
-              <Link to="/collections" className="text-dark group-hover:text-gold transition-colors font-medium">Collections</Link>
+              <Link to={homeSectionLink('collections')} className="text-dark group-hover:text-gold transition-colors font-medium">Collections</Link>
               <div className="absolute top-full -left-4 w-48 bg-white border border-cream/50 shadow-premium rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 flex flex-col z-50 overflow-hidden transform translate-y-2 group-hover:translate-y-0">
                 <Link to="/shop?category=sharara" className="px-5 py-3 text-sm font-medium text-dark hover:text-gold hover:bg-cream/20 transition-colors border-b border-cream/30">Sharara</Link>
                 <Link to="/shop?category=tops" className="px-5 py-3 text-sm font-medium text-dark hover:text-gold hover:bg-cream/20 transition-colors border-b border-cream/30">Tops</Link>
@@ -70,7 +72,7 @@ const Navbar = () => {
                 <Link to="/shop?category=anarkali" className="px-5 py-3 text-sm font-medium text-dark hover:text-gold hover:bg-cream/20 transition-colors">Anarkali</Link>
               </div>
             </div>
-            <Link to="/about" className="text-dark hover:text-gold transition-colors font-medium">About</Link>
+            <Link to={homeSectionLink('about')} className="text-dark hover:text-gold transition-colors font-medium">About</Link>
           </nav>
 
           {/* Right side Icons */}
@@ -117,10 +119,10 @@ const Navbar = () => {
                 </button>
               </div>
               <div className="flex flex-col py-4 px-4 space-y-4 overflow-y-auto">
-                <Link to="/new-arrivals" className="text-lg text-dark py-2 border-b border-cream" onClick={() => setMobileMenuOpen(false)}>New Arrivals</Link>
-                <Link to="/shop" className="text-lg text-dark py-2 border-b border-cream" onClick={() => setMobileMenuOpen(false)}>Shop</Link>
+                <Link to={homeSectionLink('new-arrivals')} className="text-lg text-dark py-2 border-b border-cream" onClick={() => setMobileMenuOpen(false)}>New Arrivals</Link>
+                <Link to={homeSectionLink('shop')} className="text-lg text-dark py-2 border-b border-cream" onClick={() => setMobileMenuOpen(false)}>Shop</Link>
                 <div className="flex flex-col border-b border-cream py-2">
-                  <Link to="/collections" className="text-lg text-dark mb-3" onClick={() => setMobileMenuOpen(false)}>Collections</Link>
+                  <Link to={homeSectionLink('collections')} className="text-lg text-dark mb-3" onClick={() => setMobileMenuOpen(false)}>Collections</Link>
                   <div className="flex flex-col pl-4 space-y-3 mb-2">
                     <Link to="/shop?category=sharara" className="text-dark/80 hover:text-gold text-base" onClick={() => setMobileMenuOpen(false)}>Sharara</Link>
                     <Link to="/shop?category=tops" className="text-dark/80 hover:text-gold text-base" onClick={() => setMobileMenuOpen(false)}>Tops</Link>
@@ -128,6 +130,7 @@ const Navbar = () => {
                     <Link to="/shop?category=anarkali" className="text-dark/80 hover:text-gold text-base" onClick={() => setMobileMenuOpen(false)}>Anarkali</Link>
                   </div>
                 </div>
+                <Link to={homeSectionLink('about')} className="text-lg text-dark py-2 border-b border-cream" onClick={() => setMobileMenuOpen(false)}>About</Link>
                 <Link to="/profile" className="text-lg text-dark py-2 border-b border-cream" onClick={() => setMobileMenuOpen(false)}>My Account</Link>
               </div>
             </motion.div>

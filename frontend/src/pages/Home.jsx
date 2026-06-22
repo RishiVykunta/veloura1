@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, ShoppingBag, Eye, Heart } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { ArrowRight, Eye } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 import { productService } from '../services/product.service';
 import apiClient from '../services/api';
 
 const Home = () => {
+  const location = useLocation();
   const [banners, setBanners] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [newArrivals, setNewArrivals] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,10 +18,6 @@ const Home = () => {
       // Fetch banners
       const bannerRes = await apiClient.get('/banners');
       if (bannerRes.data?.success) setBanners(bannerRes.data.data);
-
-      // Fetch categories
-      const catRes = await apiClient.get('/categories');
-      if (catRes.data?.success) setCategories(catRes.data.data);
 
       // Fetch featured products
       const featuredRes = await productService.getFeatured();
@@ -40,6 +36,20 @@ const Home = () => {
   useEffect(() => {
     loadHomepageData();
   }, []);
+
+  useEffect(() => {
+    if (!location.hash) return;
+
+    const sectionId = location.hash.replace('#', '');
+    const scrollTimer = window.setTimeout(() => {
+      document.getElementById(sectionId)?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }, 80);
+
+    return () => window.clearTimeout(scrollTimer);
+  }, [location.hash]);
 
   const heroBanner = banners[0] || {
     title: "Elegance Reimagined",
@@ -147,7 +157,7 @@ const Home = () => {
       </section>
 
       {/* New Arrivals Grid */}
-      <section className="py-12 md:py-24 bg-white">
+      <section id="new-arrivals" className="py-12 md:py-24 bg-white scroll-mt-24">
         <div className="container mx-auto px-3 md:px-8">
           <div className="text-center mb-8 md:mb-16">
             <h2 className="text-2xl md:text-4xl font-heading font-bold text-primary mt-1">New Arrivals</h2>
@@ -194,7 +204,7 @@ const Home = () => {
       </section>
 
       {/* Shop by Category Interactive Section */}
-      <section className="py-12 md:py-24 bg-cream/10 border-t border-cream/30">
+      <section id="collections" className="py-12 md:py-24 bg-cream/10 border-t border-cream/30 scroll-mt-24">
         <div className="container mx-auto px-3 md:px-8">
           <div className="text-center mb-8 md:mb-16">
             <h2 className="text-2xl md:text-4xl font-heading font-bold text-primary mt-1">Shop by Category</h2>
@@ -202,10 +212,10 @@ const Home = () => {
           </div>
           
           {/* Desktop layout */}
-          <div className="hidden md:grid md:grid-cols-2 gap-4 h-[600px]">
+          <div className="hidden md:grid md:grid-cols-[1fr_1fr] gap-5 h-[clamp(520px,62vh,620px)] max-w-[1380px] mx-auto">
             <Link to="/shop?category=sharara" className="group relative overflow-hidden bg-cream rounded shadow-sm row-span-2">
               <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
-              <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328123/Blue_Sharara_Suit_for_Girls___Elegant_Ethnic_Look_for_Functions_uttyeg.jpg" alt="Sharara" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms] ease-out" />
+              <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328123/Blue_Sharara_Suit_for_Girls___Elegant_Ethnic_Look_for_Functions_uttyeg.jpg" alt="Sharara" className="absolute inset-0 w-full h-full object-cover object-[50%_28%] group-hover:scale-105 transition-transform duration-[2000ms] ease-out" />
               <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                 <h3 className="font-heading font-bold text-4xl mb-3 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Sharara</h3>
                 <span className="text-sm uppercase tracking-widest border-b border-gold text-gold font-semibold">Explore</span>
@@ -216,7 +226,7 @@ const Home = () => {
             </Link>
             <Link to="/shop?category=tops" className="group relative overflow-hidden bg-cream rounded shadow-sm">
               <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
-              <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328447/download_wrtkxn.jpg" alt="Tops" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms] ease-out" />
+              <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328447/download_wrtkxn.jpg" alt="Tops" className="absolute inset-0 w-full h-full object-cover object-[50%_22%] group-hover:scale-105 transition-transform duration-[2000ms] ease-out" />
               <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                 <h3 className="font-heading font-bold text-3xl mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Tops</h3>
                 <span className="text-xs uppercase tracking-widest border-b border-gold text-gold font-semibold">Explore</span>
@@ -225,10 +235,10 @@ const Home = () => {
                 <h3 className="font-heading font-bold text-2xl text-white drop-shadow-md">Tops</h3>
               </div>
             </Link>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-5">
               <Link to="/shop?category=anarkali" className="group relative overflow-hidden bg-cream rounded shadow-sm">
                 <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
-                <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328726/Teal_Elegance__The_Perfect_Festive_Anarkali_Gown_uyxrwo.jpg" alt="Anarkali" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms] ease-out" />
+                <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328726/Teal_Elegance__The_Perfect_Festive_Anarkali_Gown_uyxrwo.jpg" alt="Anarkali" className="absolute inset-0 w-full h-full object-cover object-[50%_24%] group-hover:scale-105 transition-transform duration-[2000ms] ease-out" />
                 <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                   <h3 className="font-heading font-bold text-2xl mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Anarkali</h3>
                 </div>
@@ -238,7 +248,7 @@ const Home = () => {
               </Link>
               <Link to="/shop?category=short-kurtha" className="group relative overflow-hidden bg-cream rounded shadow-sm">
                 <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
-                <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780329369/download_1_gwrbim.jpg" alt="Short Kurtha" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms] ease-out" />
+                <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780329369/download_1_gwrbim.jpg" alt="Short Kurtha" className="absolute inset-0 w-full h-full object-cover object-[50%_32%] group-hover:scale-105 transition-transform duration-[2000ms] ease-out" />
                 <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                   <h3 className="font-heading font-bold text-2xl text-center mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Short<br/>Kurtha</h3>
                 </div>
@@ -291,7 +301,7 @@ const Home = () => {
       </section>
 
       {/* Featured Products Grid */}
-      <section className="py-12 md:py-24 bg-cream/15 border-t border-b border-cream/30">
+      <section id="shop" className="py-12 md:py-24 bg-cream/15 border-t border-b border-cream/30 scroll-mt-24">
         <div className="container mx-auto px-3 md:px-8">
           <div className="text-center mb-8 md:mb-16">
             <h2 className="text-2xl md:text-4xl font-heading font-bold text-primary mt-1">Featured Products</h2>
@@ -338,7 +348,7 @@ const Home = () => {
       </section>
 
       {/* Our Story Section */}
-      <section className="py-24 bg-white relative overflow-hidden">
+      <section id="about" className="py-24 bg-white relative overflow-hidden scroll-mt-24">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col lg:flex-row items-center gap-16">
             
