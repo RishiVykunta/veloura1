@@ -4,15 +4,15 @@ import { IndianRupee, ShoppingBag, Users, TrendingUp, Package } from 'lucide-rea
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const data = [
-  { name: 'Jan', revenue: 4000 },
-  { name: 'Feb', revenue: 3000 },
-  { name: 'Mar', revenue: 5000 },
-  { name: 'Apr', revenue: 4500 },
-  { name: 'May', revenue: 6000 },
-  { name: 'Jun', revenue: 8000 },
+  { name: 'Jan', revenue: 0 },
+  { name: 'Feb', revenue: 0 },
+  { name: 'Mar', revenue: 0 },
+  { name: 'Apr', revenue: 0 },
+  { name: 'May', revenue: 0 },
+  { name: 'Jun', revenue: 0 },
 ];
 
-const StatCard = ({ title, value, icon: Icon, trend, delay }) => (
+const StatCard = ({ title, value, icon: Icon, delay }) => (
   <motion.div 
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
@@ -29,9 +29,7 @@ const StatCard = ({ title, value, icon: Icon, trend, delay }) => (
       </div>
     </div>
     <div className="mt-4 flex items-center text-sm">
-      <TrendingUp size={16} className="text-emerald-500 mr-1" />
-      <span className="text-emerald-500 font-medium mr-2">{trend}</span>
-      <span className="text-dark/40">vs last month</span>
+      <span className="text-dark/40 font-medium">Pre-launch state</span>
     </div>
   </motion.div>
 );
@@ -48,10 +46,10 @@ const AdminDashboard = () => {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard title="Total Revenue" value="₹45,231" icon={IndianRupee} trend="+12.5%" delay={0.1} />
-        <StatCard title="Total Orders" value="342" icon={ShoppingBag} trend="+8.2%" delay={0.2} />
-        <StatCard title="Total Customers" value="1,204" icon={Users} trend="+15.3%" delay={0.3} />
-        <StatCard title="Conversion Rate" value="3.2%" icon={TrendingUp} trend="+1.1%" delay={0.4} />
+        <StatCard title="Total Revenue" value="₹0" icon={IndianRupee} delay={0.1} />
+        <StatCard title="Total Orders" value="0" icon={ShoppingBag} delay={0.2} />
+        <StatCard title="Total Customers" value="0" icon={Users} delay={0.3} />
+        <StatCard title="Conversion Rate" value="0%" icon={TrendingUp} delay={0.4} />
       </div>
 
       {/* Charts Section */}
