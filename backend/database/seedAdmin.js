@@ -17,7 +17,7 @@ const pool = new Pool({
 async function seedAdmin() {
   const client = await pool.connect();
   try {
-    const email = process.env.ADMIN_EMAIL || 'thevelouraofficial@gmail.com';
+    const email = process.env.ADMIN_EMAIL || 'theofficialveloura@gmail.com';
     const password = process.env.ADMIN_PASSWORD || 'Veloura@0109';
 
     // Check if admin already exists

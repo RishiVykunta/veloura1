@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, ShoppingBag, Heart, User, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
+  const { user } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
@@ -49,7 +51,7 @@ const Navbar = () => {
             >
               <Menu size={24} />
             </button>
-            <Link to="/profile" className="md:hidden hover:text-gold transition-colors text-primary">
+            <Link to={user ? "/profile" : "/login"} className="md:hidden hover:text-gold transition-colors text-primary">
               <User size={20} />
             </Link>
           </div>
@@ -80,7 +82,7 @@ const Navbar = () => {
             <button className="hover:text-gold transition-colors">
               <Search size={20} />
             </button>
-            <Link to="/profile" className="hidden md:block hover:text-gold transition-colors">
+            <Link to={user ? "/profile" : "/login"} className="hidden md:block hover:text-gold transition-colors">
               <User size={20} />
             </Link>
             <Link to="/wishlist" className="hover:text-gold transition-colors">
@@ -131,7 +133,7 @@ const Navbar = () => {
                   </div>
                 </div>
                 <Link to={homeSectionLink('about')} className="text-lg text-dark py-2 border-b border-cream" onClick={() => setMobileMenuOpen(false)}>About</Link>
-                <Link to="/profile" className="text-lg text-dark py-2 border-b border-cream" onClick={() => setMobileMenuOpen(false)}>My Account</Link>
+                <Link to={user ? "/profile" : "/login"} className="text-lg text-dark py-2 border-b border-cream" onClick={() => setMobileMenuOpen(false)}>My Account</Link>
               </div>
             </motion.div>
           </>
