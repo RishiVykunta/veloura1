@@ -70,7 +70,7 @@ const AdminDashboard = () => {
             <Tooltip 
               contentStyle={{ backgroundColor: '#fff', borderRadius: '12px', border: 'none', boxShadow: '0 10px 30px -10px rgba(11, 31, 58, 0.1)' }}
             />
-            <Line type="monotone" dataKey="revenue" stroke="#D4AF37" strokeWidth={3} dot={{ r: 4, fill: '#0B1F3A', strokeWidth: 2 }} activeDot={{ r: 6, fill: '#D4AF37' }} />
+            <Line type="monotone" dataKey="revenue" stroke="#D4AF37" strokeWidth={3} dot={{ r: 4, fill: '#0A224E', strokeWidth: 2 }} activeDot={{ r: 6, fill: '#D4AF37' }} />
           </LineChart>
         </ResponsiveContainer>
       </motion.div>

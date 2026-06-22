@@ -29,7 +29,7 @@ const Shop = () => {
   ];
   const sizes = ['XS', 'S', 'M', 'L', 'XL'];
   const colors = [
-    { name: 'Navy', hex: '#0B1F3A' },
+    { name: 'Navy', hex: '#0A224E' },
     { name: 'Gold', hex: '#D4AF37' },
     { name: 'Cream', hex: '#F8F5EE' },
     { name: 'White', hex: '#FFFFFF' },

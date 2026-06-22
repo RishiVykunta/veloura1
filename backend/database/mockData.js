@@ -88,7 +88,7 @@ const mockProducts = [
       { id: "v1-1", size: "S", color: "Gold", colorHex: "#D4AF37", stock: 10, sku: "VEL-DR-AUR-001-S-GLD" },
       { id: "v1-2", size: "M", color: "Gold", colorHex: "#D4AF37", stock: 8, sku: "VEL-DR-AUR-001-M-GLD" },
       { id: "v1-3", size: "L", color: "Gold", colorHex: "#D4AF37", stock: 6, sku: "VEL-DR-AUR-001-L-GLD" },
-      { id: "v1-4", size: "S", color: "Navy", colorHex: "#0B1F3A", stock: 5, sku: "VEL-DR-AUR-001-S-NVY" }
+      { id: "v1-4", size: "S", color: "Navy", colorHex: "#0A224E", stock: 5, sku: "VEL-DR-AUR-001-S-NVY" }
     ],
     features: [
       "Heavy-weight liquid drape fabric",

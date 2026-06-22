@@ -5,7 +5,7 @@
 
 @layer base {
   body {
-    @apply font-body bg-cream text-dark antialiased;
+    @apply font-body bg-white text-dark antialiased;
   }
   
   h1, h2, h3, h4, h5, h6 {

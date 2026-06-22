@@ -8,7 +8,7 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#0B1F3A', // Navy
+          DEFAULT: '#0A224E', // Deep Navy (Footer/Primary)
           light: '#1A365D',
           dark: '#051124',
         },
@@ -18,9 +18,10 @@ export default {
           hover: '#C29F32',
         },
         cream: {
-          DEFAULT: '#F8F5EE', // Cream Background
+          DEFAULT: '#F8F5EE', // Old Cream Background
           dark: '#EBE5D9',
         },
+        header: '#F8F6F2', // New Header color
         dark: {
           DEFAULT: '#1E1E1E', // Dark Text
           light: '#333333',
@@ -44,7 +45,7 @@ export default {
       },
       backgroundImage: {
         'glass-gradient': 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%)',
-        'premium-gradient': 'linear-gradient(135deg, #0B1F3A 0%, #1A365D 100%)',
+        'premium-gradient': 'linear-gradient(135deg, #0A224E 0%, #1A365D 100%)',
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-out forwards',
