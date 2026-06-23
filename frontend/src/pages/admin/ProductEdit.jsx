@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Upload, X, Plus, Save, Loader2, CheckCircle2 } from 'lucide-react';
 import { uploadService } from '../../services/upload.service';
 import { productService } from '../../services/product.service';
 
 const ProductEdit = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const isEditMode = !!id;
+
   // Form States
   const [name, setName] = useState('');
   const [shortDescription, setShortDescription] = useState('');
@@ -34,6 +39,38 @@ const ProductEdit = () => {
   // UI Response states
   const [loading, setLoading] = useState(false);
   const [successMsg, setSuccessMsg] = useState('');
+
+  // Fetch product details for edit mode
+  useEffect(() => {
+    if (isEditMode) {
+      const fetchProductDetails = async () => {
+        try {
+          const res = await productService.getProductBySlug(id);
+          if (res.success && res.data) {
+            const p = res.data;
+            setName(p.name || '');
+            setShortDescription(p.shortDescription || p.description || '');
+            setDescription(p.description || '');
+            setSku(p.sku || '');
+            setPrice(p.price?.toString() || '');
+            setDiscountPrice(p.discountPrice?.toString() || '');
+            setCategoryId(p.categoryId || 'c1111111-1111-1111-1111-111111111111');
+            setTagsText(p.tags ? p.tags.join(', ') : '');
+            setIsActive(p.isActive !== false);
+            setIsNewArrival(!!p.isNewArrival);
+            setIsFeatured(!!p.isFeatured);
+            setImages(p.images ? p.images.map(img => img.imageUrl || img) : []);
+            if (p.variants && p.variants.length > 0) {
+              setSizes(p.variants.map(v => ({ size: v.size, stock: v.stock })));
+            }
+          }
+        } catch (err) {
+          console.error('Error fetching product details:', err);
+        }
+      };
+      fetchProductDetails();
+    }
+  }, [id, isEditMode]);
 
   // Handle image upload to Cloudinary/Local
   const handleImageFileChange = async (e) => {
@@ -115,17 +152,29 @@ const ProductEdit = () => {
         isFeatured
       };
 
-      const res = await productService.createProduct(productPayload);
+      let res;
+      if (isEditMode) {
+        res = await productService.updateProduct(id, productPayload);
+      } else {
+        res = await productService.createProduct(productPayload);
+      }
+
       if (res.success) {
-        setSuccessMsg(`Product "${name}" successfully created!`);
-        // Reset form
-        setName('');
-        setShortDescription('');
-        setDescription('');
-        setSku('');
-        setPrice('');
-        setDiscountPrice('');
-        setImages([]);
+        setSuccessMsg(`Product "${name}" successfully ${isEditMode ? 'updated' : 'created'}!`);
+        if (!isEditMode) {
+          // Reset form
+          setName('');
+          setShortDescription('');
+          setDescription('');
+          setSku('');
+          setPrice('');
+          setDiscountPrice('');
+          setImages([]);
+        } else {
+          setTimeout(() => {
+            navigate('/admin/products');
+          }, 2000);
+        }
       }
     } catch (err) {
       console.error('Error saving product:', err);
@@ -140,8 +189,8 @@ const ProductEdit = () => {
       {/* Header Controls */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-heading font-bold text-primary">Add New Product</h1>
-          <p className="text-dark/60 mt-1">Create a new premium fashion piece for your store.</p>
+          <h1 className="text-3xl font-heading font-bold text-primary">{isEditMode ? 'Edit Product' : 'Add New Product'}</h1>
+          <p className="text-dark/60 mt-1">{isEditMode ? 'Modify product details.' : 'Create a new premium fashion piece for your store.'}</p>
         </div>
         <button 
           onClick={handleSaveProduct}
@@ -153,7 +202,7 @@ const ProductEdit = () => {
           ) : (
             <Save size={18} />
           )}
-          Save Product
+          {isEditMode ? 'Update Product' : 'Save Product'}
         </button>
       </div>
 

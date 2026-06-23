@@ -300,11 +300,110 @@ const createProduct = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Update a product (Admin only)
+// @route   PUT /api/v1/products/:id
+// @access  Private/Admin
+const updateProduct = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { name, description, price, sku, categoryId, images } = req.body;
+  const slug = name ? name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '') : undefined;
+
+  try {
+    const { rows } = await query(
+      `UPDATE products 
+       SET name = COALESCE($1, name), 
+           slug = COALESCE($2, slug), 
+           description = COALESCE($3, description), 
+           sku = COALESCE($4, sku), 
+           category_id = COALESCE($5, category_id), 
+           price = COALESCE($6, price)
+       WHERE id = $7 RETURNING *`,
+      [name, slug, description, sku, categoryId, price ? parseFloat(price) : null, id]
+    );
+
+    if (rows.length === 0) {
+      res.status(404);
+      throw new Error('Product not found in database');
+    }
+
+    // Clear old images and insert new ones
+    if (images && images.length > 0) {
+      await query('DELETE FROM product_images WHERE product_id = $1', [id]);
+      for (const imgUrl of images) {
+        await query('INSERT INTO product_images (product_id, image_url, is_primary) VALUES ($1, $2, $3)', [id, imgUrl, imgUrl === images[0]]);
+      }
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Product updated successfully',
+      data: rows[0]
+    });
+  } catch (error) {
+    console.warn('DB update failed, updating mock dataset:', error.message);
+    const index = mockProducts.findIndex(p => p.id === id);
+    if (index === -1) {
+      return res.status(404).json({
+        success: false,
+        message: 'Product not found'
+      });
+    }
+    
+    mockProducts[index] = {
+      ...mockProducts[index],
+      ...req.body,
+      price: price ? parseFloat(price) : mockProducts[index].price,
+      slug: slug || mockProducts[index].slug
+    };
+
+    res.status(200).json({
+      success: true,
+      message: 'Product updated successfully (Mock Offline Mode)',
+      data: mockProducts[index]
+    });
+  }
+});
+
+// @desc    Delete a product (Admin only)
+// @route   DELETE /api/v1/products/:id
+// @access  Private/Admin
+const deleteProduct = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const { rowCount } = await query('DELETE FROM products WHERE id = $1', [id]);
+    if (rowCount === 0) {
+      res.status(404);
+      throw new Error('Product not found in database');
+    }
+    res.status(200).json({
+      success: true,
+      message: 'Product deleted successfully'
+    });
+  } catch (error) {
+    console.warn('DB delete failed, deleting from mock dataset:', error.message);
+    const index = mockProducts.findIndex(p => p.id === id);
+    if (index === -1) {
+      return res.status(404).json({
+        success: false,
+        message: 'Product not found'
+      });
+    }
+    mockProducts.splice(index, 1);
+    res.status(200).json({
+      success: true,
+      message: 'Product deleted successfully (Mock Offline Mode)'
+    });
+  }
+});
+
 module.exports = {
   getProducts,
   getProductBySlug,
   getFeaturedProducts,
   getBestSellers,
   getNewArrivals,
-  createProduct
+  createProduct,
+  updateProduct,
+  deleteProduct
 };

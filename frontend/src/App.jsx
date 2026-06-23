@@ -48,6 +48,7 @@ function App() {
             <Route index element={<AdminDashboard />} />
             <Route path="products" element={<ProductList />} />
             <Route path="products/new" element={<ProductEdit />} />
+            <Route path="products/edit/:id" element={<ProductEdit />} />
             <Route path="orders" element={<OrdersList />} />
             <Route path="customers" element={<CustomersList />} />
             <Route path="coupons" element={<CouponsList />} />

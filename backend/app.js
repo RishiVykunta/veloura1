@@ -36,12 +36,16 @@ const productRoutes = require('./routes/productRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
 const bannerRoutes = require('./routes/bannerRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
+const userRoutes = require('./routes/userRoutes');
+const orderRoutes = require('./routes/orderRoutes');
 
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/categories', categoryRoutes);
 app.use('/api/v1/banners', bannerRoutes);
 app.use('/api/v1/uploads', uploadRoutes);
+app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/orders', orderRoutes);
 
 // Error Handling Middlewares
 app.use(notFound);
