@@ -12,12 +12,6 @@ const menuItems = [
   { name: 'Products', path: '/admin/products', icon: Package },
   { name: 'Orders', path: '/admin/orders', icon: ShoppingBag },
   { name: 'Customers', path: '/admin/customers', icon: Users },
-  { name: 'Coupons', path: '/admin/coupons', icon: Ticket },
-  { name: 'Reviews', path: '/admin/reviews', icon: Star },
-  { name: 'Banners', path: '/admin/banners', icon: ImageIcon },
-  { name: 'Analytics', path: '/admin/analytics', icon: BarChart2 },
-  { name: 'Notifications', path: '/admin/notifications', icon: Bell },
-  { name: 'Settings', path: '/admin/settings', icon: Settings },
 ];
 
 const Sidebar = ({ isOpen, setIsOpen, isMobile }) => {
