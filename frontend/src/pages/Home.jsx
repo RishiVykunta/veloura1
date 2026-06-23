@@ -5,6 +5,58 @@ import { Link, useLocation } from 'react-router-dom';
 import { productService } from '../services/product.service';
 import apiClient from '../services/api';
 
+const ProductCard = ({ product }) => {
+  const [currentIdx, setCurrentIdx] = useState(0);
+  const images = (product.images && product.images.length > 0)
+    ? product.images.map(img => typeof img === 'string' ? img : (img.imageUrl || img))
+    : [product.primaryImage || 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=400'];
+
+  useEffect(() => {
+    if (images.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentIdx((prev) => (prev + 1) % images.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  return (
+    <div className="premium-card group bg-white border border-cream/50 rounded overflow-hidden shadow-premium hover:shadow-premium-hover transition-all duration-300 relative">
+      <div className="aspect-[3/4] bg-cream/20 overflow-hidden relative">
+        <img 
+          src={images[currentIdx]} 
+          alt={product.name} 
+          className="w-full h-full object-cover group-hover:scale-102 transition-all duration-500" 
+        />
+        <div className="absolute inset-0 bg-primary/25 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
+          <Link to={`/product/${product.slug}`} className="bg-white text-primary p-2.5 rounded-full shadow hover:bg-gold hover:text-white transition-colors">
+            <Eye size={16} />
+          </Link>
+        </div>
+        {images.length > 1 && (
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-20">
+            {images.map((_, i) => (
+              <span 
+                key={i} 
+                className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${i === currentIdx ? 'bg-gold w-3' : 'bg-white/60'}`}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+      <div className="p-4">
+        <span className="text-[9px] text-gold uppercase tracking-widest font-semibold">{product.collectionType || 'Luxury Pieces'}</span>
+        <h3 className="font-heading font-bold text-primary text-sm truncate mt-0.5">{product.name}</h3>
+        <div className="flex justify-between items-center mt-3">
+          <span className="font-bold text-primary text-xs">₹{product.price}</span>
+          <Link to={`/product/${product.slug}`} className="text-[10px] font-bold text-gold hover:underline">
+            View details
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Home = () => {
   const location = useLocation();
   const [banners, setBanners] = useState([]);
@@ -173,31 +225,9 @@ const Home = () => {
             </div>
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-8">
-              {newArrivals.slice(0, 4).map((p) => {
-                const primaryImage = p.images?.[0]?.imageUrl || p.primaryImage || 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=400';
-                return (
-                  <div key={p.id} className="premium-card group bg-white border border-cream/50 rounded overflow-hidden shadow-premium hover:shadow-premium-hover transition-all duration-300 relative">
-                    <div className="aspect-[3/4] bg-cream/20 overflow-hidden relative">
-                      <img src={primaryImage} alt={p.name} className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500" />
-                      <div className="absolute inset-0 bg-primary/25 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
-                        <Link to={`/product/${p.slug}`} className="bg-white text-primary p-2.5 rounded-full shadow hover:bg-gold hover:text-white transition-colors">
-                          <Eye size={16} />
-                        </Link>
-                      </div>
-                    </div>
-                    <div className="p-4">
-                      <span className="text-[9px] text-gold uppercase tracking-widest font-semibold">{p.collectionType || 'New Arrival'}</span>
-                      <h3 className="font-heading font-bold text-primary text-sm truncate mt-0.5">{p.name}</h3>
-                      <div className="flex justify-between items-center mt-3">
-                        <span className="font-bold text-primary text-xs">₹{p.price}</span>
-                        <Link to={`/product/${p.slug}`} className="text-[10px] font-bold text-gold hover:underline">
-                          View details
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+              {newArrivals.slice(0, 4).map((p) => (
+                <ProductCard key={p.id} product={p} />
+              ))}
             </div>
           )}
         </div>
@@ -325,31 +355,9 @@ const Home = () => {
             </div>
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-8">
-              {featuredProducts.slice(0, 4).map((p) => {
-                const primaryImage = p.images?.[0]?.imageUrl || p.primaryImage || 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=400';
-                return (
-                  <div key={p.id} className="premium-card group bg-white border border-cream/50 rounded overflow-hidden shadow-premium hover:shadow-premium-hover transition-all duration-300 relative">
-                    <div className="aspect-[3/4] bg-cream/20 overflow-hidden relative">
-                      <img src={primaryImage} alt={p.name} className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500" />
-                      <div className="absolute inset-0 bg-primary/25 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
-                        <Link to={`/product/${p.slug}`} className="bg-white text-primary p-2.5 rounded-full shadow hover:bg-gold hover:text-white transition-colors">
-                          <Eye size={16} />
-                        </Link>
-                      </div>
-                    </div>
-                    <div className="p-4">
-                      <span className="text-[9px] text-gold uppercase tracking-widest font-semibold">{p.collectionType || 'Luxury Pieces'}</span>
-                      <h3 className="font-heading font-bold text-primary text-sm truncate mt-0.5">{p.name}</h3>
-                      <div className="flex justify-between items-center mt-3">
-                        <span className="font-bold text-primary text-xs">₹{p.price}</span>
-                        <Link to={`/product/${p.slug}`} className="text-[10px] font-bold text-gold hover:underline">
-                          View details
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+              {featuredProducts.slice(0, 4).map((p) => (
+                <ProductCard key={p.id} product={p} />
+              ))}
             </div>
           )}
         </div>

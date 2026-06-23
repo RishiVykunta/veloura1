@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Upload, X, Plus, Save, Loader2, CheckCircle2 } from 'lucide-react';
+import { Upload, X, Save, Loader2, CheckCircle2 } from 'lucide-react';
 import { uploadService } from '../../services/upload.service';
 import { productService } from '../../services/product.service';
 
@@ -29,12 +29,14 @@ const ProductEdit = () => {
   const [images, setImages] = useState([]);
   const [uploading, setUploading] = useState(false);
 
-  // Sizes Table state
-  const [sizes, setSizes] = useState([
-    { size: 'S', stock: 10 },
-    { size: 'M', stock: 15 },
-    { size: 'L', stock: 10 }
-  ]);
+  // Sizes & Colors state
+  const [sizes, setSizes] = useState([]);
+  const [sizeInput, setSizeInput] = useState('');
+  const [colors, setColors] = useState([]);
+  const [colorInput, setColorInput] = useState('');
+  const [stockQuantity, setStockQuantity] = useState('10');
+  const sizeInputRef = useRef(null);
+  const colorInputRef = useRef(null);
 
   // UI Response states
   const [loading, setLoading] = useState(false);
@@ -61,7 +63,12 @@ const ProductEdit = () => {
             setIsFeatured(!!p.isFeatured);
             setImages(p.images ? p.images.map(img => img.imageUrl || img) : []);
             if (p.variants && p.variants.length > 0) {
-              setSizes(p.variants.map(v => ({ size: v.size, stock: v.stock })));
+              // Extract unique sizes and colors from variants
+              const uniqueSizes = [...new Set(p.variants.map(v => v.size).filter(Boolean))];
+              const uniqueColors = [...new Set(p.variants.map(v => v.color).filter(Boolean))];
+              setSizes(uniqueSizes);
+              setColors(uniqueColors);
+              setStockQuantity(p.variants[0]?.stock?.toString() || '10');
             }
           }
         } catch (err) {
@@ -97,21 +104,25 @@ const ProductEdit = () => {
     setImages((prev) => prev.filter((_, idx) => idx !== idxToRemove));
   };
 
-  const addSizeRow = () => {
-    const nextSize = prompt('Enter size code (e.g. XS, XL, XXL):', 'XL');
-    if (!nextSize) return;
-    setSizes((prev) => [...prev, { size: nextSize.toUpperCase(), stock: 10 }]);
+  const addSize = () => {
+    const val = sizeInput.trim().toUpperCase();
+    if (!val || sizes.includes(val)) { setSizeInput(''); return; }
+    setSizes(prev => [...prev, val]);
+    setSizeInput('');
+    sizeInputRef.current?.focus();
   };
 
-  const removeSizeRow = (idxToRemove) => {
-    setSizes((prev) => prev.filter((_, idx) => idx !== idxToRemove));
+  const removeSize = (s) => setSizes(prev => prev.filter(x => x !== s));
+
+  const addColor = () => {
+    const val = colorInput.trim();
+    if (!val || colors.map(c => c.toLowerCase()).includes(val.toLowerCase())) { setColorInput(''); return; }
+    setColors(prev => [...prev, val]);
+    setColorInput('');
+    colorInputRef.current?.focus();
   };
 
-  const handleSizeStockChange = (idx, value) => {
-    const updated = [...sizes];
-    updated[idx].stock = parseInt(value) || 0;
-    setSizes(updated);
-  };
+  const removeColor = (c) => setColors(prev => prev.filter(x => x !== c));
 
   const handleSaveProduct = async () => {
     if (!name || !sku || !price) {
@@ -127,14 +138,24 @@ const ProductEdit = () => {
       const parsedPrice = parseFloat(price);
       const parsedDiscountPrice = discountPrice ? parseFloat(discountPrice) : null;
 
-      // Compile variants SKUs
-      const variants = sizes.map((s) => ({
-        size: s.size,
-        color: 'Gold', // Standard premium accent fallback
-        colorHex: '#D4AF37',
-        stock: s.stock,
-        sku: `${sku}-${s.size}`
-      }));
+      // Compile variants from sizes × colors
+      const stockVal = parseInt(stockQuantity) || 10;
+      const variants = [];
+      if (sizes.length > 0 || colors.length > 0) {
+        const sizeList = sizes.length > 0 ? sizes : ['Free Size'];
+        const colorList = colors.length > 0 ? colors : ['Default'];
+        sizeList.forEach(sz => {
+          colorList.forEach(cl => {
+            variants.push({
+              size: sz,
+              color: cl,
+              colorHex: '#D4AF37',
+              stock: stockVal,
+              sku: `${sku}-${sz}-${cl.replace(/\s+/g, '-').toUpperCase()}`
+            });
+          });
+        });
+      }
 
       const productPayload = {
         name,
@@ -318,57 +339,95 @@ const ProductEdit = () => {
             )}
           </motion.div>
 
-          {/* Sizes & Inventory Card */}
+          {/* Sizes & Colors & Inventory Card */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="bg-white p-6 rounded-2xl shadow-premium border border-cream"
+            className="bg-white p-6 rounded-2xl shadow-premium border border-cream space-y-6"
           >
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-heading font-bold text-primary">Sizes & Inventory</h3>
-              <button 
-                onClick={addSizeRow}
-                className="text-gold text-xs font-semibold flex items-center hover:underline"
-              >
-                <Plus size={14} className="mr-0.5"/> Add Size Row
-              </button>
-            </div>
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse text-xs">
-                <thead>
-                  <tr className="border-b border-cream">
-                    <th className="py-2.5 font-bold text-primary">Size</th>
-                    <th className="py-2.5 font-bold text-primary">Suffix SKU</th>
-                    <th className="py-2.5 font-bold text-primary">Stock Count</th>
-                    <th className="py-2.5 font-bold text-primary text-center">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {sizes.map((row, idx) => (
-                    <tr key={idx} className="border-b border-cream/30 last:border-0">
-                      <td className="py-2.5 font-semibold text-primary">{row.size}</td>
-                      <td className="py-2.5 text-dark/70 font-mono">{sku ? `${sku}-${row.size}` : `[SKU]-${row.size}`}</td>
-                      <td className="py-2.5">
-                        <input 
-                          type="number" 
-                          value={row.stock}
-                          onChange={(e) => handleSizeStockChange(idx, e.target.value)}
-                          className="border border-cream rounded px-2 py-1 w-16 text-center outline-none focus:border-gold" 
-                        />
-                      </td>
-                      <td className="py-2.5 text-center">
-                        <button 
-                          onClick={() => removeSizeRow(idx)}
-                          className="text-red-500 hover:text-red-700"
-                        >
-                          <X size={16} />
-                        </button>
-                      </td>
-                    </tr>
+            {/* Sizes */}
+            <div>
+              <h3 className="text-base font-heading font-bold text-primary mb-3">Sizes</h3>
+              <div className="flex gap-2">
+                <input
+                  ref={sizeInputRef}
+                  type="text"
+                  value={sizeInput}
+                  onChange={e => setSizeInput(e.target.value)}
+                  onKeyDown={e => e.key === 'Enter' && addSize()}
+                  placeholder="Add size (e.g. S, M, L, XL)"
+                  className="flex-1 border border-gray-200 rounded-lg px-4 py-2.5 text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-colors text-dark"
+                />
+                <button
+                  type="button"
+                  onClick={addSize}
+                  className="px-5 py-2.5 border border-gray-200 rounded-lg text-xs font-semibold text-primary hover:bg-cream/60 transition-colors"
+                >
+                  Add
+                </button>
+              </div>
+              {sizes.length > 0 && (
+                <div className="flex flex-wrap gap-2 mt-3">
+                  {sizes.map(s => (
+                    <span key={s} className="flex items-center gap-1.5 bg-cream/60 text-primary text-xs font-semibold px-3 py-1.5 rounded-full border border-cream">
+                      {s}
+                      <button onClick={() => removeSize(s)} className="text-red-400 hover:text-red-600 ml-0.5">
+                        <X size={11} />
+                      </button>
+                    </span>
                   ))}
-                </tbody>
-              </table>
+                </div>
+              )}
+            </div>
+
+            {/* Colors */}
+            <div>
+              <h3 className="text-base font-heading font-bold text-primary mb-3">Colors</h3>
+              <div className="flex gap-2">
+                <input
+                  ref={colorInputRef}
+                  type="text"
+                  value={colorInput}
+                  onChange={e => setColorInput(e.target.value)}
+                  onKeyDown={e => e.key === 'Enter' && addColor()}
+                  placeholder="Add color (e.g. Red, Royal Blue)"
+                  className="flex-1 border border-gray-200 rounded-lg px-4 py-2.5 text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-colors text-dark"
+                />
+                <button
+                  type="button"
+                  onClick={addColor}
+                  className="px-5 py-2.5 border border-gray-200 rounded-lg text-xs font-semibold text-primary hover:bg-cream/60 transition-colors"
+                >
+                  Add
+                </button>
+              </div>
+              {colors.length > 0 && (
+                <div className="flex flex-wrap gap-2 mt-3">
+                  {colors.map(c => (
+                    <span key={c} className="flex items-center gap-1.5 bg-cream/60 text-primary text-xs font-semibold px-3 py-1.5 rounded-full border border-cream">
+                      {c}
+                      <button onClick={() => removeColor(c)} className="text-red-400 hover:text-red-600 ml-0.5">
+                        <X size={11} />
+                      </button>
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Stock Quantity */}
+            <div>
+              <h3 className="text-base font-heading font-bold text-primary mb-3">Stock Quantity</h3>
+              <input
+                type="number"
+                value={stockQuantity}
+                onChange={e => setStockQuantity(e.target.value)}
+                min="0"
+                className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-colors text-dark"
+                placeholder="e.g. 10"
+              />
+              <p className="text-[10px] text-dark/40 mt-1">This stock applies to each size × color combination.</p>
             </div>
           </motion.div>
 
@@ -392,10 +451,10 @@ const ProductEdit = () => {
                   onChange={(e) => setCategoryId(e.target.value)}
                   className="w-full border border-gray-300 rounded-lg px-4 py-2 text-xs focus:outline-none focus:border-gold bg-white text-dark font-medium"
                 >
-                  <option value="c1111111-1111-1111-1111-111111111111">Dresses</option>
+                  <option value="c1111111-1111-1111-1111-111111111111">Sharara</option>
                   <option value="c2222222-2222-2222-2222-222222222222">Tops</option>
-                  <option value="c3333333-3333-3333-3333-333333333333">Bottoms</option>
-                  <option value="c4444444-4444-4444-4444-444444444444">Accessories</option>
+                  <option value="c3333333-3333-3333-3333-333333333333">Short Kurthi</option>
+                  <option value="c4444444-4444-4444-4444-444444444444">Anarkali</option>
                 </select>
               </div>
               <div>

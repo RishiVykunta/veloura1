@@ -22,10 +22,10 @@ const Shop = () => {
   // Static options based on brand guide
   const categories = [
     { name: 'All Collections', slug: '' },
-    { name: 'Dresses', slug: 'dresses' },
+    { name: 'Sharara', slug: 'sharara' },
     { name: 'Tops', slug: 'tops' },
-    { name: 'Bottoms', slug: 'bottoms' },
-    { name: 'Accessories', slug: 'accessories' }
+    { name: 'Short Kurthi', slug: 'short-kurthi' },
+    { name: 'Anarkali', slug: 'anarkali' }
   ];
   const sizes = ['XS', 'S', 'M', 'L', 'XL'];
   const colors = [
