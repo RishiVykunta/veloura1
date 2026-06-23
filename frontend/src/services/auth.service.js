@@ -21,12 +21,12 @@ export const authService = {
   },
 
   getProfile: async () => {
-    const response = await apiClient.get('/users/profile');
+    const response = await apiClient.get('/auth/profile');
     return response.data;
   },
 
   updateProfile: async (profileData) => {
-    const response = await apiClient.put('/users/profile', profileData);
+    const response = await apiClient.put('/auth/profile', profileData);
     return response.data;
   },
 

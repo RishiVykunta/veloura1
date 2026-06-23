@@ -93,8 +93,39 @@ const getUserProfile = asyncHandler(async (req, res) => {
   });
 });
 
+// @desc    Update user profile
+// @route   PUT /api/auth/profile
+// @access  Private
+const updateUserProfile = asyncHandler(async (req, res) => {
+  const { firstName, lastName } = req.body;
+  const userId = req.user.id;
+
+  try {
+    const { rows } = await query(
+      'UPDATE users SET first_name = COALESCE($1, first_name), last_name = COALESCE($2, last_name) WHERE id = $3 RETURNING id, first_name, last_name, email, role',
+      [firstName, lastName, userId]
+    );
+
+    res.json({
+      success: true,
+      message: 'Profile updated successfully',
+      user: {
+        id: rows[0].id,
+        firstName: rows[0].first_name,
+        lastName: rows[0].last_name,
+        email: rows[0].email,
+        role: rows[0].role
+      }
+    });
+  } catch (error) {
+    res.status(500);
+    throw new Error(error.message);
+  }
+});
+
 module.exports = {
   registerUser,
   loginUser,
   getUserProfile,
+  updateUserProfile
 };
