@@ -9,6 +9,8 @@ CREATE TABLE users (
     email VARCHAR(255) UNIQUE NOT NULL,
     phone VARCHAR(20),
     password_hash VARCHAR(255),
+    reset_password_token_hash VARCHAR(255),
+    reset_password_expires TIMESTAMP WITH TIME ZONE,
     avatar_url TEXT,
     role VARCHAR(50) DEFAULT 'user' CHECK (role IN ('user', 'admin', 'super_admin', 'staff_manager')),
     is_verified BOOLEAN DEFAULT false,

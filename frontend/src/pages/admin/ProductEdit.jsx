@@ -45,7 +45,7 @@ const ProductEdit = () => {
     if (isEditMode) {
       const fetchProductDetails = async () => {
         try {
-          const res = await productService.getProductBySlug(id);
+          const res = await productService.getProductById(id);
           if (res.success && res.data) {
             const p = res.data;
             setName(p.name || '');

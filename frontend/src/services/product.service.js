@@ -17,6 +17,11 @@ export const productService = {
     return response.data;
   },
 
+  getProductById: async (id) => {
+    const response = await apiClient.get(`/products/id/${id}`);
+    return response.data;
+  },
+
   getFeatured: async () => {
     const response = await apiClient.get('/products/featured');
     return response.data;

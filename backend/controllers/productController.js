@@ -197,6 +197,40 @@ const getProductBySlug = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Get single product by ID (for admin edit)
+// @route   GET /api/v1/products/id/:id
+// @access  Public
+const getProductById = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const { rows } = await query('SELECT * FROM products WHERE id = $1', [id]);
+    if (rows.length === 0) {
+      res.status(404);
+      throw new Error('Product not found in database');
+    }
+
+    const completeProduct = await getCompleteProduct(rows[0]);
+    res.status(200).json({
+      success: true,
+      data: completeProduct
+    });
+  } catch (error) {
+    console.warn(`Product query for id ${id} failed, searching mock dataset:`, error.message);
+    const product = mockProducts.find(p => p.id === id);
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: 'Product not found'
+      });
+    }
+    res.status(200).json({
+      success: true,
+      data: product
+    });
+  }
+});
+
 // @desc    Get featured products
 // @route   GET /api/v1/products/featured
 // @access  Public
@@ -400,6 +434,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
 module.exports = {
   getProducts,
   getProductBySlug,
+  getProductById,
   getFeaturedProducts,
   getBestSellers,
   getNewArrivals,

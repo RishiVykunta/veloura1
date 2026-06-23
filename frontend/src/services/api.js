@@ -34,23 +34,30 @@ apiClient.interceptors.response.use(
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       
-      try {
-        // Attempt to call refresh token endpoint
-        const response = await axios.post(`${API_URL}/auth/refresh-token`, {}, {
-          withCredentials: true // Sent with HTTP-only cookie
-        });
-        
-        const { token } = response.data;
-        localStorage.setItem('token', token);
-        
-        // Retry original request with new token
-        originalRequest.headers.Authorization = `Bearer ${token}`;
-        return apiClient(originalRequest);
-      } catch (refreshError) {
-        // Refresh token failed, clear state and redirect to login
-        localStorage.removeItem('token');
-        window.location.href = '/login';
-        return Promise.reject(refreshError);
+      // Don't redirect if this is a profile/auth check (initial load)
+      const isAuthCheck = originalRequest.url?.includes('/auth/profile') || 
+                          originalRequest.url?.includes('/auth/login') ||
+                          originalRequest.url?.includes('/auth/register');
+      
+      if (!isAuthCheck) {
+        try {
+          // Attempt to call refresh token endpoint
+          const response = await axios.post(`${API_URL}/auth/refresh-token`, {}, {
+            withCredentials: true // Sent with HTTP-only cookie
+          });
+          
+          const { token } = response.data;
+          localStorage.setItem('token', token);
+          
+          // Retry original request with new token
+          originalRequest.headers.Authorization = `Bearer ${token}`;
+          return apiClient(originalRequest);
+        } catch (refreshError) {
+          // Refresh token failed, clear state and redirect to login
+          localStorage.removeItem('token');
+          window.location.href = '/login';
+          return Promise.reject(refreshError);
+        }
       }
     }
     

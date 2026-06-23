@@ -15,44 +15,16 @@ const getAllOrders = asyncHandler(async (req, res) => {
        LEFT JOIN users u ON o.user_id = u.id
        ORDER BY o.created_at DESC`
     );
-    
-    if (rows.length === 0) {
-      throw new Error('No orders found, return mock data');
-    }
 
     res.status(200).json({
       success: true,
       data: rows
     });
   } catch (error) {
-    // Return realistic mock orders as fallback
-    const mockOrders = [
-      {
-        id: 'o1',
-        orderNumber: 'VEL-827391',
-        totalAmount: 4999.00,
-        paymentMethod: 'UPI',
-        paymentStatus: 'paid',
-        orderStatus: 'delivered',
-        createdAt: new Date(Date.now() - 3600000 * 5).toISOString(),
-        userEmail: 'aarav@example.com',
-        userFirstName: 'Aarav'
-      },
-      {
-        id: 'o2',
-        orderNumber: 'VEL-382910',
-        totalAmount: 2999.00,
-        paymentMethod: 'COD',
-        paymentStatus: 'pending',
-        orderStatus: 'pending',
-        createdAt: new Date(Date.now() - 3600000 * 24).toISOString(),
-        userEmail: 'diya@example.com',
-        userFirstName: 'Diya'
-      }
-    ];
+    // Return empty array if DB fails — no fake orders
     res.status(200).json({
       success: true,
-      data: mockOrders
+      data: []
     });
   }
 });
