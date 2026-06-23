@@ -1,11 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { Menu } from 'lucide-react';
 import Sidebar from '../components/admin/Sidebar';
+import { useAuth } from '../context/AuthContext';
 
 const AdminLayout = () => {
+  const { user, loading } = useAuth();
+  const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (!loading) {
+      if (!user || user.role !== 'admin') {
+        navigate('/login');
+      }
+    }
+  }, [user, loading, navigate]);
 
   useEffect(() => {
     const handleResize = () => {

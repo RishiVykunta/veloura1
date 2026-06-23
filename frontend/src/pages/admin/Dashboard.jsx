@@ -1,13 +1,65 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import apiClient from '../../services/api';
+import { productService } from '../../services/product.service';
+import { orderService } from '../../services/order.service';
 
 const AdminDashboard = () => {
+  const [usersCount, setUsersCount] = useState(0);
+  const [productsCount, setProductsCount] = useState(0);
+  const [ordersCount, setOrdersCount] = useState(0);
+  const [totalRevenue, setTotalRevenue] = useState(0);
+  const [avgOrderValue, setAvgOrderValue] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDashboardStats = async () => {
+      try {
+        setLoading(true);
+        // Fetch users
+        const usersRes = await apiClient.get('/users/admin');
+        const usersData = usersRes.data?.data || [];
+        setUsersCount(usersData.length);
+
+        // Fetch products
+        const productsRes = await productService.getProducts();
+        const productsData = productsRes.success ? (productsRes.data?.products || productsRes.data || []) : (productsRes.data || []);
+        setProductsCount(productsData.length);
+
+        // Fetch orders
+        const ordersRes = await orderService.getAllOrders();
+        const ordersData = ordersRes.success ? (ordersRes.data || []) : [];
+        setOrdersCount(ordersData.length);
+
+        // Calculate revenue & average order value
+        let revenue = 0;
+        ordersData.forEach(o => {
+          if (o.orderStatus !== 'cancelled' && o.paymentStatus === 'paid') {
+            revenue += parseFloat(o.totalAmount) || 0;
+          }
+        });
+        setTotalRevenue(revenue);
+        
+        const paidOrders = ordersData.filter(o => o.orderStatus !== 'cancelled' && o.paymentStatus === 'paid');
+        const avg = paidOrders.length > 0 ? (revenue / paidOrders.length) : 0;
+        setAvgOrderValue(avg);
+
+      } catch (err) {
+        console.error('Error fetching dashboard stats:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDashboardStats();
+  }, []);
+
   const stats = [
-    { title: 'Total Users', value: '4' },
-    { title: 'Total Products', value: '5' },
-    { title: 'Total Orders', value: '0' },
-    { title: 'Total Revenue', value: '₹0.00' },
-    { title: 'Average Order Value', value: '₹0.00' },
+    { title: 'Total Users', value: loading ? '...' : usersCount.toString() },
+    { title: 'Total Products', value: loading ? '...' : productsCount.toString() },
+    { title: 'Total Orders', value: loading ? '...' : ordersCount.toString() },
+    { title: 'Total Revenue', value: loading ? '...' : `₹${totalRevenue.toFixed(2)}` },
+    { title: 'Average Order Value', value: loading ? '...' : `₹${avgOrderValue.toFixed(2)}` },
   ];
 
   return (
