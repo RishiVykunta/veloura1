@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Heart, MessageCircle, ArrowLeft, Star, ChevronDown, Check } from 'lucide-react';
+import { Heart, MessageCircle, ArrowLeft, Star, ChevronDown, Check, Ruler, X } from 'lucide-react';
 import { productService } from '../../services/product.service';
 
 const WHATSAPP_NUMBER = '916261802019';
@@ -20,6 +20,18 @@ const ProductDetail = () => {
 
   // Accordion Toggle States
   const [openSection, setOpenSection] = useState('details');
+  const [showSizeChart, setShowSizeChart] = useState(false);
+
+  const sizeChartData = [
+    { size: 'XXS', chest: '30', waist: '26', hips: '34' },
+    { size: 'XS', chest: '32', waist: '28', hips: '36' },
+    { size: 'S', chest: '34', waist: '30', hips: '38' },
+    { size: 'M', chest: '36', waist: '32', hips: '40' },
+    { size: 'L', chest: '38', waist: '34', hips: '42' },
+    { size: 'XL', chest: '40', waist: '36', hips: '44' },
+    { size: 'XXL', chest: '42', waist: '38', hips: '46' },
+    { size: 'XXXL', chest: '44', waist: '40', hips: '48' }
+  ];
 
   const fetchProduct = async () => {
     setLoading(true);
@@ -217,9 +229,17 @@ const ProductDetail = () => {
               {/* Size Selectors */}
               {uniqueSizes.length > 0 && (
                 <div>
-                  <h3 className="text-xs font-bold text-primary uppercase tracking-wider mb-3">
-                    Size: <span className="text-dark/70 font-normal">{selectedSize}</span>
-                  </h3>
+                  <div className="flex justify-between items-center mb-3">
+                    <h3 className="text-xs font-bold text-primary uppercase tracking-wider">
+                      Size: <span className="text-dark/70 font-normal">{selectedSize}</span>
+                    </h3>
+                    <button
+                      onClick={() => setShowSizeChart(true)}
+                      className="text-xs text-gold font-semibold flex items-center gap-1 hover:underline transition-all"
+                    >
+                      <Ruler size={13} /> Size Guide
+                    </button>
+                  </div>
                   <div className="flex gap-2">
                     {uniqueSizes.map((size) => (
                       <button
@@ -352,11 +372,102 @@ const ProductDetail = () => {
                   </div>
                 )}
               </div>
+
+              {/* Size Chart Accordion */}
+              <div className="border-b border-cream pb-3">
+                <button
+                  onClick={() => setOpenSection(openSection === 'sizeguide' ? '' : 'sizeguide')}
+                  className="w-full flex justify-between items-center text-xs font-bold text-primary uppercase tracking-wider py-1 text-left"
+                >
+                  Size Chart & Measurements <ChevronDown size={14} className={`transform transition-transform ${openSection === 'sizeguide' ? 'rotate-180' : ''}`} />
+                </button>
+                {openSection === 'sizeguide' && (
+                  <div className="mt-3 overflow-x-auto">
+                    <table className="w-full text-left text-[11px] border-collapse">
+                      <thead>
+                        <tr className="border-b border-cream bg-cream/10 text-primary font-bold">
+                          <th className="py-2 px-3">Size</th>
+                          <th className="py-2 px-3">Chest</th>
+                          <th className="py-2 px-3">Waist</th>
+                          <th className="py-2 px-3">Hips</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-cream/40 text-dark/70">
+                        {sizeChartData.map((row) => (
+                          <tr 
+                            key={row.size} 
+                            className={selectedSize === row.size ? 'bg-gold/5 font-semibold text-gold' : ''}
+                          >
+                            <td className="py-2 px-3 font-semibold">{row.size}</td>
+                            <td className="py-2 px-3">{row.chest}"</td>
+                            <td className="py-2 px-3">{row.waist}"</td>
+                            <td className="py-2 px-3">{row.hips}"</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                    <p className="text-[9px] text-dark/40 mt-2 text-center">* All measurements are in inches</p>
+                  </div>
+                )}
+              </div>
             </div>
 
           </div>
         </div>
       </div>
+
+      {/* Size Chart Modal */}
+      {showSizeChart && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-dark/50 backdrop-blur-sm p-4">
+          <div className="bg-white max-w-md w-full rounded shadow-premium border border-cream overflow-hidden">
+            <div className="p-5 border-b border-cream flex justify-between items-center bg-cream/10">
+              <div className="flex items-center gap-2">
+                <Ruler size={16} className="text-gold" />
+                <h3 className="font-heading font-bold text-primary text-base">Size Guide</h3>
+              </div>
+              <button
+                onClick={() => setShowSizeChart(false)}
+                className="text-dark/40 hover:text-dark transition-colors"
+              >
+                <X size={18} />
+              </button>
+            </div>
+            
+            <div className="p-5">
+              <div className="overflow-x-auto border border-cream rounded">
+                <table className="w-full text-left text-xs border-collapse">
+                  <thead>
+                    <tr className="border-b border-cream bg-cream/5 text-primary font-bold">
+                      <th className="py-2.5 px-3 font-semibold uppercase text-[10px]">Size</th>
+                      <th className="py-2.5 px-3 font-semibold uppercase text-[10px]">Chest (in)</th>
+                      <th className="py-2.5 px-3 font-semibold uppercase text-[10px]">Waist (in)</th>
+                      <th className="py-2.5 px-3 font-semibold uppercase text-[10px]">Hips (in)</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-cream/50 text-dark/80">
+                    {sizeChartData.map((row) => (
+                      <tr 
+                        key={row.size} 
+                        className={`hover:bg-cream/5 transition-colors ${
+                          selectedSize === row.size ? 'bg-gold/5 font-semibold text-gold' : ''
+                        }`}
+                      >
+                        <td className="py-2.5 px-3 font-semibold">{row.size}</td>
+                        <td className="py-2.5 px-3">{row.chest}</td>
+                        <td className="py-2.5 px-3">{row.waist}</td>
+                        <td className="py-2.5 px-3">{row.hips}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p className="text-[9px] text-dark/40 mt-3 text-center">
+                * All measurements listed are in inches. Body measurements may vary slightly.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
