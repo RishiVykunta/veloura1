@@ -21,7 +21,7 @@ const Register = () => {
     try {
       const response = await register({ firstName, lastName, email, password });
       if (response && response.success) {
-        navigate('/profile');
+        navigate('/');
       } else {
         setError('Registration failed. Please check your details and try again.');
       }

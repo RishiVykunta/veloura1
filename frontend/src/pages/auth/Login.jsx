@@ -22,7 +22,7 @@ const Login = () => {
         if (response.user.role === 'admin') {
           navigate('/admin');
         } else {
-          navigate('/profile');
+          navigate('/');
         }
       } else {
         setError('Invalid email or password. Please try again.');
