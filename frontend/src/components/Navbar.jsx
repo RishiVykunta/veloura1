@@ -42,7 +42,7 @@ const Navbar = () => {
 
           {/* Logo - centered on mobile, left-aligned on desktop */}
           <Link to="/" className="flex items-center md:static absolute left-1/2 -translate-x-1/2 md:translate-x-0">
-            <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1778683336/Screenshot_2026-05-13_194015_rtsdbz.png" alt="Veloura" className="h-10 md:h-12 w-auto object-contain rounded-sm shadow-sm" />
+            <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1778683336/Screenshot_2026-05-13_194015_rtsdbz.png" alt="Veloura" className="h-8 md:h-11 w-auto object-contain rounded-sm shadow-sm" />
           </Link>
 
           {/* Desktop Nav */}
