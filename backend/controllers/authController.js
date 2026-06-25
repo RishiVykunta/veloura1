@@ -69,12 +69,16 @@ const registerUser = asyncHandler(async (req, res) => {
 
   const user = newUser[0];
 
-  sendWelcomeEmail({
-    to: user.email,
-    firstName: user.first_name
-  }).catch((error) => {
-    console.error('Failed to send welcome email:', error.message);
-  });
+  try {
+    console.log("Sending welcome email to:", user.email);
+    const info = await sendWelcomeEmail({
+      to: user.email,
+      firstName: user.first_name,
+    });
+    console.log("Welcome email sent successfully:", info);
+  } catch (error) {
+    console.error("Welcome email failed:", error);
+  }
 
   res.status(201).json({
     success: true,
