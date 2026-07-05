@@ -235,59 +235,59 @@ const Home = () => {
 
       {/* Shop by Category Interactive Section */}
       <section id="collections" className="py-12 md:py-20 bg-cream/10 border-t border-cream/30 scroll-mt-24">
-        <div className="container mx-auto px-3 md:px-8">
+        <div className="container mx-auto px-3 md:px-8 lg:max-w-[1280px] lg:px-10">
           <div className="text-center mb-8 md:mb-10">
             <h2 className="text-2xl md:text-4xl font-heading font-bold text-primary mt-1">Shop by Category</h2>
             <div className="w-10 h-[2px] bg-gold mx-auto mt-3"></div>
           </div>
           {/* Desktop layout */}
-          <div className="hidden md:grid md:grid-cols-[1.08fr_0.92fr] gap-4 lg:gap-6 max-w-[1320px] mx-auto items-start">
+          <div className="hidden md:grid md:grid-cols-[1.08fr_0.92fr] gap-4 lg:grid-cols-[55%_45%] lg:gap-5 items-start">
             {/* Left tall card */}
-            <Link to="/shop?category=sharara" className="group relative overflow-hidden bg-cream rounded-2xl shadow-sm aspect-[4/5] lg:aspect-[3/4]">
-              <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/20 to-transparent z-10 transition-colors group-hover:from-black/75 duration-500" />
-              <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328123/Blue_Sharara_Suit_for_Girls___Elegant_Ethnic_Look_for_Functions_uttyeg.jpg" alt="Sharara" className="absolute inset-0 w-full h-full object-cover object-[center_28%] group-hover:scale-105 transition-transform duration-[2000ms] ease-out" />
+            <Link to="/shop?category=sharara" className="group relative overflow-hidden bg-cream rounded-2xl lg:rounded-[20px] shadow-sm aspect-[4/5] lg:aspect-auto lg:h-[610px]">
+              <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/55 via-black/15 to-transparent lg:bg-[linear-gradient(to_top,rgba(0,0,0,.55),rgba(0,0,0,.15),transparent)] transition-colors duration-[450ms] group-hover:from-black/65" />
+              <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328123/Blue_Sharara_Suit_for_Girls___Elegant_Ethnic_Look_for_Functions_uttyeg.jpg" alt="Sharara" className="absolute inset-0 h-full w-full object-cover object-[center_28%] transition-transform duration-[450ms] ease-out group-hover:scale-[1.06]" />
               <div className="absolute bottom-6 left-6 right-6 z-20 flex items-center justify-between text-white">
-                <h3 className="font-heading font-bold text-white text-3xl lg:text-[42px] drop-shadow-lg">Sharara</h3>
-                <span className="w-9 h-9 rounded-full border border-white/60 flex items-center justify-center bg-black/10 backdrop-blur-[2px]">
-                  <ArrowRight size={16} className="text-white" />
+                <h3 className="font-heading font-bold text-white text-3xl lg:text-[2rem] drop-shadow-lg">Sharara</h3>
+                <span className="w-12 h-12 rounded-full border border-white/70 bg-white/10 backdrop-blur-md flex items-center justify-center transition-transform duration-[450ms] ease-out group-hover:scale-105">
+                  <ArrowRight size={18} className="text-white transition-transform duration-[450ms] ease-out group-hover:translate-x-[6px]" />
                 </span>
               </div>
             </Link>
             
             {/* Right side container */}
-            <div className="grid gap-4 lg:gap-6">
+            <div className="grid gap-4 lg:gap-5">
               {/* Top wide card */}
-              <Link to="/shop?category=tops" className="group relative overflow-hidden bg-cream rounded-2xl shadow-sm aspect-[16/7] lg:aspect-[16/6]">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/20 to-transparent z-10 transition-colors group-hover:from-black/70 duration-500" />
-                <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328447/download_wrtkxn.jpg" alt="Tops" className="absolute inset-0 w-full h-full object-cover object-[50%_15%] group-hover:scale-105 transition-transform duration-[2000ms] ease-out" />
-                <div className="absolute bottom-5 left-6 z-20 flex items-center gap-4 text-white">
-                  <h3 className="font-heading font-bold text-white text-2xl lg:text-[38px] drop-shadow-lg">Tops</h3>
-                  <span className="w-9 h-9 rounded-full border border-white/60 flex items-center justify-center bg-black/10 backdrop-blur-[2px]">
-                    <ArrowRight size={16} className="text-white" />
+              <Link to="/shop?category=tops" className="group relative overflow-hidden bg-cream rounded-2xl lg:rounded-[20px] shadow-sm aspect-[16/7] lg:aspect-auto lg:h-[275px]">
+                <div className="absolute inset-0 z-10 bg-[linear-gradient(to_top,rgba(0,0,0,.55),rgba(0,0,0,.15),transparent)] transition-colors duration-[450ms] group-hover:bg-[linear-gradient(to_top,rgba(0,0,0,.65),rgba(0,0,0,.2),transparent)]" />
+                <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328447/download_wrtkxn.jpg" alt="Tops" className="absolute inset-0 h-full w-full object-cover object-[50%_15%] transition-transform duration-[450ms] ease-out group-hover:scale-[1.06]" />
+                <div className="absolute bottom-5 left-6 right-6 z-20 flex items-center justify-between text-white">
+                  <h3 className="font-heading font-bold text-white text-2xl lg:text-[1.6rem] drop-shadow-lg">Tops</h3>
+                  <span className="w-12 h-12 rounded-full border border-white/70 bg-white/10 backdrop-blur-md flex items-center justify-center transition-transform duration-[450ms] ease-out group-hover:scale-105">
+                    <ArrowRight size={18} className="text-white transition-transform duration-[450ms] ease-out group-hover:translate-x-[6px]" />
                   </span>
                 </div>
               </Link>
 
               {/* Bottom 2 squares */}
-              <div className="grid grid-cols-2 gap-4 lg:gap-6">
-                <Link to="/shop?category=anarkali" className="group relative overflow-hidden bg-cream rounded-2xl shadow-sm aspect-[4/3]">
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/18 to-transparent z-10 transition-colors group-hover:from-black/70 duration-500" />
-                  <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328726/Teal_Elegance__The_Perfect_Festive_Anarkali_Gown_uyxrwo.jpg" alt="Anarkali" className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-[2000ms] ease-out" />
+              <div className="grid grid-cols-2 gap-4 lg:gap-5 lg:h-[295px]">
+                <Link to="/shop?category=anarkali" className="group relative overflow-hidden bg-cream rounded-2xl lg:rounded-[20px] shadow-sm aspect-[4/3] lg:aspect-auto lg:h-full">
+                  <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,.55),rgba(0,0,0,.15),transparent)] transition-colors duration-[450ms] group-hover:bg-[linear-gradient(to_top,rgba(0,0,0,.65),rgba(0,0,0,.2),transparent)]" />
+                  <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328726/Teal_Elegance__The_Perfect_Festive_Anarkali_Gown_uyxrwo.jpg" alt="Anarkali" className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-[450ms] ease-out group-hover:scale-[1.06]" />
                   <div className="absolute bottom-4 left-4 right-4 z-20 flex items-center justify-between text-white">
-                    <h3 className="font-heading font-bold text-white text-xl lg:text-[28px] drop-shadow-lg">Anarkali</h3>
-                    <span className="w-8 h-8 rounded-full border border-white/60 flex items-center justify-center bg-black/10 backdrop-blur-[2px]">
-                      <ArrowRight size={14} className="text-white" />
+                    <h3 className="font-heading font-bold text-white text-xl lg:text-[1.6rem] drop-shadow-lg">Anarkali</h3>
+                    <span className="w-12 h-12 rounded-full border border-white/70 bg-white/10 backdrop-blur-md flex items-center justify-center transition-transform duration-[450ms] ease-out group-hover:scale-105">
+                      <ArrowRight size={18} className="text-white transition-transform duration-[450ms] ease-out group-hover:translate-x-[6px]" />
                     </span>
                   </div>
                 </Link>
 
-                <Link to="/shop?category=short-kurtha" className="group relative overflow-hidden bg-cream rounded-2xl shadow-sm aspect-[4/3]">
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/18 to-transparent z-10 transition-colors group-hover:from-black/70 duration-500" />
-                  <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780329369/download_1_gwrbim.jpg" alt="Short Kurtha" className="absolute inset-0 w-full h-full object-cover object-[center_82%] group-hover:scale-105 transition-transform duration-[2000ms] ease-out" />
+                <Link to="/shop?category=short-kurtha" className="group relative overflow-hidden bg-cream rounded-2xl lg:rounded-[20px] shadow-sm aspect-[4/3] lg:aspect-auto lg:h-full">
+                  <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,.55),rgba(0,0,0,.15),transparent)] transition-colors duration-[450ms] group-hover:bg-[linear-gradient(to_top,rgba(0,0,0,.65),rgba(0,0,0,.2),transparent)]" />
+                  <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780329369/download_1_gwrbim.jpg" alt="Short Kurtha" className="absolute inset-0 h-full w-full object-cover object-[center_82%] transition-transform duration-[450ms] ease-out group-hover:scale-[1.06]" />
                   <div className="absolute bottom-4 left-4 right-4 z-20 flex items-center justify-between text-white">
-                    <h3 className="font-heading font-bold text-white text-xl lg:text-[28px] drop-shadow-lg">Short kurti</h3>
-                    <span className="w-8 h-8 rounded-full border border-white/60 flex items-center justify-center bg-black/10 backdrop-blur-[2px]">
-                      <ArrowRight size={14} className="text-white" />
+                    <h3 className="font-heading font-bold text-white text-xl lg:text-[1.6rem] drop-shadow-lg">Short Kurti</h3>
+                    <span className="w-12 h-12 rounded-full border border-white/70 bg-white/10 backdrop-blur-md flex items-center justify-center transition-transform duration-[450ms] ease-out group-hover:scale-105">
+                      <ArrowRight size={18} className="text-white transition-transform duration-[450ms] ease-out group-hover:translate-x-[6px]" />
                     </span>
                   </div>
                 </Link>
