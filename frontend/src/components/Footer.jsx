@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
+import { Instagram, Link2, Youtube } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -14,10 +14,9 @@ const Footer = () => {
               Premium Gen-Z women's fashion brand offering elegant feminine aesthetics with modern designs.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-white hover:text-gold transition-colors"><Instagram size={20} /></a>
-              <a href="#" className="text-white hover:text-gold transition-colors"><Facebook size={20} /></a>
-              <a href="#" className="text-white hover:text-gold transition-colors"><Twitter size={20} /></a>
-              <a href="#" className="text-white hover:text-gold transition-colors"><Youtube size={20} /></a>
+              <a href="https://www.instagram.com/_.velouraofficial?igsh=dnVwZnRscW05ODZm" target="_blank" rel="noreferrer" aria-label="Instagram" className="text-white hover:text-gold transition-colors"><Instagram size={20} /></a>
+              <a href="https://youtube.com/@velourastudio19?si=xp2cms_W10yq9cFb" target="_blank" rel="noreferrer" aria-label="YouTube" className="text-white hover:text-gold transition-colors"><Youtube size={20} /></a>
+              <a href="https://www.threads.com/@_.velouraofficial" target="_blank" rel="noreferrer" aria-label="Threads" className="text-white hover:text-gold transition-colors"><Link2 size={20} /></a>
             </div>
           </div>
 
