@@ -12,6 +12,10 @@ import Register from './pages/auth/Register';
 import ForgotPassword from './pages/auth/ForgotPassword';
 import ResetPassword from './pages/auth/ResetPassword';
 import Profile from './pages/profile/Profile';
+import ShippingPolicy from './pages/policies/ShippingPolicy';
+import ReturnPolicy from './pages/policies/ReturnPolicy';
+import FaqPage from './pages/policies/FaqPage';
+import ContactUs from './pages/policies/ContactUs';
 
 import AdminLayout from './layouts/AdminLayout';
 import AdminDashboard from './pages/admin/Dashboard';
@@ -45,6 +49,10 @@ function App() {
             <Route path="forgot-password" element={<ForgotPassword />} />
             <Route path="reset-password/:token" element={<ResetPassword />} />
             <Route path="profile" element={<Profile />} />
+            <Route path="shipping" element={<ShippingPolicy />} />
+            <Route path="returns" element={<ReturnPolicy />} />
+            <Route path="faq" element={<FaqPage />} />
+            <Route path="contact" element={<ContactUs />} />
           </Route>
 
           {/* Admin Dashboard Routes */}

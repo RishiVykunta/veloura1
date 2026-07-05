@@ -31,9 +31,12 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Customer Service */}
+          {/* Help & Policies */}
           <div>
-            <h4 className="text-lg font-heading font-semibold mb-4 text-white">Customer Service</h4>
+            <h4 className="text-lg font-heading font-semibold mb-4 text-white">Help & Policies</h4>
+            <p className="text-sm text-gray-300 mb-4 leading-relaxed">
+              Delivery, exchanges, FAQs, and support information for a smooth Veloura experience.
+            </p>
             <ul className="space-y-2 text-sm text-gray-300">
               <li><Link to="/contact" className="hover:text-gold transition-colors">Contact Us</Link></li>
               <li><Link to="/faq" className="hover:text-gold transition-colors">FAQ</Link></li>
