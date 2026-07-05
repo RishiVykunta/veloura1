@@ -234,16 +234,16 @@ const Home = () => {
       </section>
 
       {/* Shop by Category Interactive Section */}
-      <section id="collections" className="py-12 md:py-24 bg-cream/10 border-t border-cream/30 scroll-mt-24">
+      <section id="collections" className="py-12 md:py-20 bg-cream/10 border-t border-cream/30 scroll-mt-24">
         <div className="container mx-auto px-3 md:px-8">
-          <div className="text-center mb-8 md:mb-16">
+          <div className="text-center mb-8 md:mb-10">
             <h2 className="text-2xl md:text-4xl font-heading font-bold text-primary mt-1">Shop by Category</h2>
             <div className="w-10 h-[2px] bg-gold mx-auto mt-3"></div>
           </div>
           {/* Desktop layout */}
-          <div className="hidden md:grid md:grid-cols-[1fr_1fr] gap-4 lg:gap-6 h-[clamp(520px,62vh,620px)] max-w-[1200px] mx-auto">
+          <div className="hidden md:grid md:grid-cols-[1.08fr_0.92fr] gap-4 lg:gap-6 max-w-[1320px] mx-auto items-start">
             {/* Left tall card */}
-            <Link to="/shop?category=sharara" className="group relative overflow-hidden bg-cream rounded-2xl shadow-sm row-span-2">
+            <Link to="/shop?category=sharara" className="group relative overflow-hidden bg-cream rounded-2xl shadow-sm aspect-[4/5] lg:aspect-[3/4]">
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10 transition-colors group-hover:from-black/80 duration-500" />
               <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328123/Blue_Sharara_Suit_for_Girls___Elegant_Ethnic_Look_for_Functions_uttyeg.jpg" alt="Sharara" className="absolute inset-0 w-full h-full object-cover object-[center_28%] group-hover:scale-105 transition-transform duration-[2000ms] ease-out" />
               <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -256,9 +256,9 @@ const Home = () => {
             </Link>
             
             {/* Right side container */}
-            <div className="grid grid-rows-2 gap-4 lg:gap-6 h-full">
+            <div className="grid gap-4 lg:gap-6">
               {/* Top wide card */}
-              <Link to="/shop?category=tops" className="group relative overflow-hidden bg-cream rounded-2xl shadow-sm">
+              <Link to="/shop?category=tops" className="group relative overflow-hidden bg-cream rounded-2xl shadow-sm aspect-[16/7] lg:aspect-[16/6]">
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10 transition-colors group-hover:from-black/80 duration-500" />
                 <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328447/download_wrtkxn.jpg" alt="Tops" className="absolute inset-0 w-full h-full object-cover object-[50%_15%] group-hover:scale-105 transition-transform duration-[2000ms] ease-out" />
                 <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -272,7 +272,7 @@ const Home = () => {
 
               {/* Bottom 2 squares */}
               <div className="grid grid-cols-2 gap-4 lg:gap-6">
-                <Link to="/shop?category=anarkali" className="group relative overflow-hidden bg-cream rounded-2xl shadow-sm">
+                <Link to="/shop?category=anarkali" className="group relative overflow-hidden bg-cream rounded-2xl shadow-sm aspect-[4/3]">
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10 transition-colors group-hover:from-black/80 duration-500" />
                   <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328726/Teal_Elegance__The_Perfect_Festive_Anarkali_Gown_uyxrwo.jpg" alt="Anarkali" className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-[2000ms] ease-out" />
                   <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -283,7 +283,7 @@ const Home = () => {
                   </div>
                 </Link>
 
-                <Link to="/shop?category=short-kurtha" className="group relative overflow-hidden bg-cream rounded-2xl shadow-sm">
+                <Link to="/shop?category=short-kurtha" className="group relative overflow-hidden bg-cream rounded-2xl shadow-sm aspect-[4/3]">
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10 transition-colors group-hover:from-black/80 duration-500" />
                   <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780329369/download_1_gwrbim.jpg" alt="Short Kurtha" className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-[2000ms] ease-out" />
                   <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
