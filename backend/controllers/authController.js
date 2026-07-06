@@ -263,11 +263,55 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Change password
+// @route   PUT /api/auth/change-password
+// @access  Private
+const changePassword = asyncHandler(async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+  const userId = req.user.id;
+
+  if (!currentPassword || !newPassword) {
+    res.status(400);
+    throw new Error('Please provide both current and new password');
+  }
+
+  // Fetch user from DB to verify password
+  const { rows } = await query('SELECT password_hash FROM users WHERE id = $1', [userId]);
+  const user = rows[0];
+
+  if (!user) {
+    res.status(404);
+    throw new Error('User not found');
+  }
+
+  const isMatch = await bcrypt.compare(currentPassword, user.password_hash);
+  if (!isMatch) {
+    res.status(401);
+    throw new Error('Incorrect current password');
+  }
+
+  if (newPassword.length < 6) {
+    res.status(400);
+    throw new Error('New password must be at least 6 characters');
+  }
+
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+  await query('UPDATE users SET password_hash = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2', [hashedPassword, userId]);
+
+  res.json({
+    success: true,
+    message: 'Password changed successfully'
+  });
+});
+
 module.exports = {
   registerUser,
   loginUser,
   forgotPassword,
   resetPassword,
   getUserProfile,
-  updateUserProfile
+  updateUserProfile,
+  changePassword
 };

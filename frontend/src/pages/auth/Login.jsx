@@ -28,7 +28,7 @@ const Login = () => {
         setError('Invalid email or password. Please try again.');
       }
     } catch (err) {
-      setError(err.message || 'An error occurred during login. Please try again.');
+      setError(err.response?.data?.message || err.message || 'An error occurred during login. Please try again.');
     } finally {
       setIsLoading(false);
     }

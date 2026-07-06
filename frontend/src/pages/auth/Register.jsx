@@ -26,7 +26,7 @@ const Register = () => {
         setError('Registration failed. Please check your details and try again.');
       }
     } catch (err) {
-      setError(err.message || 'An error occurred during registration. Please try again.');
+      setError(err.response?.data?.message || err.message || 'An error occurred during registration. Please try again.');
     } finally {
       setIsLoading(false);
     }
