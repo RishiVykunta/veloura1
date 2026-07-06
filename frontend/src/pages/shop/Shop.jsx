@@ -24,8 +24,8 @@ const Shop = () => {
     { name: 'All Collections', slug: '' },
     { name: 'Sharara', slug: 'sharara' },
     { name: 'Tops', slug: 'tops' },
-    { name: 'Short Kurthi', slug: 'short-kurthi' },
-    { name: 'Anarkali', slug: 'anarkali' }
+    { name: 'Short Kurti', slug: 'short-kurti' },
+    { name: 'Long Kurti', slug: 'long-kurti' }
   ];
   const sizes = ['XS', 'S', 'M', 'L', 'XL'];
   const colors = [

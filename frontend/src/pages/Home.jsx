@@ -270,20 +270,20 @@ const Home = () => {
 
               {/* Bottom 2 squares */}
               <div className="grid grid-cols-2 gap-4 lg:gap-5 lg:h-[295px]">
-                <Link to="/shop?category=anarkali" className="group relative overflow-hidden bg-cream rounded-2xl lg:rounded-[20px] shadow-sm aspect-[4/3] lg:aspect-auto lg:h-full">
+                <Link to="/shop?category=long-kurti" className="group relative overflow-hidden bg-cream rounded-2xl lg:rounded-[20px] shadow-sm aspect-[4/3] lg:aspect-auto lg:h-full">
                   <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,.55),rgba(0,0,0,.15),transparent)] transition-colors duration-[450ms] group-hover:bg-[linear-gradient(to_top,rgba(0,0,0,.65),rgba(0,0,0,.2),transparent)]" />
-                  <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328726/Teal_Elegance__The_Perfect_Festive_Anarkali_Gown_uyxrwo.jpg" alt="Anarkali" className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-[450ms] ease-out group-hover:scale-[1.06]" />
+                  <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328726/Teal_Elegance__The_Perfect_Festive_Anarkali_Gown_uyxrwo.jpg" alt="Long Kurti" className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-[450ms] ease-out group-hover:scale-[1.06]" />
                   <div className="absolute bottom-4 left-4 right-4 z-20 flex items-center justify-between text-white">
-                    <h3 className="font-heading font-bold text-white text-xl lg:text-[1.6rem] drop-shadow-lg">Anarkali</h3>
+                    <h3 className="font-heading font-bold text-white text-xl lg:text-[1.6rem] drop-shadow-lg">Long Kurti</h3>
                     <span className="w-12 h-12 rounded-full border border-white/70 bg-white/10 backdrop-blur-md flex items-center justify-center transition-transform duration-[450ms] ease-out group-hover:scale-105">
                       <ArrowRight size={18} className="text-white transition-transform duration-[450ms] ease-out group-hover:translate-x-[6px]" />
                     </span>
                   </div>
                 </Link>
 
-                <Link to="/shop?category=short-kurtha" className="group relative overflow-hidden bg-cream rounded-2xl lg:rounded-[20px] shadow-sm aspect-[4/3] lg:aspect-auto lg:h-full">
+                <Link to="/shop?category=short-kurti" className="group relative overflow-hidden bg-cream rounded-2xl lg:rounded-[20px] shadow-sm aspect-[4/3] lg:aspect-auto lg:h-full">
                   <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,.55),rgba(0,0,0,.15),transparent)] transition-colors duration-[450ms] group-hover:bg-[linear-gradient(to_top,rgba(0,0,0,.65),rgba(0,0,0,.2),transparent)]" />
-                  <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780329369/download_1_gwrbim.jpg" alt="Short Kurtha" className="absolute inset-0 h-full w-full object-cover object-[center_82%] transition-transform duration-[450ms] ease-out group-hover:scale-[1.06]" />
+                  <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780329369/download_1_gwrbim.jpg" alt="Short Kurti" className="absolute inset-0 h-full w-full object-cover object-[center_82%] transition-transform duration-[450ms] ease-out group-hover:scale-[1.06]" />
                   <div className="absolute bottom-4 left-4 right-4 z-20 flex items-center justify-between text-white">
                     <h3 className="font-heading font-bold text-white text-xl lg:text-[1.6rem] drop-shadow-lg">Short Kurti</h3>
                     <span className="w-12 h-12 rounded-full border border-white/70 bg-white/10 backdrop-blur-md flex items-center justify-center transition-transform duration-[450ms] ease-out group-hover:scale-105">
@@ -315,20 +315,20 @@ const Home = () => {
               </div>
             </Link>
 
-            <Link to="/shop?category=anarkali" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm aspect-[3/4]">
+            <Link to="/shop?category=long-kurti" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm aspect-[3/4]">
               <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
-              <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328726/Teal_Elegance__The_Perfect_Festive_Anarkali_Gown_uyxrwo.jpg" alt="Anarkali" className="absolute inset-0 w-full h-full object-cover object-center" />
+              <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328726/Teal_Elegance__The_Perfect_Festive_Anarkali_Gown_uyxrwo.jpg" alt="Long Kurti" className="absolute inset-0 w-full h-full object-cover object-center" />
               <div className="absolute bottom-3 left-3 z-20">
-                <h3 className="font-heading font-bold text-base text-white drop-shadow-md mb-2">Anarkali</h3>
+                <h3 className="font-heading font-bold text-base text-white drop-shadow-md mb-2">Long Kurti</h3>
                 <span className="bg-white text-primary text-[10px] font-bold rounded-full px-3 py-1 flex items-center gap-1 w-fit shadow-sm">Explore <ArrowRight size={10} /></span>
               </div>
             </Link>
 
-            <Link to="/shop?category=short-kurtha" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm aspect-[3/4]">
+            <Link to="/shop?category=short-kurti" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm aspect-[3/4]">
               <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
-              <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780329369/download_1_gwrbim.jpg" alt="Short Kurtha" className="absolute inset-0 w-full h-full object-cover object-center" />
+              <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780329369/download_1_gwrbim.jpg" alt="Short Kurti" className="absolute inset-0 w-full h-full object-cover object-center" />
               <div className="absolute bottom-3 left-3 z-20">
-                <h3 className="font-heading font-bold text-base text-white drop-shadow-md mb-2">Short Kurtha</h3>
+                <h3 className="font-heading font-bold text-base text-white drop-shadow-md mb-2">Short Kurti</h3>
                 <span className="bg-white text-primary text-[10px] font-bold rounded-full px-3 py-1 flex items-center gap-1 w-fit shadow-sm">Explore <ArrowRight size={10} /></span>
               </div>
             </Link>

@@ -453,8 +453,8 @@ const ProductEdit = () => {
                 >
                   <option value="c1111111-1111-1111-1111-111111111111">Sharara</option>
                   <option value="c2222222-2222-2222-2222-222222222222">Tops</option>
-                  <option value="c3333333-3333-3333-3333-333333333333">Short Kurthi</option>
-                  <option value="c4444444-4444-4444-4444-444444444444">Anarkali</option>
+                  <option value="c3333333-3333-3333-3333-333333333333">Short Kurti</option>
+                  <option value="c4444444-4444-4444-4444-444444444444">Long Kurti</option>
                 </select>
               </div>
               <div>

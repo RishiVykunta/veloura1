@@ -27,17 +27,17 @@ const targetCategories = [
   },
   {
     id: 'c3333333-3333-3333-3333-333333333333',
-    name: 'Short Kurthi',
-    slug: 'short-kurthi',
-    description: 'Chic and versatile short kurthis for daily and festive wear.',
+    name: 'Short Kurti',
+    slug: 'short-kurti',
+    description: 'Chic and versatile short kurtis for daily and festive wear.',
     imageUrl: 'https://res.cloudinary.com/dqcxekzxn/image/upload/v1779815830/WhatsApp_Image_2026-05-26_at_10.36.46_PM_re74eo.jpg',
     isActive: true
   },
   {
     id: 'c4444444-4444-4444-4444-444444444444',
-    name: 'Anarkali',
-    slug: 'anarkali',
-    description: 'Royal and timeless Anarkali gowns and suits.',
+    name: 'Long Kurti',
+    slug: 'long-kurti',
+    description: 'Elegant and flowing long kurtis and suits.',
     imageUrl: 'https://res.cloudinary.com/dqcxekzxn/image/upload/v1779815830/WhatsApp_Image_2026-05-26_at_10.36.46_PM_re74eo.jpg',
     isActive: true
   }

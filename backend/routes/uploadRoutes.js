@@ -47,8 +47,8 @@ router.post('/image', upload.single('image'), asyncHandler(async (req, res) => {
   if (!hasCloudinary) {
     console.warn('Cloudinary credentials not detected, falling back to local static serving.');
     
-    // We return a path pointing to our server's static folder
-    const relativeUrl = `http://localhost:5000/uploads/${req.file.filename}`;
+    // We return a path pointing to our server's static folder dynamically
+    const relativeUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
     
     return res.status(200).json({
       success: true,
