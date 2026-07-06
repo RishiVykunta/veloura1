@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Instagram, Link2, Youtube } from 'lucide-react';
+import { Instagram, Link2, Youtube, MessageCircle } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -34,9 +34,6 @@ const Footer = () => {
           {/* Help & Policies */}
           <div>
             <h4 className="text-lg font-heading font-semibold mb-4 text-white">Help & Policies</h4>
-            <p className="text-sm text-gray-300 mb-4 leading-relaxed">
-              Delivery, exchanges, FAQs, and support information for a smooth Veloura experience.
-            </p>
             <ul className="space-y-2 text-sm text-gray-300">
               <li><Link to="/contact" className="hover:text-gold transition-colors">Contact Us</Link></li>
               <li><Link to="/faq" className="hover:text-gold transition-colors">FAQ</Link></li>
@@ -45,24 +42,25 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Newsletter */}
+          {/* WhatsApp Community */}
           <div>
-            <h4 className="text-lg font-heading font-semibold mb-4 text-white">Join Our Newsletter</h4>
-            <p className="text-sm text-gray-300 mb-4">Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.</p>
-            <form className="flex">
-              <input 
-                type="email" 
-                placeholder="Your email address" 
-                className="bg-transparent border border-gray-600 px-4 py-2 w-full text-white placeholder-gray-400 focus:outline-none focus:border-gold"
-              />
-              <button type="submit" className="bg-gold text-dark px-4 py-2 font-medium hover:bg-opacity-90 transition-colors">
-                Subscribe
-              </button>
-            </form>
+            <h4 className="text-lg font-heading font-semibold mb-4 text-white">Join Our Community</h4>
+            <p className="text-sm text-gray-300 mb-5 leading-relaxed">
+              Be the first to know about new drops, exclusive offers, and behind-the-scenes updates.
+            </p>
+            <a
+              href="https://chat.whatsapp.com/L20A3W4hJ8A4dqwi2YjwYz"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-semibold text-sm px-5 py-3 rounded-lg transition-colors shadow-lg w-full justify-center"
+            >
+              <MessageCircle size={20} className="flex-shrink-0" />
+              Join WhatsApp Community
+            </a>
           </div>
         </div>
 
-        <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400">
+        <div className="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-white">
           <p>&copy; {new Date().getFullYear()} Veloura. All rights reserved.</p>
           <div className="flex space-x-4 mt-4 md:mt-0">
             <Link to="/privacy" className="hover:text-gold transition-colors">Privacy Policy</Link>
