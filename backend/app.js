@@ -11,15 +11,6 @@ const app = express();
 app.enable('trust proxy');
 
 // Check Cloudinary config on startup in production
-if (process.env.NODE_ENV === 'production') {
-  const hasCloudinary = process.env.CLOUDINARY_API_KEY && 
-                        process.env.CLOUDINARY_API_KEY !== 'your_api_key' && 
-                        process.env.CLOUDINARY_API_KEY !== '';
-  if (!hasCloudinary) {
-    console.warn('\x1b[33m%s\x1b[0m', 'WARNING: Cloudinary credentials are not configured. Local image uploads will NOT persist on serverless platforms like Vercel!');
-  }
-}
-
 // Security and utility middlewares
 app.use(helmet());
 app.use(cors({
@@ -28,10 +19,7 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-const os = require('os');
-const uploadDir = process.env.NODE_ENV === 'production' 
-  ? path.join(os.tmpdir(), 'uploads')
-  : path.join(__dirname, 'uploads');
+const uploadDir = path.join(__dirname, 'uploads');
 
 app.use('/uploads', express.static(uploadDir));
 
