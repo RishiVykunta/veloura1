@@ -29,12 +29,14 @@ const Shop = () => {
   ];
   const sizes = ['XS', 'S', 'M', 'L', 'XL'];
   const colors = [
-    { name: 'Navy', hex: '#0A224E' },
-    { name: 'Gold', hex: '#D4AF37' },
-    { name: 'Cream', hex: '#F8F5EE' },
-    { name: 'White', hex: '#FFFFFF' },
-    { name: 'Charcoal', hex: '#1E1E1E' },
-    { name: 'Sage', hex: '#8FBC8F' }
+    { name: 'Light Pink', hex: '#FFB6C1' },
+    { name: 'Blue', hex: '#4169E1' },
+    { name: 'Sky Blue', hex: '#87CEEB' },
+    { name: 'Dark Pink', hex: '#C71585' },
+    { name: 'Butter Yellow', hex: '#FFF8A1' },
+    { name: 'Lush Green', hex: '#228B22' },
+    { name: 'Dark Red', hex: '#8B0000' },
+    { name: 'White', hex: '#FFFFFF' }
   ];
 
   const fetchProducts = async () => {
@@ -194,13 +196,13 @@ const Shop = () => {
                     key={color.name}
                     title={color.name}
                     onClick={() => setSelectedColor(selectedColor === color.name ? '' : color.name)}
-                    className={`w-6 h-6 rounded-full border transition-all relative ${
-                      selectedColor === color.name ? 'ring-2 ring-gold scale-110' : 'border-cream'
+                    className={`w-7 h-7 rounded-full border-2 transition-all relative flex-shrink-0 ${
+                      selectedColor === color.name ? 'ring-2 ring-offset-1 ring-gold scale-110 border-gold' : 'border-cream hover:border-gold/50'
                     }`}
                     style={{ backgroundColor: color.hex }}
                   >
-                    {color.name === 'White' && (
-                      <div className="absolute inset-0 rounded-full border border-dark/10" />
+                    {(color.name === 'White' || color.name === 'Butter Yellow') && (
+                      <div className="absolute inset-0 rounded-full border border-dark/20" />
                     )}
                   </button>
                 ))}
@@ -449,15 +451,20 @@ const Shop = () => {
                   <h4 className="text-sm font-semibold text-primary mb-2">Colors</h4>
                   <div className="flex flex-wrap gap-2">
                     {colors.map((color) => (
-                      <button
-                        key={color.name}
-                        onClick={() => setSelectedColor(selectedColor === color.name ? '' : color.name)}
-                        className={`w-6 h-6 rounded-full border transition-all ${
-                          selectedColor === color.name ? 'ring-2 ring-gold scale-110' : 'border-cream'
-                        }`}
-                        style={{ backgroundColor: color.hex }}
-                      />
-                    ))}
+                    <button
+                      key={color.name}
+                      title={color.name}
+                      onClick={() => setSelectedColor(selectedColor === color.name ? '' : color.name)}
+                      className={`w-7 h-7 rounded-full border-2 transition-all relative flex-shrink-0 ${
+                        selectedColor === color.name ? 'ring-2 ring-offset-1 ring-gold scale-110 border-gold' : 'border-cream hover:border-gold/50'
+                      }`}
+                      style={{ backgroundColor: color.hex }}
+                    >
+                      {(color.name === 'White' || color.name === 'Butter Yellow') && (
+                        <div className="absolute inset-0 rounded-full border border-dark/20" />
+                      )}
+                    </button>
+                  ))}
                   </div>
                 </div>
               </div>

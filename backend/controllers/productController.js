@@ -106,9 +106,9 @@ const getProducts = asyncHandler(async (req, res) => {
     }
 
     if (search) {
-      sqlQuery += ` AND (p.name ILIKE $${paramIndex} OR p.description ILIKE $${paramIndex})`;
-      params.push(`%${search}%`);
-      paramIndex++;
+      sqlQuery += ` AND (p.name ILIKE $${paramIndex} OR p.description ILIKE $${paramIndex + 1})`;
+      params.push(`%${search}%`, `%${search}%`);
+      paramIndex += 2;
     }
 
     // Apply Sorting
@@ -124,8 +124,8 @@ const getProducts = asyncHandler(async (req, res) => {
 
     const { rows } = await query(sqlQuery, params);
 
-    // If query returns empty because database is empty, trigger fallback
-    if (rows.length === 0 && params.length === 0) {
+    // Only fall back to mock data when the database itself is completely empty (no filters applied)
+    if (rows.length === 0 && !category && !search && !size && !color && !collection) {
       throw new Error('Database is empty');
     }
 
