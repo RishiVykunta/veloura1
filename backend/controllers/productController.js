@@ -2,6 +2,34 @@ const { query } = require('../config/db');
 const { mockProducts, mockCategories } = require('../database/mockData');
 const asyncHandler = require('../utils/asyncHandler');
 
+function mapProductRowToCamel(row) {
+  if (!row) return null;
+  return {
+    id: row.id,
+    name: row.name,
+    slug: row.slug,
+    shortDescription: row.short_description,
+    description: row.description,
+    sku: row.sku,
+    categoryId: row.category_id,
+    price: row.price ? parseFloat(row.price) : 0,
+    discountPrice: row.discount_price ? parseFloat(row.discount_price) : null,
+    stockQuantity: row.stock_quantity,
+    material: row.material,
+    shippingInfo: row.shipping_info,
+    occasionType: row.occasion_type,
+    collectionType: row.collection_type,
+    isFeatured: row.is_featured,
+    isBestSeller: row.is_best_seller,
+    isNewArrival: row.is_new_arrival,
+    isActive: row.is_active,
+    averageRating: row.average_rating ? parseFloat(row.average_rating) : 0,
+    totalReviews: row.total_reviews,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at
+  };
+}
+
 // Helper to compile a full product object (with images, variants, features, tags) from database
 async function getCompleteProduct(productRow) {
   const productId = productRow.id;
@@ -11,8 +39,11 @@ async function getCompleteProduct(productRow) {
   const { rows: features } = await query('SELECT feature_name as "featureName" FROM product_features WHERE product_id = $1', [productId]);
   const { rows: tags } = await query('SELECT tag_name as "tagName" FROM product_tags WHERE product_id = $1', [productId]);
 
+  const mapped = mapProductRowToCamel(productRow);
+
   return {
-    ...productRow,
+    ...mapped,
+    primaryImage: productRow.primaryImage || (images.find(img => img.isPrimary)?.imageUrl) || (images[0]?.imageUrl) || null,
     images,
     variants,
     features: features.map(f => f.featureName),
@@ -289,14 +320,26 @@ const getNewArrivals = asyncHandler(async (req, res) => {
 // @route   POST /api/v1/products/create
 // @access  Private/Admin
 const createProduct = asyncHandler(async (req, res) => {
-  const { name, description, price, sku, categoryId, images, variants, features, tags } = req.body;
+  const { name, description, price, discountPrice, sku, categoryId, images, variants, features, tags, isActive, isNewArrival, isFeatured } = req.body;
   const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
 
   try {
     const { rows } = await query(
-      `INSERT INTO products (name, slug, description, sku, category_id, price, stock_quantity)
-       VALUES ($1, $2, $3, $4, $5, $6, 100) RETURNING *`,
-      [name, slug, description, sku, categoryId, price]
+      `INSERT INTO products (name, slug, description, sku, category_id, price, discount_price, stock_quantity, is_active, is_featured, is_new_arrival)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *`,
+      [
+        name, 
+        slug, 
+        description, 
+        sku, 
+        categoryId, 
+        price ? parseFloat(price) : 0, 
+        discountPrice ? parseFloat(discountPrice) : null,
+        100, 
+        isActive !== false, 
+        !!isFeatured, 
+        !!isNewArrival
+      ]
     );
 
     const product = rows[0];
@@ -305,6 +348,30 @@ const createProduct = asyncHandler(async (req, res) => {
     if (images && images.length > 0) {
       for (const imgUrl of images) {
         await query('INSERT INTO product_images (product_id, image_url, is_primary) VALUES ($1, $2, $3)', [product.id, imgUrl, imgUrl === images[0]]);
+      }
+    }
+
+    // Variants
+    if (variants && variants.length > 0) {
+      for (const v of variants) {
+        await query(
+          'INSERT INTO product_variants (product_id, size, color, color_hex, stock, sku) VALUES ($1, $2, $3, $4, $5, $6)',
+          [product.id, v.size, v.color, v.colorHex || '#D4AF37', v.stock || 10, v.sku]
+        );
+      }
+    }
+
+    // Features
+    if (features && features.length > 0) {
+      for (const f of features) {
+        await query('INSERT INTO product_features (product_id, feature_name) VALUES ($1, $2)', [product.id, f]);
+      }
+    }
+
+    // Tags
+    if (tags && tags.length > 0) {
+      for (const t of tags) {
+        await query('INSERT INTO product_tags (product_id, tag_name) VALUES ($1, $2)', [product.id, t]);
       }
     }
 
@@ -345,20 +412,36 @@ const createProduct = asyncHandler(async (req, res) => {
 // @access  Private/Admin
 const updateProduct = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { name, description, price, sku, categoryId, images } = req.body;
+  const { name, description, price, discountPrice, sku, categoryId, images, variants, features, tags, isActive, isNewArrival, isFeatured } = req.body;
   const slug = name ? name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '') : undefined;
 
   try {
     const { rows } = await query(
       `UPDATE products 
-       SET name = COALESCE($1, name), 
-           slug = COALESCE($2, slug), 
-           description = COALESCE($3, description), 
-           sku = COALESCE($4, sku), 
-           category_id = COALESCE($5, category_id), 
-           price = COALESCE($6, price)
-       WHERE id = $7 RETURNING *`,
-      [name, slug, description, sku, categoryId, price ? parseFloat(price) : null, id]
+       SET name = $1, 
+           slug = $2, 
+           description = $3, 
+           sku = $4, 
+           category_id = $5, 
+           price = $6,
+           discount_price = $7,
+           is_active = $8,
+           is_featured = $9,
+           is_new_arrival = $10
+       WHERE id = $11 RETURNING *`,
+      [
+        name, 
+        slug, 
+        description, 
+        sku, 
+        categoryId, 
+        price ? parseFloat(price) : 0,
+        discountPrice ? parseFloat(discountPrice) : null,
+        isActive !== false,
+        !!isFeatured,
+        !!isNewArrival,
+        id
+      ]
     );
 
     if (rows.length === 0) {
@@ -371,6 +454,39 @@ const updateProduct = asyncHandler(async (req, res) => {
       await query('DELETE FROM product_images WHERE product_id = $1', [id]);
       for (const imgUrl of images) {
         await query('INSERT INTO product_images (product_id, image_url, is_primary) VALUES ($1, $2, $3)', [id, imgUrl, imgUrl === images[0]]);
+      }
+    }
+
+    // Update Variants
+    if (variants) {
+      await query('DELETE FROM product_variants WHERE product_id = $1', [id]);
+      if (variants.length > 0) {
+        for (const v of variants) {
+          await query(
+            'INSERT INTO product_variants (product_id, size, color, color_hex, stock, sku) VALUES ($1, $2, $3, $4, $5, $6)',
+            [id, v.size, v.color, v.colorHex || '#D4AF37', v.stock || 10, v.sku]
+          );
+        }
+      }
+    }
+
+    // Update Features
+    if (features) {
+      await query('DELETE FROM product_features WHERE product_id = $1', [id]);
+      if (features.length > 0) {
+        for (const f of features) {
+          await query('INSERT INTO product_features (product_id, feature_name) VALUES ($1, $2)', [id, f]);
+        }
+      }
+    }
+
+    // Update Tags
+    if (tags) {
+      await query('DELETE FROM product_tags WHERE product_id = $1', [id]);
+      if (tags.length > 0) {
+        for (const t of tags) {
+          await query('INSERT INTO product_tags (product_id, tag_name) VALUES ($1, $2)', [id, t]);
+        }
       }
     }
 

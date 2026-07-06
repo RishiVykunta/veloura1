@@ -19,8 +19,25 @@ const ProductCard = ({ product }) => {
     return () => clearInterval(interval);
   }, [images.length]);
 
+  const hasDiscount = product.discountPrice !== null && product.discountPrice !== undefined && product.discountPrice > 0;
+  const displayPrice = hasDiscount ? product.discountPrice : product.price;
+
   return (
     <div className="premium-card group bg-white border border-cream/50 rounded overflow-hidden shadow-premium hover:shadow-premium-hover transition-all duration-300 relative">
+      {/* Badge tags */}
+      <div className="absolute top-2 left-2 z-10 flex flex-col gap-1">
+        {product.isNewArrival && (
+          <span className="bg-primary text-white text-[8px] font-bold tracking-widest uppercase px-1.5 py-0.5 rounded-sm">
+            New
+          </span>
+        )}
+        {hasDiscount && (
+          <span className="bg-gold text-white text-[8px] font-bold tracking-widest uppercase px-1.5 py-0.5 rounded-sm">
+            Sale
+          </span>
+        )}
+      </div>
+
       <div className="aspect-[3/4] bg-cream/20 overflow-hidden relative">
         <img 
           src={images[currentIdx]} 
@@ -47,7 +64,12 @@ const ProductCard = ({ product }) => {
         <span className="text-[9px] text-gold uppercase tracking-widest font-semibold">{product.collectionType || 'Luxury Pieces'}</span>
         <h3 className="font-heading font-bold text-primary text-sm truncate mt-0.5">{product.name}</h3>
         <div className="flex justify-between items-center mt-3">
-          <span className="font-bold text-primary text-xs">₹{product.price}</span>
+          <div className="flex items-center gap-1.5">
+            <span className="font-bold text-primary text-xs">₹{displayPrice}</span>
+            {hasDiscount && (
+              <span className="text-[10px] text-dark/40 line-through">₹{product.price}</span>
+            )}
+          </div>
           <Link to={`/product/${product.slug}`} className="text-[10px] font-bold text-gold hover:underline">
             View details
           </Link>
