@@ -6,11 +6,17 @@ const os = require('os');
 const { uploadToCloudinary } = require('../utils/cloudinary');
 const asyncHandler = require('../utils/asyncHandler');
 
-// Use local persistent uploads folder
-const uploadDir = path.join(__dirname, '../uploads');
+// Use local persistent uploads folder, falling back to /tmp on Vercel (read-only environment)
+const uploadDir = process.env.VERCEL 
+  ? path.join(os.tmpdir(), 'uploads')
+  : path.join(__dirname, '../uploads');
 
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
+try {
+  if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+  }
+} catch (err) {
+  console.warn('Could not create uploads directory (expected on some read-only platforms):', err.message);
 }
 
 const storage = multer.diskStorage({
