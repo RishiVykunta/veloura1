@@ -1,13 +1,17 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Search, Heart, User, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const searchInputRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,6 +20,22 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Auto-focus search input when overlay opens
+  useEffect(() => {
+    if (searchOpen && searchInputRef.current) {
+      setTimeout(() => searchInputRef.current?.focus(), 50);
+    }
+  }, [searchOpen]);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/shop?search=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchOpen(false);
+      setSearchQuery('');
+    }
+  };
 
   const homeSectionLink = (sectionId) => `/#${sectionId}`;
 
@@ -63,7 +83,7 @@ const Navbar = () => {
 
           {/* Right side Icons */}
           <div className="flex items-center space-x-4 text-primary">
-            <button className="hover:text-gold transition-colors">
+            <button onClick={() => setSearchOpen(true)} className="hover:text-gold transition-colors" aria-label="Search">
               <Search size={20} />
             </button>
             <Link to={user ? "/profile" : "/login"} className="hidden md:block hover:text-gold transition-colors">
@@ -117,6 +137,47 @@ const Navbar = () => {
               </div>
             </motion.div>
           </>
+        )}
+      </AnimatePresence>
+      {/* Search Overlay */}
+      <AnimatePresence>
+        {searchOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[100] bg-primary/80 backdrop-blur-sm flex items-start justify-center pt-24 px-4"
+            onClick={(e) => { if (e.target === e.currentTarget) { setSearchOpen(false); setSearchQuery(''); } }}
+          >
+            <motion.div
+              initial={{ y: -20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -20, opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="w-full max-w-xl"
+            >
+              <form onSubmit={handleSearch} className="relative">
+                <Search size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-dark/40" />
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search products..."
+                  className="w-full bg-white pl-12 pr-14 py-4 text-base text-dark rounded-lg shadow-2xl outline-none focus:ring-2 focus:ring-gold"
+                />
+                <button
+                  type="button"
+                  onClick={() => { setSearchOpen(false); setSearchQuery(''); }}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-dark/40 hover:text-dark"
+                >
+                  <X size={20} />
+                </button>
+              </form>
+              <p className="text-white/60 text-xs text-center mt-3">Press Enter to search · Esc to close</p>
+            </motion.div>
+          </motion.div>
         )}
       </AnimatePresence>
     </>

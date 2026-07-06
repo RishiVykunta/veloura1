@@ -14,7 +14,7 @@ const Wishlist = () => {
     setWishlistItems(stored);
   }, []);
 
-  // When wishlist items are loaded, fetch live product data for each
+  // When wishlist items are loaded, fetch live product data from API
   useEffect(() => {
     if (wishlistItems.length === 0) {
       setLoading(false);
@@ -32,22 +32,39 @@ const Wishlist = () => {
         )
       );
 
-      const liveProducts = results
-        .map((res, idx) => {
-          if (res.status === 'fulfilled' && res.value?.success && res.value?.data) {
-            return res.value.data;
+      const liveProducts = [];
+      const validSlugs = [];
+
+      results.forEach((res, idx) => {
+        const slug = wishlistItems[idx]?.slug;
+        // Only include if the API confirms the product exists
+        if (res.status === 'fulfilled' && res.value?.success && res.value?.data) {
+          liveProducts.push(res.value.data);
+          if (slug) validSlugs.push(slug);
+        }
+        // If API failed (not 404 - network error), keep the localStorage copy as fallback
+        else if (res.status === 'rejected' && slug) {
+          const fallback = wishlistItems[idx];
+          if (fallback?.name) {
+            liveProducts.push({
+              id: fallback.id,
+              name: fallback.name,
+              slug: fallback.slug,
+              price: fallback.price,
+              primaryImage: fallback.image,
+              images: fallback.image ? [{ imageUrl: fallback.image }] : []
+            });
+            validSlugs.push(slug);
           }
-          // Fallback: use the stored item data if API fails
-          return wishlistItems[idx] ? {
-            id: wishlistItems[idx].id,
-            name: wishlistItems[idx].name,
-            slug: wishlistItems[idx].slug,
-            price: wishlistItems[idx].price,
-            primaryImage: wishlistItems[idx].image,
-            images: wishlistItems[idx].image ? [{ imageUrl: wishlistItems[idx].image }] : []
-          } : null;
-        })
-        .filter(Boolean);
+        }
+        // If res.value?.success is false → product deleted → skip it (clean up)
+      });
+
+      // Clean up localStorage: remove items whose products no longer exist
+      const cleanedWishlist = wishlistItems.filter(item => validSlugs.includes(item.slug));
+      if (cleanedWishlist.length !== wishlistItems.length) {
+        localStorage.setItem('veloura_wishlist', JSON.stringify(cleanedWishlist));
+      }
 
       setProducts(liveProducts);
       setLoading(false);

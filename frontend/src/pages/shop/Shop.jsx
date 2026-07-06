@@ -11,13 +11,21 @@ const Shop = () => {
   const [searchParams] = useSearchParams();
   const activeFilter = searchParams.get('filter'); // 'new-arrivals', 'featured', or null
   
-  // Filter States
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
+  // Filter States — initialize from URL params
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
+  const [selectedCategory, setSelectedCategory] = useState(searchParams.get('category') || '');
   const [priceRange, setPriceRange] = useState(6000);
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
   const [sortOption, setSortOption] = useState('newest');
+
+  // Sync URL params into state when URL changes (e.g. navigating from navbar search)
+  useEffect(() => {
+    const urlSearch = searchParams.get('search') || '';
+    const urlCategory = searchParams.get('category') || '';
+    setSearchQuery(urlSearch);
+    setSelectedCategory(urlCategory);
+  }, [searchParams]);
 
   // Static options based on brand guide
   const categories = [
