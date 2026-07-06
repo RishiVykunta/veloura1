@@ -28,6 +28,7 @@ const ProductEdit = () => {
   // Media states
   const [images, setImages] = useState([]);
   const [uploading, setUploading] = useState(false);
+  const [imageUrlInput, setImageUrlInput] = useState('');
 
   // Sizes & Colors state
   const [sizes, setSizes] = useState([]);
@@ -99,6 +100,13 @@ const ProductEdit = () => {
     } finally {
       setUploading(false);
     }
+  };
+
+  const handleAddImageUrl = () => {
+    const url = imageUrlInput.trim();
+    if (!url) return;
+    setImages((prev) => [...prev, url]);
+    setImageUrlInput('');
   };
 
   const removeImage = (idxToRemove) => {
@@ -294,32 +302,66 @@ const ProductEdit = () => {
           >
             <h3 className="text-lg font-heading font-bold text-primary mb-4">Product Media</h3>
             
-            <input 
-              type="file" 
-              accept="image/*"
-              onChange={handleImageFileChange}
-              className="hidden" 
-              id="admin-image-upload-file" 
-            />
-
-            <label
-              htmlFor="admin-image-upload-file"
-              className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:bg-cream transition-colors cursor-pointer flex flex-col items-center justify-center"
-            >
-              <div className="w-12 h-12 bg-primary/5 rounded-full flex items-center justify-center mb-3">
-                {uploading ? (
-                  <Loader2 className="text-primary animate-spin" size={24} />
-                ) : (
-                  <Upload size={24} className="text-primary" />
-                )}
+            {/* Option A: Paste Image URL (Direct Link) */}
+            <div className="mb-6">
+              <label className="block text-[10px] font-bold text-primary uppercase mb-2">
+                Option 1: Add Image by URL (e.g. Cloudinary link)
+              </label>
+              <div className="flex gap-2">
+                <input 
+                  type="text" 
+                  value={imageUrlInput}
+                  onChange={(e) => setImageUrlInput(e.target.value)}
+                  placeholder="Paste Cloudinary secure URL here..."
+                  className="flex-grow border border-gray-300 rounded-lg px-4 py-2 text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-colors text-dark" 
+                />
+                <button
+                  type="button"
+                  onClick={handleAddImageUrl}
+                  className="bg-primary text-white rounded-lg px-4 py-2 text-xs font-semibold hover:bg-primary/95 transition-colors"
+                >
+                  Add URL
+                </button>
               </div>
-              <p className="font-semibold text-xs text-dark">Click to browse from your computer</p>
-              <p className="text-[10px] text-dark/50 mt-1">Image uploads connect to Cloudinary API</p>
-            </label>
+              <p className="text-[10px] text-dark/50 mt-1">Paste your copied image link from your Cloudinary media library.</p>
+            </div>
+
+            <div className="relative flex py-2 items-center mb-6">
+              <div className="flex-grow border-t border-gray-200"></div>
+              <span className="flex-shrink mx-4 text-gray-400 text-[10px] uppercase font-bold">Or</span>
+              <div className="flex-grow border-t border-gray-200"></div>
+            </div>
+
+            {/* Option B: Upload File */}
+            <div className="mb-6">
+              <label className="block text-[10px] font-bold text-primary uppercase mb-2">
+                Option 2: Upload Image File (Local server storage)
+              </label>
+              <input 
+                type="file" 
+                accept="image/*"
+                onChange={handleImageFileChange}
+                className="hidden" 
+                id="admin-image-upload-file" 
+              />
+              <label
+                htmlFor="admin-image-upload-file"
+                className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:bg-cream transition-colors cursor-pointer flex flex-col items-center justify-center"
+              >
+                <div className="w-10 h-10 bg-primary/5 rounded-full flex items-center justify-center mb-2">
+                  {uploading ? (
+                    <Loader2 className="text-primary animate-spin" size={20} />
+                  ) : (
+                    <Upload size={20} className="text-primary" />
+                  )}
+                </div>
+                <p className="font-semibold text-xs text-dark">Click to browse from your computer</p>
+              </label>
+            </div>
 
             {/* Display Uploaded Images */}
             {images.length > 0 && (
-              <div className="flex flex-wrap gap-4 mt-6">
+              <div className="flex flex-wrap gap-4 mt-6 border-t border-gray-100 pt-6">
                 {images.map((url, index) => (
                   <div key={index} className="w-20 aspect-[3/4] border border-cream rounded overflow-hidden relative shadow-sm">
                     <img src={url} alt={`upload-${index}`} className="w-full h-full object-cover" />
