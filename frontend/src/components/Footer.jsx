@@ -60,11 +60,11 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-white">
-          <p>&copy; {new Date().getFullYear()} Veloura. All rights reserved.</p>
+        <div className="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
+          <p className="text-white font-medium">&copy; {new Date().getFullYear()} Veloura. All rights reserved.</p>
           <div className="flex space-x-4 mt-4 md:mt-0">
-            <Link to="/privacy" className="hover:text-gold transition-colors">Privacy Policy</Link>
-            <Link to="/terms" className="hover:text-gold transition-colors">Terms of Service</Link>
+            <Link to="/privacy" className="text-white hover:text-gold transition-colors">Privacy Policy</Link>
+            <Link to="/terms" className="text-white hover:text-gold transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>
