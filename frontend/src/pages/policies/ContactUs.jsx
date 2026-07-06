@@ -37,7 +37,7 @@ const ContactUs = () => {
                 <div className="rounded-xl bg-white border border-cream-dark p-4">
                   <p className="text-xs uppercase tracking-[0.25em] text-gold mb-2">WhatsApp</p>
                   <a
-                    href="https://wa.me/919999999999"
+                    href="https://wa.me/916261802019"
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center gap-2 text-lg font-semibold text-primary hover:text-gold transition-colors"
