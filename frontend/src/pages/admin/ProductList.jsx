@@ -32,6 +32,22 @@ const ProductList = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+    if (window.confirm('Are you sure you want to delete this product?')) {
+      try {
+        const res = await productService.deleteProduct(id);
+        if (res && (res.success || res.status === 'success')) {
+          setProducts((prev) => prev.filter((p) => p.id !== id));
+        } else {
+          alert((res && res.message) || 'Failed to delete product');
+        }
+      } catch (err) {
+        console.error('Error deleting product:', err);
+        alert('Failed to delete product');
+      }
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -85,7 +101,10 @@ const ProductList = () => {
                           <Link to={`/admin/products/edit/${p.id}`} className="p-1.5 text-blue-600 hover:bg-blue-50 rounded transition-colors">
                             <Edit size={16} />
                           </Link>
-                          <button className="p-1.5 text-red-600 hover:bg-red-50 rounded transition-colors">
+                          <button 
+                            onClick={() => handleDelete(p.id)}
+                            className="p-1.5 text-red-600 hover:bg-red-50 rounded transition-colors"
+                          >
                             <Trash2 size={16} />
                           </button>
                         </div>

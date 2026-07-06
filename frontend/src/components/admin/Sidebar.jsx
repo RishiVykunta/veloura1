@@ -1,11 +1,12 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, ShoppingBag, Users, Ticket, 
   Star, Image as ImageIcon, BarChart2, Bell, 
   Settings, LogOut, Package, X
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '../../context/AuthContext';
 
 const menuItems = [
   { name: 'Dashboard', path: '/admin', icon: LayoutDashboard },
@@ -15,6 +16,17 @@ const menuItems = [
 ];
 
 const Sidebar = ({ isOpen, setIsOpen, isMobile }) => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    if (isMobile) {
+      setIsOpen(false);
+    }
+    navigate('/login');
+  };
+
   const content = (
     <div className="h-full flex flex-col bg-white border-r border-cream shadow-premium">
       <div className="p-6 flex justify-between items-center border-b border-cream">
@@ -50,7 +62,10 @@ const Sidebar = ({ isOpen, setIsOpen, isMobile }) => {
       </nav>
 
       <div className="p-4 border-t border-cream">
-        <button className="flex items-center w-full px-4 py-3 text-sm font-medium text-red-500 rounded-lg hover:bg-red-50 transition-colors">
+        <button 
+          onClick={handleLogout}
+          className="flex items-center w-full px-4 py-3 text-sm font-medium text-red-500 rounded-lg hover:bg-red-50 transition-colors"
+        >
           <LogOut size={18} className="mr-3" />
           Logout
         </button>

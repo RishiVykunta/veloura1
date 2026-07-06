@@ -231,13 +231,19 @@ const getProductById = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Get featured products
-// @route   GET /api/v1/products/featured
-// @access  Public
 const getFeaturedProducts = asyncHandler(async (req, res) => {
   try {
-    const { rows } = await query('SELECT * FROM products WHERE is_featured = true AND is_active = true LIMIT 8');
-    if (rows.length === 0) throw new Error('No featured products in DB');
+    let { rows } = await query('SELECT * FROM products WHERE is_featured = true AND is_active = true LIMIT 8');
+    
+    // If no products are explicitly marked as featured, fallback to active products in DB
+    if (rows.length === 0) {
+      const activeResult = await query('SELECT * FROM products WHERE is_active = true LIMIT 8');
+      rows = activeResult.rows;
+    }
+
+    if (rows.length === 0) {
+      throw new Error('No products in DB');
+    }
     
     const data = await Promise.all(rows.map(row => getCompleteProduct(row)));
     res.status(200).json({ success: true, data });
