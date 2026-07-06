@@ -45,6 +45,11 @@ router.post('/image', upload.single('image'), asyncHandler(async (req, res) => {
                         process.env.CLOUDINARY_API_KEY !== '';
 
   if (!hasCloudinary) {
+    if (process.env.VERCEL || process.env.NODE_ENV === 'production') {
+      res.status(500);
+      throw new Error('Cloudinary credentials are not configured. Ephemeral local file uploads are not supported on production serverless platforms (like Vercel). Please configure CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, and CLOUDINARY_API_SECRET in your Vercel environment variables.');
+    }
+
     console.warn('Cloudinary credentials not detected, falling back to local static serving.');
     
     // We return a path pointing to our server's static folder dynamically

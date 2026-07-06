@@ -7,6 +7,19 @@ const { errorHandler, notFound } = require('./middleware/errorMiddleware');
 
 const app = express();
 
+// Trust proxy for secure cookies/headers behind Vercel load balancer/proxy
+app.enable('trust proxy');
+
+// Check Cloudinary config on startup in production
+if (process.env.NODE_ENV === 'production') {
+  const hasCloudinary = process.env.CLOUDINARY_API_KEY && 
+                        process.env.CLOUDINARY_API_KEY !== 'your_api_key' && 
+                        process.env.CLOUDINARY_API_KEY !== '';
+  if (!hasCloudinary) {
+    console.warn('\x1b[33m%s\x1b[0m', 'WARNING: Cloudinary credentials are not configured. Local image uploads will NOT persist on serverless platforms like Vercel!');
+  }
+}
+
 // Security and utility middlewares
 app.use(helmet());
 app.use(cors({

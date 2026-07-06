@@ -94,7 +94,8 @@ const ProductEdit = () => {
       }
     } catch (err) {
       console.error('Error uploading image file:', err);
-      alert('Upload failed: server connection error');
+      const errMsg = err.response?.data?.message || err.message || 'server connection error';
+      alert(`Upload failed: ${errMsg}`);
     } finally {
       setUploading(false);
     }
