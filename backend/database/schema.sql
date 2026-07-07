@@ -105,7 +105,7 @@ CREATE TABLE product_videos (
 CREATE TABLE product_variants (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     product_id UUID REFERENCES products(id) ON DELETE CASCADE,
-    size VARCHAR(20) CHECK (size IN ('XS', 'S', 'M', 'L', 'XL', 'XXL')),
+    size VARCHAR(20) CHECK (size IN ('XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL', 'XXXXL', 'Free Size', 'Default')),
     color VARCHAR(50),
     color_hex VARCHAR(20),
     stock INT DEFAULT 0,
