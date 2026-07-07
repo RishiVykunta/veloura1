@@ -164,7 +164,10 @@ const ProductEdit = () => {
       const parsedDiscountPrice = discountPrice ? parseFloat(discountPrice) : null;
 
       // Compile variants from sizes × colors
+      // SKU includes id (edit) or timestamp (create) to ensure global uniqueness
+      // since product_variants.sku has a @unique constraint in the DB
       const stockVal = parseInt(stockQuantity) || 10;
+      const skuPrefix = isEditMode ? id.slice(0, 8) : Date.now().toString(36);
       const variants = [];
       if (sizes.length > 0 || colors.length > 0) {
         const sizeList = sizes.length > 0 ? sizes : ['Free Size'];
@@ -176,7 +179,7 @@ const ProductEdit = () => {
               color: cl,
               colorHex: '#D4AF37',
               stock: stockVal,
-              sku: `${sku}-${sz}-${cl.replace(/\s+/g, '-').toUpperCase()}`
+              sku: `${skuPrefix}-${sku}-${sz}-${cl.replace(/\s+/g, '-').toUpperCase()}`.toUpperCase()
             });
           });
         });
@@ -228,7 +231,8 @@ const ProductEdit = () => {
       }
     } catch (err) {
       console.error('Error saving product:', err);
-      alert('Failed to save product to catalog');
+      const errMsg = err.response?.data?.message || err.message || 'Failed to save product to catalog';
+      alert(`Error: ${errMsg}`);
     } finally {
       setLoading(false);
     }

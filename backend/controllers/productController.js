@@ -504,26 +504,26 @@ const updateProduct = asyncHandler(async (req, res) => {
       data: rows[0]
     });
   } catch (error) {
-    console.warn('DB update failed, updating mock dataset:', error.message);
+    console.error('DB update failed:', error.message);
+    // Try mock fallback for mock/demo products
     const index = mockProducts.findIndex(p => p.id === id);
-    if (index === -1) {
-      return res.status(404).json({
-        success: false,
-        message: 'Product not found'
+    if (index !== -1) {
+      mockProducts[index] = {
+        ...mockProducts[index],
+        ...req.body,
+        price: price ? parseFloat(price) : mockProducts[index].price,
+        slug: slug || mockProducts[index].slug
+      };
+      return res.status(200).json({
+        success: true,
+        message: 'Product updated successfully (Mock Offline Mode)',
+        data: mockProducts[index]
       });
     }
-    
-    mockProducts[index] = {
-      ...mockProducts[index],
-      ...req.body,
-      price: price ? parseFloat(price) : mockProducts[index].price,
-      slug: slug || mockProducts[index].slug
-    };
-
-    res.status(200).json({
-      success: true,
-      message: 'Product updated successfully (Mock Offline Mode)',
-      data: mockProducts[index]
+    // Real DB product — return the actual error so the frontend can show it
+    return res.status(500).json({
+      success: false,
+      message: error.message || 'Database error while updating product'
     });
   }
 });
