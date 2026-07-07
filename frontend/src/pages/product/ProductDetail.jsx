@@ -330,7 +330,7 @@ const ProductDetail = () => {
                     animate={{ opacity: 1 }}
                     className="mt-3 text-xs leading-relaxed text-dark/70 font-light space-y-3"
                   >
-                    <p>{product.description || product.shortDescription}</p>
+                    <p className="whitespace-pre-line">{product.description || product.shortDescription}</p>
                     {product.features && product.features.length > 0 && (
                       <ul className="list-disc pl-4 space-y-1">
                         {product.features.map((feat, i) => (
@@ -368,7 +368,7 @@ const ProductDetail = () => {
                 </button>
                 {openSection === 'shipping' && (
                   <div className="mt-3 text-xs leading-relaxed text-dark/70 font-light">
-                    <p>{product.shippingInfo || 'Free express delivery on orders above ₹1999. Return/Exchange request can be filed within 14 days of delivery.'}</p>
+                    <p className="whitespace-pre-line">{product.shippingInfo || 'Free express delivery on orders above ₹1999. Return/Exchange request can be filed within 14 days of delivery.'}</p>
                   </div>
                 )}
               </div>

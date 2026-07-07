@@ -19,6 +19,7 @@ const ProductEdit = () => {
   const [discountPrice, setDiscountPrice] = useState('');
   const [categoryId, setCategoryId] = useState('c1111111-1111-1111-1111-111111111111');
   const [tagsText, setTagsText] = useState('Festive, Silk, Green');
+  const [shippingInfo, setShippingInfo] = useState('');
   
   // Flags
   const [isActive, setIsActive] = useState(true);
@@ -59,6 +60,7 @@ const ProductEdit = () => {
             setDiscountPrice(p.discountPrice?.toString() || '');
             setCategoryId(p.categoryId || 'c1111111-1111-1111-1111-111111111111');
             setTagsText(p.tags ? p.tags.join(', ') : '');
+            setShippingInfo(p.shippingInfo || '');
             setIsActive(p.isActive !== false);
             setIsNewArrival(!!p.isNewArrival);
             setIsFeatured(!!p.isFeatured);
@@ -179,7 +181,8 @@ const ProductEdit = () => {
         tags,
         isActive,
         isNewArrival,
-        isFeatured
+        isFeatured,
+        shippingInfo
       };
 
       let res;
@@ -200,6 +203,7 @@ const ProductEdit = () => {
           setPrice('');
           setDiscountPrice('');
           setImages([]);
+          setShippingInfo('');
         } else {
           setTimeout(() => {
             navigate('/admin/products');
@@ -288,6 +292,16 @@ const ProductEdit = () => {
                   onChange={(e) => setDescription(e.target.value)}
                   className="w-full border border-gray-300 rounded-lg px-4 py-2 text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-colors text-dark" 
                   placeholder="Detailed material composition, styling guidelines, and features..."
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-primary uppercase mb-1">Shipping & Returns</label>
+                <textarea 
+                  rows="3" 
+                  value={shippingInfo}
+                  onChange={(e) => setShippingInfo(e.target.value)}
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-colors text-dark" 
+                  placeholder="Shipping details and return policy..."
                 />
               </div>
             </div>
