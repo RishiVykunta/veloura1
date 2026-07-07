@@ -5,6 +5,7 @@ import { Heart, MessageCircle, ArrowLeft, Star, ChevronDown, Check, Ruler, X } f
 import { productService } from '../../services/product.service';
 
 const WHATSAPP_NUMBER = '916261802019';
+const SITE_URL = 'https://veloura.in';
 
 const ProductDetail = () => {
   const { slug } = useParams();
@@ -108,7 +109,7 @@ const ProductDetail = () => {
 
   const hasDiscount = product.discountPrice !== null && product.discountPrice !== undefined;
   const displayPrice = hasDiscount ? product.discountPrice : product.price;
-  const productLink = typeof window !== 'undefined' ? window.location.href : '';
+  const productLink = `${SITE_URL}/product/${product.slug}`;
   const selectedDetails = [
     selectedSize && `Size: ${selectedSize}`,
     selectedColor && `Color: ${selectedColor}`,
