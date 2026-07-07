@@ -325,7 +325,7 @@ const Shop = () => {
                         </Link>
                         
                         {/* Rating */}
-                        {product.averageRating && (
+                        {product.averageRating > 0 && (
                           <div className="flex items-center gap-1 mt-1 text-[11px] text-dark/60">
                             <span className="text-gold">★</span>
                             <span>{product.averageRating} ({product.totalReviews || 0})</span>

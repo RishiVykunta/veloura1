@@ -187,7 +187,7 @@ const ProductDetail = () => {
             </div>
 
             {/* Rating summary */}
-            {product.averageRating && (
+            {product.averageRating > 0 && (
               <div className="flex items-center gap-1 text-xs text-dark/70 pb-6 border-b border-cream">
                 <div className="flex text-gold">
                   {[...Array(5)].map((_, i) => (
