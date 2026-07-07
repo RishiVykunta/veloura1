@@ -42,7 +42,7 @@ const Navbar = () => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b-4 border-primary bg-header h-[72px] md:h-auto md:border-b-[3px] ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b-4 border-primary bg-primary h-[72px] md:h-auto md:border-b-[3px] ${
           isScrolled ? 'shadow-premium md:py-3' : 'md:py-4'
         }`}
       >
@@ -50,12 +50,12 @@ const Navbar = () => {
           {/* Left side: Mobile Menu Toggle + Account icon (mobile) / Logo (desktop) */}
           <div className="flex items-center gap-3">
             <button 
-              className="md:hidden text-primary"
+              className="md:hidden text-white hover:text-gold transition-colors"
               onClick={() => setMobileMenuOpen(true)}
             >
               <Menu size={24} />
             </button>
-            <Link to={user ? "/profile" : "/login"} className="md:hidden hover:text-gold transition-colors text-primary">
+            <Link to={user ? "/profile" : "/login"} className="md:hidden hover:text-gold transition-colors text-white">
               <User size={20} />
             </Link>
           </div>
@@ -67,10 +67,10 @@ const Navbar = () => {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link to={homeSectionLink('new-arrivals')} className="text-dark hover:text-gold transition-colors font-medium">New Arrivals</Link>
-            <Link to={homeSectionLink('shop')} className="text-dark hover:text-gold transition-colors font-medium">Shop</Link>
+            <Link to={homeSectionLink('new-arrivals')} className="text-white hover:text-gold transition-colors font-medium">New Arrivals</Link>
+            <Link to={homeSectionLink('shop')} className="text-white hover:text-gold transition-colors font-medium">Shop</Link>
             <div className="group relative py-2">
-              <Link to={homeSectionLink('collections')} className="text-dark group-hover:text-gold transition-colors font-medium">Collections</Link>
+              <Link to={homeSectionLink('collections')} className="text-white group-hover:text-gold transition-colors font-medium">Collections</Link>
               <div className="absolute top-full -left-4 w-48 bg-white border border-cream/50 shadow-premium rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 flex flex-col z-50 overflow-hidden transform translate-y-2 group-hover:translate-y-0">
                 <Link to="/shop?category=sharara" className="px-5 py-3 text-sm font-medium text-dark hover:text-gold hover:bg-cream/20 transition-colors border-b border-cream/30">Sharara</Link>
                 <Link to="/shop?category=tops" className="px-5 py-3 text-sm font-medium text-dark hover:text-gold hover:bg-cream/20 transition-colors border-b border-cream/30">Tops</Link>
@@ -78,11 +78,11 @@ const Navbar = () => {
                 <Link to="/shop?category=long-kurti" className="px-5 py-3 text-sm font-medium text-dark hover:text-gold hover:bg-cream/20 transition-colors">Long Kurti</Link>
               </div>
             </div>
-            <Link to={homeSectionLink('about')} className="text-dark hover:text-gold transition-colors font-medium">About</Link>
+            <Link to={homeSectionLink('about')} className="text-white hover:text-gold transition-colors font-medium">About</Link>
           </nav>
 
           {/* Right side Icons */}
-          <div className="flex items-center space-x-4 text-primary">
+          <div className="flex items-center space-x-4 text-white">
             <button onClick={() => setSearchOpen(true)} className="hover:text-gold transition-colors" aria-label="Search">
               <Search size={20} />
             </button>
