@@ -320,13 +320,13 @@ const getNewArrivals = asyncHandler(async (req, res) => {
 // @route   POST /api/v1/products/create
 // @access  Private/Admin
 const createProduct = asyncHandler(async (req, res) => {
-  const { name, description, price, discountPrice, sku, categoryId, images, variants, features, tags, isActive, isNewArrival, isFeatured, shippingInfo } = req.body;
+  const { name, description, price, discountPrice, sku, categoryId, images, variants, features, tags, isActive, isNewArrival, isFeatured, shippingInfo, material } = req.body;
   const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
 
   try {
     const { rows } = await query(
-      `INSERT INTO products (name, slug, description, sku, category_id, price, discount_price, stock_quantity, is_active, is_featured, is_new_arrival, shipping_info)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *`,
+      `INSERT INTO products (name, slug, description, sku, category_id, price, discount_price, stock_quantity, is_active, is_featured, is_new_arrival, shipping_info, material)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *`,
       [
         name, 
         slug, 
@@ -339,7 +339,8 @@ const createProduct = asyncHandler(async (req, res) => {
         isActive !== false, 
         !!isFeatured, 
         !!isNewArrival,
-        shippingInfo || null
+        shippingInfo || null,
+        material || null
       ]
     );
 
@@ -393,6 +394,7 @@ const createProduct = asyncHandler(async (req, res) => {
       price: parseFloat(price),
       categoryId,
       shippingInfo,
+      material,
       images: images ? images.map(url => ({ imageUrl: url, isPrimary: url === images[0] })) : [],
       variants: variants || [],
       features: features || [],
@@ -414,7 +416,7 @@ const createProduct = asyncHandler(async (req, res) => {
 // @access  Private/Admin
 const updateProduct = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { name, description, price, discountPrice, sku, categoryId, images, variants, features, tags, isActive, isNewArrival, isFeatured, shippingInfo } = req.body;
+  const { name, description, price, discountPrice, sku, categoryId, images, variants, features, tags, isActive, isNewArrival, isFeatured, shippingInfo, material } = req.body;
   const slug = name ? name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '') : undefined;
 
   try {
@@ -430,8 +432,9 @@ const updateProduct = asyncHandler(async (req, res) => {
            is_active = $8,
            is_featured = $9,
            is_new_arrival = $10,
-           shipping_info = $11
-       WHERE id = $12 RETURNING *`,
+           shipping_info = $11,
+           material = $12
+       WHERE id = $13 RETURNING *`,
       [
         name, 
         slug, 
@@ -444,6 +447,7 @@ const updateProduct = asyncHandler(async (req, res) => {
         !!isFeatured,
         !!isNewArrival,
         shippingInfo || null,
+        material || null,
         id
       ]
     );

@@ -32,6 +32,7 @@ const ProductEdit = () => {
   const [categoryId, setCategoryId] = useState('c1111111-1111-1111-1111-111111111111');
   const [tagsText, setTagsText] = useState('Festive, Silk, Green');
   const [shippingInfo, setShippingInfo] = useState('');
+  const [material, setMaterial] = useState('');
   
   // Flags
   const [isActive, setIsActive] = useState(true);
@@ -73,6 +74,7 @@ const ProductEdit = () => {
             setCategoryId(p.categoryId || 'c1111111-1111-1111-1111-111111111111');
             setTagsText(p.tags ? p.tags.join(', ') : '');
             setShippingInfo(p.shippingInfo || '');
+            setMaterial(p.material || '');
             setIsActive(p.isActive !== false);
             setIsNewArrival(!!p.isNewArrival);
             setIsFeatured(!!p.isFeatured);
@@ -194,7 +196,8 @@ const ProductEdit = () => {
         isActive,
         isNewArrival,
         isFeatured,
-        shippingInfo
+        shippingInfo,
+        material
       };
 
       let res;
@@ -216,6 +219,7 @@ const ProductEdit = () => {
           setDiscountPrice('');
           setImages([]);
           setShippingInfo('');
+          setMaterial('');
         } else {
           setTimeout(() => {
             navigate('/admin/products');
@@ -314,6 +318,16 @@ const ProductEdit = () => {
                   onChange={(e) => setShippingInfo(e.target.value)}
                   className="w-full border border-gray-300 rounded-lg px-4 py-2 text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-colors text-dark" 
                   placeholder="Shipping details and return policy..."
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-primary uppercase mb-1">Composition & Material</label>
+                <input 
+                  type="text" 
+                  value={material}
+                  onChange={(e) => setMaterial(e.target.value)}
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-colors text-dark" 
+                  placeholder="e.g., Premium Silk, Soft Inner Lining" 
                 />
               </div>
             </div>
