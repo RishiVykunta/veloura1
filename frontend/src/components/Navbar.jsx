@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Search, Heart, User, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
+import { productService } from '../services/product.service';
 
 const Navbar = () => {
   const { user } = useAuth();
@@ -11,6 +12,8 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+  const [loadingSuggestions, setLoadingSuggestions] = useState(false);
   const searchInputRef = useRef(null);
 
   useEffect(() => {
@@ -27,6 +30,46 @@ const Navbar = () => {
       setTimeout(() => searchInputRef.current?.focus(), 50);
     }
   }, [searchOpen]);
+
+  // Close search overlay on Escape press
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setSearchOpen(false);
+        setSearchQuery('');
+      }
+    };
+    if (searchOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [searchOpen]);
+
+  // Debounced live search suggestions fetching
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      setSuggestions([]);
+      return;
+    }
+
+    const delayDebounceFn = setTimeout(async () => {
+      setLoadingSuggestions(true);
+      try {
+        const res = await productService.getProducts({ search: searchQuery.trim() });
+        if (res.success && res.data) {
+          setSuggestions(res.data.slice(0, 5));
+        }
+      } catch (err) {
+        console.error('Error fetching search suggestions:', err);
+      } finally {
+        setLoadingSuggestions(false);
+      }
+    }, 300);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchQuery]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -167,6 +210,9 @@ const Navbar = () => {
                   placeholder="Search products..."
                   className="w-full bg-white pl-12 pr-14 py-4 text-base text-dark rounded-lg shadow-2xl outline-none focus:ring-2 focus:ring-gold"
                 />
+                {loadingSuggestions ? (
+                  <div className="absolute right-12 top-1/2 -translate-y-1/2 animate-spin rounded-full h-4 w-4 border-b-2 border-gold" />
+                ) : null}
                 <button
                   type="button"
                   onClick={() => { setSearchOpen(false); setSearchQuery(''); }}
@@ -175,6 +221,58 @@ const Navbar = () => {
                   <X size={20} />
                 </button>
               </form>
+
+              {/* Autocomplete Suggestions Box */}
+              {searchQuery.trim() && (
+                <div className="mt-2 bg-white rounded-lg shadow-2xl overflow-hidden border border-cream/50 z-[110] relative max-h-[350px] overflow-y-auto">
+                  {loadingSuggestions && suggestions.length === 0 ? (
+                    <div className="p-4 text-center text-xs text-dark/50">Searching for products...</div>
+                  ) : suggestions.length > 0 ? (
+                    <div className="divide-y divide-cream/30">
+                      {suggestions.map((prod) => {
+                        const hasDiscount = prod.discountPrice !== null && prod.discountPrice !== undefined;
+                        const displayPrice = hasDiscount ? prod.discountPrice : prod.price;
+                        const mainImg = prod.images?.[0]?.imageUrl || prod.primaryImage || 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=100';
+                        return (
+                          <button
+                            key={prod.id}
+                            onClick={() => {
+                              navigate(`/product/${prod.slug}`);
+                              setSearchOpen(false);
+                              setSearchQuery('');
+                            }}
+                            className="w-full text-left p-3 hover:bg-cream/10 flex items-center gap-3 transition-colors duration-200"
+                          >
+                            <img
+                              src={mainImg}
+                              alt={prod.name}
+                              className="w-10 h-12 object-cover rounded bg-cream/20 flex-shrink-0"
+                            />
+                            <div className="flex-1 min-w-0">
+                              <h4 className="font-semibold text-xs text-primary truncate">{prod.name}</h4>
+                              <p className="text-[10px] text-dark/60 mt-0.5 uppercase tracking-wider">{prod.collectionType || 'Exclusive drop'}</p>
+                            </div>
+                            <div className="text-right">
+                              <span className="text-xs font-bold text-primary">₹{displayPrice}</span>
+                              {hasDiscount && (
+                                <span className="text-[10px] text-dark/45 line-through ml-1.5 font-normal">₹{prod.price}</span>
+                              )}
+                            </div>
+                          </button>
+                        );
+                      })}
+                      <button
+                        onClick={handleSearch}
+                        className="w-full text-center p-2.5 bg-cream/5 hover:bg-cream/10 text-xs font-semibold text-gold transition-colors duration-200 border-t border-cream/30"
+                      >
+                        View all results for "{searchQuery}"
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="p-4 text-center text-xs text-dark/50">No products found matching "{searchQuery}"</div>
+                  )}
+                </div>
+              )}
               <p className="text-white/60 text-xs text-center mt-3">Press Enter to search · Esc to close</p>
             </motion.div>
           </motion.div>
