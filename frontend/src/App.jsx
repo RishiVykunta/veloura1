@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home';
@@ -30,10 +30,19 @@ import AnalyticsView from './pages/admin/AnalyticsView';
 import NotificationsView from './pages/admin/NotificationsView';
 import SettingsView from './pages/admin/SettingsView';
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [pathname]);
+  return null;
+}
+
 function App() {
   return (
     <AuthProvider>
       <Router>
+        <ScrollToTop />
         <Routes>
           {/* Customer Storefront Routes */}
           <Route path="/" element={<MainLayout />}>
