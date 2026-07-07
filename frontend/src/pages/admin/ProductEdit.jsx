@@ -5,6 +5,18 @@ import { Upload, X, Save, Loader2, CheckCircle2 } from 'lucide-react';
 import { uploadService } from '../../services/upload.service';
 import { productService } from '../../services/product.service';
 
+const standardOrder = ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
+const sortSizes = (sizeArray) => {
+  return [...sizeArray].sort((a, b) => {
+    const idxA = standardOrder.indexOf(a);
+    const idxB = standardOrder.indexOf(b);
+    if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+    if (idxA !== -1) return -1;
+    if (idxB !== -1) return 1;
+    return a.localeCompare(b);
+  });
+};
+
 const ProductEdit = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -69,7 +81,7 @@ const ProductEdit = () => {
               // Extract unique sizes and colors from variants
               const uniqueSizes = [...new Set(p.variants.map(v => v.size).filter(Boolean))];
               const uniqueColors = [...new Set(p.variants.map(v => v.color).filter(Boolean))];
-              setSizes(uniqueSizes);
+              setSizes(sortSizes(uniqueSizes));
               setColors(uniqueColors);
               setStockQuantity(p.variants[0]?.stock?.toString() || '10');
             }
@@ -118,12 +130,12 @@ const ProductEdit = () => {
   const addSize = () => {
     const val = sizeInput.trim().toUpperCase();
     if (!val || sizes.includes(val)) { setSizeInput(''); return; }
-    setSizes(prev => [...prev, val]);
+    setSizes(prev => sortSizes([...prev, val]));
     setSizeInput('');
     sizeInputRef.current?.focus();
   };
 
-  const removeSize = (s) => setSizes(prev => prev.filter(x => x !== s));
+  const removeSize = (s) => setSizes(prev => sortSizes(prev.filter(x => x !== s)));
 
   const addColor = () => {
     const val = colorInput.trim();
@@ -406,6 +418,31 @@ const ProductEdit = () => {
             {/* Sizes */}
             <div>
               <h3 className="text-base font-heading font-bold text-primary mb-3">Sizes</h3>
+              <div className="flex flex-wrap gap-2 mb-3">
+                {['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'].map((sz) => {
+                  const isSelected = sizes.includes(sz);
+                  return (
+                    <button
+                      key={sz}
+                      type="button"
+                      onClick={() => {
+                        if (isSelected) {
+                          setSizes(prev => sortSizes(prev.filter(x => x !== sz)));
+                        } else {
+                          setSizes(prev => sortSizes([...prev, sz]));
+                        }
+                      }}
+                      className={`px-3 py-1.5 border text-xs font-semibold rounded-lg transition-colors ${
+                        isSelected
+                          ? 'bg-gold border-gold text-white shadow-premium'
+                          : 'bg-white border-gray-200 text-primary hover:border-gold'
+                      }`}
+                    >
+                      {sz}
+                    </button>
+                  );
+                })}
+              </div>
               <div className="flex gap-2">
                 <input
                   ref={sizeInputRef}
@@ -413,7 +450,7 @@ const ProductEdit = () => {
                   value={sizeInput}
                   onChange={e => setSizeInput(e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && addSize()}
-                  placeholder="Add size (e.g. S, M, L, XL)"
+                  placeholder="Add custom size (e.g. Free Size)"
                   className="flex-1 border border-gray-200 rounded-lg px-4 py-2.5 text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-colors text-dark"
                 />
                 <button
@@ -421,7 +458,7 @@ const ProductEdit = () => {
                   onClick={addSize}
                   className="px-5 py-2.5 border border-gray-200 rounded-lg text-xs font-semibold text-primary hover:bg-cream/60 transition-colors"
                 >
-                  Add
+                  Add Custom
                 </button>
               </div>
               {sizes.length > 0 && (
