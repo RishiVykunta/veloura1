@@ -8,7 +8,7 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#0A224E', // Deep Navy (Footer/Primary)
+          DEFAULT: '#0c1d3b', // Deep Navy (Footer/Primary)
           light: '#1A365D',
           dark: '#051124',
         },
