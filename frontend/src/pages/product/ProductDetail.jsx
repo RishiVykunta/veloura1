@@ -3,6 +3,8 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Heart, MessageCircle, ArrowLeft, Star, ChevronDown, Check, Ruler, X } from 'lucide-react';
 import { productService } from '../../services/product.service';
+import { useAuth } from '../../context/AuthContext';
+import AuthPromptModal from '../../components/modals/AuthPromptModal';
 
 const WHATSAPP_NUMBER = '916261802019';
 const SITE_URL = 'https://veloura.in';
@@ -18,6 +20,8 @@ const ProductDetail = () => {
   const [selectedColor, setSelectedColor] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [wishlisted, setWishlisted] = useState(false);
+  const [showAuthPrompt, setShowAuthPrompt] = useState(false);
+  const { user } = useAuth();
 
   // Accordion Toggle States
   const [openSection, setOpenSection] = useState('details');
@@ -284,23 +288,31 @@ const ProductDetail = () => {
 
             {/* ACTION TRIGGERS */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4 pb-8 border-b border-cream">
-              <a
-                href={orderWhatsappUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="flex-grow btn-primary flex items-center justify-center gap-2 py-3"
+              <button
+                onClick={() => {
+                  if (!user) {
+                    setShowAuthPrompt(true);
+                  } else {
+                    window.open(orderWhatsappUrl, '_blank', 'noopener,noreferrer');
+                  }
+                }}
+                className="flex-grow btn-primary flex items-center justify-center gap-2 py-3 cursor-pointer"
               >
                 <MessageCircle size={18} /> Order on WhatsApp
-              </a>
+              </button>
               
-              <a
-                href={enquiryWhatsappUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="flex-grow py-3 px-4 border border-gold text-gold rounded flex items-center justify-center gap-2 font-semibold hover:bg-gold/5 transition-all"
+              <button
+                onClick={() => {
+                  if (!user) {
+                    setShowAuthPrompt(true);
+                  } else {
+                    window.open(enquiryWhatsappUrl, '_blank', 'noopener,noreferrer');
+                  }
+                }}
+                className="flex-grow py-3 px-4 border border-gold text-gold rounded flex items-center justify-center gap-2 font-semibold hover:bg-gold/5 transition-all cursor-pointer"
               >
                 <MessageCircle size={18} /> Enquire on WhatsApp
-              </a>
+              </button>
               
               <button
                 onClick={handleWishlistToggle}
@@ -314,6 +326,13 @@ const ProductDetail = () => {
                 {wishlisted ? 'Saved' : 'Save to wishlist'}
               </button>
             </div>
+
+            {/* Auth Prompt Modal */}
+            <AuthPromptModal
+              isOpen={showAuthPrompt}
+              onClose={() => setShowAuthPrompt(false)}
+              redirectPath={`/product/${slug}`}
+            />
 
             {/* ACCORDION DETAILS PANELS */}
             <div className="mt-8 space-y-4">

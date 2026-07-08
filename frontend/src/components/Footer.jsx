@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Instagram, Link2, Youtube, MessageCircle } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
+import AuthPromptModal from './modals/AuthPromptModal';
 
 const Footer = () => {
+  const { user } = useAuth();
+  const [showAuthPrompt, setShowAuthPrompt] = useState(false);
+
+  const handleWhatsAppCommunityClick = (e) => {
+    if (!user) {
+      e.preventDefault();
+      setShowAuthPrompt(true);
+    }
+  };
+
   return (
     <footer className="bg-primary text-white pt-16 pb-8">
       <div className="container mx-auto px-4 md:px-8">
@@ -52,6 +64,7 @@ const Footer = () => {
               href="https://chat.whatsapp.com/L20A3W4hJ8A4dqwi2YjwYz"
               target="_blank"
               rel="noreferrer"
+              onClick={handleWhatsAppCommunityClick}
               className="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-semibold text-sm px-5 py-3 rounded-lg transition-colors shadow-lg w-full justify-center"
             >
               <MessageCircle size={20} className="flex-shrink-0" />
@@ -68,8 +81,15 @@ const Footer = () => {
           </div>
         </div>
       </div>
+
+      {/* Auth Prompt Modal */}
+      <AuthPromptModal
+        isOpen={showAuthPrompt}
+        onClose={() => setShowAuthPrompt(false)}
+      />
     </footer>
   );
 };
 
 export default Footer;
+

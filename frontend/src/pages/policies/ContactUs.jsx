@@ -1,6 +1,19 @@
+import React, { useState } from 'react';
 import { MessageCircle } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
+import AuthPromptModal from '../../components/modals/AuthPromptModal';
 
 const ContactUs = () => {
+  const { user } = useAuth();
+  const [showAuthPrompt, setShowAuthPrompt] = useState(false);
+
+  const handleWhatsAppClick = (e) => {
+    if (!user) {
+      e.preventDefault();
+      setShowAuthPrompt(true);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <section className="bg-primary text-white py-16 md:py-20">
@@ -40,6 +53,7 @@ const ContactUs = () => {
                     href="https://wa.me/916261802019"
                     target="_blank"
                     rel="noreferrer"
+                    onClick={handleWhatsAppClick}
                     className="inline-flex items-center gap-2 text-lg font-semibold text-primary hover:text-gold transition-colors"
                   >
                     <MessageCircle size={18} className="text-[#25D366]" />
@@ -69,8 +83,16 @@ const ContactUs = () => {
           </div>
         </div>
       </section>
+
+      {/* Auth Prompt Modal */}
+      <AuthPromptModal
+        isOpen={showAuthPrompt}
+        onClose={() => setShowAuthPrompt(false)}
+        redirectPath="/contact"
+      />
     </div>
   );
 };
 
 export default ContactUs;
+

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { motion } from 'framer-motion';
 
@@ -10,6 +10,8 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirectTo = searchParams.get('redirect') || '/';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +24,7 @@ const Login = () => {
         if (response.user.role === 'admin') {
           navigate('/admin');
         } else {
-          navigate('/');
+          navigate(redirectTo);
         }
       } else {
         setError('Invalid email or password. Please try again.');
@@ -156,7 +158,7 @@ const Login = () => {
 
             <div className="mt-6">
               <Link
-                to="/register"
+                to={`/register${redirectTo !== '/' ? `?redirect=${encodeURIComponent(redirectTo)}` : ''}`}
                 className="w-full flex justify-center btn-outline text-sm"
               >
                 Create an account

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { motion } from 'framer-motion';
 
@@ -12,6 +12,8 @@ const Register = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirectTo = searchParams.get('redirect') || '/';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,7 +23,7 @@ const Register = () => {
     try {
       const response = await register({ firstName, lastName, email, password });
       if (response && response.success) {
-        navigate('/');
+        navigate(redirectTo);
       } else {
         setError('Registration failed. Please check your details and try again.');
       }
@@ -173,7 +175,7 @@ const Register = () => {
 
             <div className="mt-6">
               <Link
-                to="/login"
+                to={`/login${redirectTo !== '/' ? `?redirect=${encodeURIComponent(redirectTo)}` : ''}`}
                 className="w-full flex justify-center btn-outline text-sm"
               >
                 Sign in
