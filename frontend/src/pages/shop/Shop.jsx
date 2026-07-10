@@ -295,7 +295,7 @@ const Shop = () => {
                       </div>
 
                       {/* Image Frame */}
-                      <div className="relative aspect-[3/4] overflow-hidden bg-cream/25">
+                      <Link to={`/product/${product.slug}`} className="block relative aspect-[3/4] overflow-hidden bg-cream/25">
                         <img
                           src={primaryImage}
                           alt={product.name}
@@ -303,15 +303,14 @@ const Shop = () => {
                         />
                         {/* Hover Overlay */}
                         <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
-                          <Link
-                            to={`/product/${product.slug}`}
+                          <div
                             className="bg-white text-primary p-2.5 rounded-full shadow hover:bg-gold hover:text-white transition-colors"
                             title="View Details"
                           >
                             <Eye size={16} />
-                          </Link>
+                          </div>
                         </div>
-                      </div>
+                      </Link>
 
                       {/* Info Frame */}
                       <div className="p-3 md:p-5">

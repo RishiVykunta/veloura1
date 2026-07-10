@@ -38,16 +38,16 @@ const ProductCard = ({ product }) => {
         )}
       </div>
 
-      <div className="aspect-[3/4] bg-cream/20 overflow-hidden relative">
+      <Link to={`/product/${product.slug}`} className="block aspect-[3/4] bg-cream/20 overflow-hidden relative">
         <img 
           src={images[currentIdx]} 
           alt={product.name} 
           className="w-full h-full object-cover group-hover:scale-102 transition-all duration-500" 
         />
         <div className="absolute inset-0 bg-primary/25 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
-          <Link to={`/product/${product.slug}`} className="bg-white text-primary p-2.5 rounded-full shadow hover:bg-gold hover:text-white transition-colors">
+          <div className="bg-white text-primary p-2.5 rounded-full shadow hover:bg-gold hover:text-white transition-colors">
             <Eye size={16} />
-          </Link>
+          </div>
         </div>
         {images.length > 1 && (
           <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-20">
@@ -59,7 +59,7 @@ const ProductCard = ({ product }) => {
             ))}
           </div>
         )}
-      </div>
+      </Link>
       <div className="p-4">
         <span className="text-[9px] text-gold uppercase tracking-widest font-semibold">{product.collectionType || 'Luxury Pieces'}</span>
         <h3 className="font-heading font-bold text-primary text-sm truncate mt-0.5">{product.name}</h3>

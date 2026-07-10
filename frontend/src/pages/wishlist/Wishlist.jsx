@@ -134,24 +134,26 @@ const Wishlist = () => {
                     </div>
 
                     <div className="aspect-[3/4] bg-cream/20 overflow-hidden relative">
-                      <img
-                        src={primaryImage}
-                        alt={product.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
+                      <Link to={`/product/${product.slug}`} className="block w-full h-full">
+                        <img
+                          src={primaryImage}
+                          alt={product.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </Link>
 
                       {/* Actions overlay */}
-                      <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
+                      <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3 pointer-events-none">
                         <Link
                           to={`/product/${product.slug}`}
-                          className="bg-white text-primary p-2 rounded-full hover:bg-gold hover:text-white transition-colors shadow"
+                          className="bg-white text-primary p-2 rounded-full hover:bg-gold hover:text-white transition-colors shadow pointer-events-auto"
                           title="View Details"
                         >
                           <Eye size={14} />
                         </Link>
                         <button
                           onClick={() => removeWish(product.slug)}
-                          className="bg-white text-red-500 p-2 rounded-full hover:bg-red-500 hover:text-white transition-colors shadow"
+                          className="bg-white text-red-500 p-2 rounded-full hover:bg-red-500 hover:text-white transition-colors shadow pointer-events-auto"
                           title="Remove from Wishlist"
                         >
                           <Trash2 size={14} />
