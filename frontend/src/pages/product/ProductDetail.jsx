@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Heart, MessageCircle, ArrowLeft, Star, ChevronDown, Check, Ruler, X } from 'lucide-react';
+import { Heart, MessageCircle, ArrowLeft, Star, ChevronDown, Check, Ruler, X, Share2, Copy } from 'lucide-react';
 import { productService } from '../../services/product.service';
 import { useAuth } from '../../context/AuthContext';
 import AuthPromptModal from '../../components/modals/AuthPromptModal';
@@ -21,6 +21,8 @@ const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const [wishlisted, setWishlisted] = useState(false);
   const [showAuthPrompt, setShowAuthPrompt] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [copied, setCopied] = useState(false);
   const { user } = useAuth();
 
   // Accordion Toggle States
@@ -89,6 +91,33 @@ const ProductDetail = () => {
     }
 
     localStorage.setItem('veloura_wishlist', JSON.stringify(currentWishlist));
+  };
+
+  const handleShare = async () => {
+    const shareData = {
+      title: product.name,
+      text: product.shortDescription || `Check out ${product.name} on Veloura!`,
+      url: window.location.href,
+    };
+
+    if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+      try {
+        await navigator.share(shareData);
+      } catch (error) {
+        if (error.name !== 'AbortError') {
+          console.error('Error sharing product:', error);
+          setShowShareModal(true);
+        }
+      }
+    } else {
+      setShowShareModal(true);
+    }
+  };
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   if (loading) {
@@ -314,17 +343,27 @@ const ProductDetail = () => {
                 <MessageCircle size={18} /> Enquire on WhatsApp
               </button>
               
-              <button
-                onClick={handleWishlistToggle}
-                className={`py-3 px-4 border rounded flex items-center justify-center gap-2 transition-all ${
-                  wishlisted
-                    ? 'border-gold text-gold bg-gold/5 font-semibold'
-                    : 'border-cream text-dark/70 hover:border-gold hover:text-gold bg-white'
-                }`}
-              >
-                <Heart size={18} fill={wishlisted ? 'currentColor' : 'none'} />
-                {wishlisted ? 'Saved' : 'Save to wishlist'}
-              </button>
+              <div className="flex gap-4 sm:flex-shrink-0">
+                <button
+                  onClick={handleWishlistToggle}
+                  className={`flex-1 sm:flex-initial py-3 px-4 border rounded flex items-center justify-center gap-2 transition-all ${
+                    wishlisted
+                      ? 'border-gold text-gold bg-gold/5 font-semibold'
+                      : 'border-cream text-dark/70 hover:border-gold hover:text-gold bg-white'
+                  }`}
+                >
+                  <Heart size={18} fill={wishlisted ? 'currentColor' : 'none'} />
+                  {wishlisted ? 'Saved' : 'Save'}
+                </button>
+
+                <button
+                  onClick={handleShare}
+                  className="flex-1 sm:flex-initial py-3 px-4 border border-cream text-dark/70 hover:border-gold hover:text-gold bg-white rounded flex items-center justify-center gap-2 transition-all cursor-pointer"
+                >
+                  <Share2 size={18} />
+                  <span>Share</span>
+                </button>
+              </div>
             </div>
 
             {/* Auth Prompt Modal */}
@@ -484,6 +523,92 @@ const ProductDetail = () => {
               <p className="text-[9px] text-dark/40 mt-3 text-center">
                 * All measurements listed are in inches. Body measurements may vary slightly.
               </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Share Modal */}
+      {showShareModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-dark/50 backdrop-blur-sm p-4">
+          <div className="bg-white max-w-md w-full rounded shadow-premium border border-cream overflow-hidden">
+            <div className="p-5 border-b border-cream flex justify-between items-center bg-cream/10">
+              <div className="flex items-center gap-2">
+                <Share2 size={16} className="text-gold" />
+                <h3 className="font-heading font-bold text-primary text-base">Share Product</h3>
+              </div>
+              <button
+                onClick={() => setShowShareModal(false)}
+                className="text-dark/40 hover:text-dark transition-colors cursor-pointer"
+              >
+                <X size={18} />
+              </button>
+            </div>
+            
+            <div className="p-6 space-y-6">
+              {/* Product Preview Card */}
+              <div className="flex gap-4 p-3 bg-cream/20 rounded border border-cream/50">
+                <div className="w-16 h-20 flex-shrink-0 rounded overflow-hidden border border-cream bg-white">
+                  <img src={activeImage} alt={product.name} className="w-full h-full object-cover" />
+                </div>
+                <div className="flex flex-col justify-center">
+                  <h4 className="font-semibold text-primary text-sm line-clamp-1">{product.name}</h4>
+                  <p className="text-gold font-bold text-sm mt-1">₹{displayPrice}</p>
+                </div>
+              </div>
+
+              {/* Social/Direct Share Options */}
+              <div className="grid grid-cols-2 gap-3">
+                {/* Copy Link */}
+                <button
+                  onClick={handleCopyLink}
+                  className="flex items-center gap-3 p-3 border border-cream rounded hover:border-gold hover:bg-gold/5 transition-all text-left text-xs font-semibold text-primary cursor-pointer"
+                >
+                  {copied ? (
+                    <Check size={18} className="text-success" />
+                  ) : (
+                    <Copy size={18} className="text-dark/60" />
+                  )}
+                  <span>{copied ? 'Link Copied!' : 'Copy Link'}</span>
+                </button>
+
+                {/* WhatsApp */}
+                <a
+                  href={`https://wa.me/?text=${encodeURIComponent(`Check out this premium collection: ${product.name} at ₹${displayPrice}. Link: ${window.location.href}`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 p-3 border border-cream rounded hover:border-gold hover:bg-gold/5 transition-all text-left text-xs font-semibold text-primary cursor-pointer"
+                >
+                  <MessageCircle size={18} className="text-[#25D366]" />
+                  <span>WhatsApp</span>
+                </a>
+
+                {/* Facebook */}
+                <a
+                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 p-3 border border-cream rounded hover:border-gold hover:bg-gold/5 transition-all text-left text-xs font-semibold text-primary cursor-pointer"
+                >
+                  <svg className="w-[18px] h-[18px] text-[#1877F2]" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  </svg>
+                  <span>Facebook</span>
+                </a>
+
+                {/* Twitter / X */}
+                <a
+                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Check out this beautiful item on Veloura: ${product.name}`)}&url=${encodeURIComponent(window.location.href)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 p-3 border border-cream rounded hover:border-gold hover:bg-gold/5 transition-all text-left text-xs font-semibold text-primary cursor-pointer"
+                >
+                  <svg className="w-[18px] h-[18px] text-dark" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                  </svg>
+                  <span>Twitter / X</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
