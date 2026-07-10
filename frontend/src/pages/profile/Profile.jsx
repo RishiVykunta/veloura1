@@ -172,97 +172,121 @@ const Profile = () => {
 
             {/* Main Content Area */}
             <div className="md:col-span-3">
-              <div className="bg-white p-6 md:p-8 shadow-premium border border-cream space-y-6">
-                <div className="flex justify-between items-center pb-4 border-b border-cream">
-                  <h2 className="text-xl font-heading font-bold text-primary">Account Details</h2>
+              <div className="bg-white shadow-premium border border-cream overflow-hidden">
+
+                {/* Account Details Header */}
+                <div className="bg-gradient-to-r from-primary to-primary/80 px-6 py-5 flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="h-14 w-14 rounded-full bg-gold/20 border-2 border-gold/50 flex items-center justify-center text-2xl font-heading font-bold text-gold uppercase shrink-0">
+                      {user.firstName?.charAt(0) || user.email?.charAt(0) || 'V'}
+                    </div>
+                    <div>
+                      <p className="text-white/60 text-[10px] uppercase tracking-widest font-semibold">Account Details</p>
+                      <h2 className="text-white font-heading font-bold text-lg leading-tight">
+                        {user.firstName || user.email?.split('@')[0] || 'Veloura Member'}
+                        {user.lastName ? ` ${user.lastName}` : ''}
+                      </h2>
+                      <p className="text-white/50 text-xs mt-0.5">{user.email}</p>
+                    </div>
+                  </div>
                   {!isEditingProfile && !isChangingPassword && (
                     <button 
                       onClick={() => setIsEditingProfile(true)}
-                      className="text-gold hover:text-primary text-xs font-bold uppercase flex items-center gap-1 transition-colors"
+                      className="flex items-center gap-1.5 text-gold border border-gold/40 hover:bg-gold hover:text-primary px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider transition-all duration-200 rounded"
                     >
-                      <Edit size={14} /> Edit Profile
+                      <Edit size={12} /> Edit Profile
                     </button>
                   )}
                 </div>
 
-                {/* Alerts */}
-                <AnimatePresence mode="wait">
-                  {errorMsg && (
-                    <motion.div 
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      className="bg-red-50 border-l-4 border-error p-4 text-xs text-error font-medium flex justify-between items-center"
-                    >
-                      <span>{errorMsg}</span>
-                      <button onClick={() => setErrorMsg('')} className="text-error/70 hover:text-error"><X size={14} /></button>
-                    </motion.div>
-                  )}
-                  {successMsg && (
-                    <motion.div 
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      className="bg-green-50 border-l-4 border-success p-4 text-xs text-success font-medium flex justify-between items-center"
-                    >
-                      <span>{successMsg}</span>
-                      <button onClick={() => setSuccessMsg('')} className="text-success/70 hover:text-success"><X size={14} /></button>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <div className="p-6 md:p-8 space-y-6">
+                  {/* Alerts */}
+                  <AnimatePresence mode="wait">
+                    {errorMsg && (
+                      <motion.div 
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        className="bg-red-50 border-l-4 border-error p-4 text-xs text-error font-medium flex justify-between items-center rounded-r"
+                      >
+                        <span>{errorMsg}</span>
+                        <button onClick={() => setErrorMsg('')} className="text-error/70 hover:text-error ml-2 shrink-0"><X size={14} /></button>
+                      </motion.div>
+                    )}
+                    {successMsg && (
+                      <motion.div 
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        className="bg-green-50 border-l-4 border-success p-4 text-xs text-success font-medium flex justify-between items-center rounded-r"
+                      >
+                        <span>{successMsg}</span>
+                        <button onClick={() => setSuccessMsg('')} className="text-success/70 hover:text-success ml-2 shrink-0"><X size={14} /></button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
 
-                {/* Profile Details Form / Display */}
-                {!isChangingPassword ? (
-                  <form onSubmit={handleUpdateProfile} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div>
-                        <label className="block text-xs font-bold text-primary uppercase mb-1">First Name</label>
-                        {isEditingProfile ? (
-                          <input 
-                            type="text" 
-                            value={firstNameInput}
-                            onChange={(e) => setFirstNameInput(e.target.value)}
-                            className="w-full border border-gray-300 rounded px-3 py-2 text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold text-dark transition-all"
-                            placeholder="Enter first name"
-                            required
-                          />
-                        ) : (
-                          <div className="p-3 bg-cream/35 border border-cream text-xs text-dark select-all">
-                            {user.firstName || 'Not provided'}
-                          </div>
-                        )}
-                      </div>
-                      
-                      <div>
-                        <label className="block text-xs font-bold text-primary uppercase mb-1">Last Name</label>
-                        {isEditingProfile ? (
-                          <input 
-                            type="text" 
-                            value={lastNameInput}
-                            onChange={(e) => setLastNameInput(e.target.value)}
-                            className="w-full border border-gray-300 rounded px-3 py-2 text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold text-dark transition-all"
-                            placeholder="Enter last name"
-                          />
-                        ) : (
-                          <div className="p-3 bg-cream/35 border border-cream text-xs text-dark select-all">
-                            {user.lastName || 'Not provided'}
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="md:col-span-2">
-                        <label className="block text-xs font-bold text-primary uppercase mb-1">Email Address</label>
-                        <div className="p-3 bg-cream/35 border border-cream text-xs text-dark flex justify-between items-center select-all">
-                          <span>{user.email}</span>
-                          <span className="text-[9px] font-bold tracking-wider uppercase bg-success/10 text-success px-2 py-0.5 rounded-sm">Verified</span>
+                  {/* Profile Details Form / Display */}
+                  {!isChangingPassword ? (
+                    <form onSubmit={handleUpdateProfile} className="space-y-5">
+                      {/* Name Row - always side by side */}
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-[10px] font-bold text-primary/70 uppercase tracking-widest mb-1.5">First Name</label>
+                          {isEditingProfile ? (
+                            <input 
+                              type="text" 
+                              value={firstNameInput}
+                              onChange={(e) => setFirstNameInput(e.target.value)}
+                              className="w-full border border-gray-200 rounded-sm px-3 py-2.5 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/30 text-dark transition-all bg-white"
+                              placeholder="First name"
+                              required
+                            />
+                          ) : (
+                            <div className="px-3 py-2.5 bg-cream/30 border border-cream text-sm text-dark font-medium rounded-sm">
+                              {user.firstName || <span className="text-dark/40 font-normal italic text-xs">Not provided</span>}
+                            </div>
+                          )}
+                        </div>
+                        
+                        <div>
+                          <label className="block text-[10px] font-bold text-primary/70 uppercase tracking-widest mb-1.5">Last Name</label>
+                          {isEditingProfile ? (
+                            <input 
+                              type="text" 
+                              value={lastNameInput}
+                              onChange={(e) => setLastNameInput(e.target.value)}
+                              className="w-full border border-gray-200 rounded-sm px-3 py-2.5 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/30 text-dark transition-all bg-white"
+                              placeholder="Last name"
+                            />
+                          ) : (
+                            <div className="px-3 py-2.5 bg-cream/30 border border-cream text-sm text-dark font-medium rounded-sm">
+                              {user.lastName || <span className="text-dark/40 font-normal italic text-xs">Not provided</span>}
+                            </div>
+                          )}
                         </div>
                       </div>
 
+                      {/* Email */}
+                      <div>
+                        <label className="block text-[10px] font-bold text-primary/70 uppercase tracking-widest mb-1.5">Email Address</label>
+                        <div className="px-3 py-2.5 bg-cream/30 border border-cream text-sm text-dark flex justify-between items-center rounded-sm">
+                          <span className="font-medium truncate mr-2">{user.email}</span>
+                          <span className="flex items-center gap-1 text-[9px] font-bold tracking-wider uppercase bg-emerald-50 text-emerald-600 border border-emerald-200 px-2 py-1 rounded shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-2.5 w-2.5" viewBox="0 0 20 20" fill="currentColor">
+                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                            </svg>
+                            Verified
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Password */}
                       {!isEditingProfile && (
-                        <div className="md:col-span-2">
-                          <label className="block text-xs font-bold text-primary uppercase mb-1">Password</label>
-                          <div className="p-3 bg-cream/35 border border-cream text-xs text-dark flex justify-between items-center">
-                            <span className="tracking-widest">••••••••••••</span>
+                        <div>
+                          <label className="block text-[10px] font-bold text-primary/70 uppercase tracking-widest mb-1.5">Password</label>
+                          <div className="px-3 py-2.5 bg-cream/30 border border-cream text-sm text-dark flex justify-between items-center rounded-sm">
+                            <span className="tracking-[0.3em] text-dark/60 text-base leading-none">••••••••••</span>
                             <button 
                               type="button" 
                               onClick={() => {
@@ -270,122 +294,124 @@ const Profile = () => {
                                 setErrorMsg('');
                                 setSuccessMsg('');
                               }}
-                              className="text-gold text-xs hover:underline font-bold uppercase flex items-center gap-1"
+                              className="flex items-center gap-1.5 text-gold hover:text-primary text-[10px] font-bold uppercase tracking-wider transition-colors shrink-0"
                             >
-                              <Key size={13} /> Change Password
+                              <Key size={12} /> Change Password
                             </button>
                           </div>
                         </div>
                       )}
-                    </div>
 
-                    {isEditingProfile && (
+                      {isEditingProfile && (
+                        <div className="flex gap-3 pt-4 border-t border-cream">
+                          <button 
+                            type="submit" 
+                            disabled={savingProfile}
+                            className="btn-primary py-2.5 px-7 text-xs flex items-center gap-1.5"
+                          >
+                            {savingProfile ? (
+                              <>
+                                <Loader2 className="animate-spin" size={14} /> Saving...
+                              </>
+                            ) : (
+                              <>
+                                <Save size={14} /> Save Changes
+                              </>
+                            )}
+                          </button>
+                          <button 
+                            type="button" 
+                            onClick={() => {
+                              setIsEditingProfile(false);
+                              setFirstNameInput(user.firstName || '');
+                              setLastNameInput(user.lastName || '');
+                              setErrorMsg('');
+                            }}
+                            className="border border-cream text-dark/70 hover:bg-cream/20 py-2.5 px-7 text-xs font-semibold rounded-sm transition-colors"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      )}
+                    </form>
+                  ) : (
+                    /* Password Change Form */
+                    <form onSubmit={handleChangePassword} className="space-y-5">
+                      <div className="flex items-center gap-2 pb-3 border-b border-cream">
+                        <Key size={14} className="text-gold" />
+                        <h3 className="text-sm font-bold text-primary uppercase tracking-wider">Change Password</h3>
+                      </div>
+                      
+                      <div className="space-y-4 max-w-md">
+                        <div>
+                          <label className="block text-[10px] font-bold text-primary/70 uppercase tracking-widest mb-1.5">Current Password</label>
+                          <input 
+                            type="password" 
+                            value={currentPassword}
+                            onChange={(e) => setCurrentPassword(e.target.value)}
+                            className="w-full border border-gray-200 rounded-sm px-3 py-2.5 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/30 text-dark transition-all"
+                            placeholder="Enter current password"
+                            required
+                          />
+                        </div>
+                        
+                        <div>
+                          <label className="block text-[10px] font-bold text-primary/70 uppercase tracking-widest mb-1.5">New Password</label>
+                          <input 
+                            type="password" 
+                            value={newPassword}
+                            onChange={(e) => setNewPassword(e.target.value)}
+                            className="w-full border border-gray-200 rounded-sm px-3 py-2.5 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/30 text-dark transition-all"
+                            placeholder="Min. 6 characters"
+                            required
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-[10px] font-bold text-primary/70 uppercase tracking-widest mb-1.5">Confirm New Password</label>
+                          <input 
+                            type="password" 
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            className="w-full border border-gray-200 rounded-sm px-3 py-2.5 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/30 text-dark transition-all"
+                            placeholder="Repeat new password"
+                            required
+                          />
+                        </div>
+                      </div>
+
                       <div className="flex gap-3 pt-4 border-t border-cream">
                         <button 
                           type="submit" 
-                          disabled={savingProfile}
-                          className="btn-primary py-2 px-6 text-xs flex items-center gap-1.5"
+                          disabled={savingPassword}
+                          className="btn-primary py-2.5 px-7 text-xs flex items-center gap-1.5"
                         >
-                          {savingProfile ? (
+                          {savingPassword ? (
                             <>
-                              <Loader2 className="animate-spin" size={14} /> Saving...
+                              <Loader2 className="animate-spin" size={14} /> Updating...
                             </>
                           ) : (
                             <>
-                              <Save size={14} /> Save Changes
+                              <Save size={14} /> Update Password
                             </>
                           )}
                         </button>
                         <button 
                           type="button" 
                           onClick={() => {
-                            setIsEditingProfile(false);
-                            setFirstNameInput(user.firstName || '');
-                            setLastNameInput(user.lastName || '');
+                            setIsChangingPassword(false);
+                            setCurrentPassword('');
+                            setNewPassword('');
+                            setConfirmPassword('');
                             setErrorMsg('');
                           }}
-                          className="border border-cream text-dark/70 hover:bg-cream/20 py-2 px-6 text-xs font-semibold rounded transition-colors"
+                          className="border border-cream text-dark/70 hover:bg-cream/20 py-2.5 px-7 text-xs font-semibold rounded-sm transition-colors"
                         >
                           Cancel
                         </button>
                       </div>
-                    )}
-                  </form>
-                ) : (
-                  /* Password Change Form */
-                  <form onSubmit={handleChangePassword} className="space-y-6">
-                    <h3 className="text-sm font-bold text-primary uppercase tracking-wider pb-2 border-b border-cream/50">Change Password</h3>
-                    
-                    <div className="space-y-4 max-w-md">
-                      <div>
-                        <label className="block text-xs font-bold text-primary uppercase mb-1">Current Password</label>
-                        <input 
-                          type="password" 
-                          value={currentPassword}
-                          onChange={(e) => setCurrentPassword(e.target.value)}
-                          className="w-full border border-gray-300 rounded px-3 py-2 text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold text-dark transition-all"
-                          placeholder="••••••••"
-                          required
-                        />
-                      </div>
-                      
-                      <div>
-                        <label className="block text-xs font-bold text-primary uppercase mb-1">New Password</label>
-                        <input 
-                          type="password" 
-                          value={newPassword}
-                          onChange={(e) => setNewPassword(e.target.value)}
-                          className="w-full border border-gray-300 rounded px-3 py-2 text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold text-dark transition-all"
-                          placeholder="••••••••"
-                          required
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-bold text-primary uppercase mb-1">Confirm New Password</label>
-                        <input 
-                          type="password" 
-                          value={confirmPassword}
-                          onChange={(e) => setConfirmPassword(e.target.value)}
-                          className="w-full border border-gray-300 rounded px-3 py-2 text-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold text-dark transition-all"
-                          placeholder="••••••••"
-                          required
-                        />
-                      </div>
-                    </div>
-
-                    <div className="flex gap-3 pt-4 border-t border-cream">
-                      <button 
-                        type="submit" 
-                        disabled={savingPassword}
-                        className="btn-primary py-2 px-6 text-xs flex items-center gap-1.5"
-                      >
-                        {savingPassword ? (
-                          <>
-                            <Loader2 className="animate-spin" size={14} /> Updating...
-                          </>
-                        ) : (
-                          <>
-                            <Save size={14} /> Update Password
-                          </>
-                        )}
-                      </button>
-                      <button 
-                        type="button" 
-                        onClick={() => {
-                          setIsChangingPassword(false);
-                          setCurrentPassword('');
-                          setNewPassword('');
-                          setConfirmPassword('');
-                          setErrorMsg('');
-                        }}
-                        className="border border-cream text-dark/70 hover:bg-cream/20 py-2 px-6 text-xs font-semibold rounded transition-colors"
-                      >
-                        Cancel
-                      </button>
-                    </div>
-                  </form>
-                )}
+                    </form>
+                  )}
               </div>
             </div>
           </div>
