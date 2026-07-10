@@ -243,8 +243,12 @@ const Profile = () => {
                               required
                             />
                           ) : (
-                            <div className="px-3 py-2.5 bg-cream/30 border border-cream text-sm text-dark font-medium rounded-sm">
-                              {user.firstName || <span className="text-dark/40 font-normal italic text-xs">Not provided</span>}
+                            <div className="px-3 py-2.5 bg-cream/30 border border-cream text-sm text-dark font-medium rounded-sm flex items-center justify-between">
+                              {user.firstName ? (
+                                <span>{user.firstName}</span>
+                              ) : (
+                                <button type="button" onClick={() => setIsEditingProfile(true)} className="text-gold/70 hover:text-gold text-xs italic transition-colors">— Add first name</button>
+                              )}
                             </div>
                           )}
                         </div>
@@ -260,8 +264,12 @@ const Profile = () => {
                               placeholder="Last name"
                             />
                           ) : (
-                            <div className="px-3 py-2.5 bg-cream/30 border border-cream text-sm text-dark font-medium rounded-sm">
-                              {user.lastName || <span className="text-dark/40 font-normal italic text-xs">Not provided</span>}
+                            <div className="px-3 py-2.5 bg-cream/30 border border-cream text-sm text-dark font-medium rounded-sm flex items-center justify-between">
+                              {user.lastName ? (
+                                <span>{user.lastName}</span>
+                              ) : (
+                                <button type="button" onClick={() => setIsEditingProfile(true)} className="text-gold/70 hover:text-gold text-xs italic transition-colors">— Add last name</button>
+                              )}
                             </div>
                           )}
                         </div>
