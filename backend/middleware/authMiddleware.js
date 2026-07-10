@@ -11,14 +11,21 @@ const protect = asyncHandler(async (req, res, next) => {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       
       // Fetch user from Postgres
-      const { rows } = await query('SELECT id, email, role FROM users WHERE id = $1', [decoded.id]);
+      const { rows } = await query('SELECT id, first_name, last_name, email, role FROM users WHERE id = $1', [decoded.id]);
       
       if (rows.length === 0) {
         res.status(401);
         throw new Error('Not authorized, user not found');
       }
 
-      req.user = rows[0];
+      const u = rows[0];
+      req.user = {
+        id: u.id,
+        firstName: u.first_name,
+        lastName: u.last_name,
+        email: u.email,
+        role: u.role,
+      };
       next();
     } catch (error) {
       console.error(error);

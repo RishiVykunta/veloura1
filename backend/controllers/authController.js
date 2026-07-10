@@ -82,7 +82,13 @@ const registerUser = asyncHandler(async (req, res) => {
 
   res.status(201).json({
     success: true,
-    user,
+    user: {
+      id: user.id,
+      firstName: user.first_name,
+      lastName: user.last_name,
+      email: user.email,
+      role: user.role,
+    },
     token: generateToken(user.id),
   });
 });
