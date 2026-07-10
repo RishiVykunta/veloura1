@@ -7,7 +7,7 @@ import { useAuth } from '../../context/AuthContext';
 import AuthPromptModal from '../../components/modals/AuthPromptModal';
 
 const WHATSAPP_NUMBER = '916261802019';
-const SITE_URL = 'https://veloura.in';
+const SITE_URL = typeof window !== 'undefined' ? window.location.origin : 'https://veloura.in';
 
 const ProductDetail = () => {
   const { slug } = useParams();
