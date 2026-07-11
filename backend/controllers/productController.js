@@ -55,7 +55,7 @@ async function getCompleteProduct(productRow) {
 // @route   GET /api/v1/products
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
-  const { category, minPrice, maxPrice, size, color, search, sort, collection } = req.query;
+  const { category, minPrice, maxPrice, size, color, search, sort, collection, isNewArrival, isFeatured } = req.query;
 
   try {
     let sqlQuery = `
@@ -68,6 +68,14 @@ const getProducts = asyncHandler(async (req, res) => {
     `;
     const params = [];
     let paramIndex = 1;
+
+    if (isNewArrival === 'true') {
+      sqlQuery += ` AND p.is_new_arrival = true`;
+    }
+
+    if (isFeatured === 'true') {
+      sqlQuery += ` AND p.is_featured = true`;
+    }
 
     if (category) {
       sqlQuery += ` AND (c.slug = $${paramIndex} OR c.id::text = $${paramIndex})`;
@@ -143,6 +151,14 @@ const getProducts = asyncHandler(async (req, res) => {
     
     // JS Filtering Engine for mockProducts
     let filtered = [...mockProducts];
+
+    if (isNewArrival === 'true') {
+      filtered = filtered.filter(p => p.isNewArrival === true);
+    }
+
+    if (isFeatured === 'true') {
+      filtered = filtered.filter(p => p.isFeatured === true);
+    }
 
     if (category) {
       const catObj = mockCategories.find(c => c.slug === category || c.id === category);

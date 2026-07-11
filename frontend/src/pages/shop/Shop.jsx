@@ -16,7 +16,6 @@ const Shop = () => {
   const [selectedCategory, setSelectedCategory] = useState(searchParams.get('category') || '');
   const [priceRange, setPriceRange] = useState(6000);
   const [selectedSize, setSelectedSize] = useState('');
-  const [selectedColor, setSelectedColor] = useState('');
   const [sortOption, setSortOption] = useState('newest');
 
   // Sync URL params into state when URL changes (e.g. navigating from navbar search)
@@ -36,40 +35,22 @@ const Shop = () => {
     { name: 'Long Kurti', slug: 'long-kurti' }
   ];
   const sizes = ['XS', 'S', 'M', 'L', 'XL'];
-  const colors = [
-    { name: 'Light Pink', hex: '#FFB6C1' },
-    { name: 'Blue', hex: '#4169E1' },
-    { name: 'Sky Blue', hex: '#87CEEB' },
-    { name: 'Dark Pink', hex: '#C71585' },
-    { name: 'Butter Yellow', hex: '#FFF8A1' },
-    { name: 'Lush Green', hex: '#228B22' },
-    { name: 'Dark Red', hex: '#8B0000' },
-    { name: 'White', hex: '#FFFFFF' }
-  ];
 
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      // If a special filter is active (from homepage "See All"), use dedicated endpoints
-      if (activeFilter === 'new-arrivals') {
-        const res = await productService.getNewArrivals();
-        if (res.success) setProducts(res.data);
-      } else if (activeFilter === 'featured') {
-        const res = await productService.getFeatured();
-        if (res.success) setProducts(res.data);
-      } else {
-        const filters = {
-          category: selectedCategory,
-          maxPrice: priceRange,
-          size: selectedSize,
-          color: selectedColor,
-          search: searchQuery,
-          sort: sortOption
-        };
-        const res = await productService.getProducts(filters);
-        if (res.success) {
-          setProducts(res.data);
-        }
+      const filters = {
+        category: selectedCategory,
+        maxPrice: priceRange,
+        size: selectedSize,
+        search: searchQuery,
+        sort: sortOption,
+        isNewArrival: activeFilter === 'new-arrivals' ? 'true' : undefined,
+        isFeatured: activeFilter === 'featured' ? 'true' : undefined
+      };
+      const res = await productService.getProducts(filters);
+      if (res.success) {
+        setProducts(res.data);
       }
     } catch (error) {
       console.error('Error loading products:', error);
@@ -83,13 +64,12 @@ const Shop = () => {
       fetchProducts();
     }, 300); // Debounce queries
     return () => clearTimeout(delayDebounce);
-  }, [selectedCategory, priceRange, selectedSize, selectedColor, searchQuery, sortOption, activeFilter]);
+  }, [selectedCategory, priceRange, selectedSize, searchQuery, sortOption, activeFilter]);
 
   const resetFilters = () => {
     setSelectedCategory('');
     setPriceRange(6000);
     setSelectedSize('');
-    setSelectedColor('');
     setSearchQuery('');
     setSortOption('newest');
   };
@@ -195,27 +175,7 @@ const Shop = () => {
               </div>
             </div>
 
-            {/* Colors */}
-            <div>
-              <h4 className="text-sm font-semibold text-primary mb-3">Colors</h4>
-              <div className="flex flex-wrap gap-2">
-                {colors.map((color) => (
-                  <button
-                    key={color.name}
-                    title={color.name}
-                    onClick={() => setSelectedColor(selectedColor === color.name ? '' : color.name)}
-                    className={`w-7 h-7 rounded-full border-2 transition-all relative flex-shrink-0 ${
-                      selectedColor === color.name ? 'ring-2 ring-offset-1 ring-gold scale-110 border-gold' : 'border-cream hover:border-gold/50'
-                    }`}
-                    style={{ backgroundColor: color.hex }}
-                  >
-                    {(color.name === 'White' || color.name === 'Butter Yellow') && (
-                      <div className="absolute inset-0 rounded-full border border-dark/20" />
-                    )}
-                  </button>
-                ))}
-              </div>
-            </div>
+            {/* Colors section removed */}
           </div>
         </aside>
 
@@ -453,27 +413,7 @@ const Shop = () => {
                   </div>
                 </div>
 
-                {/* Colors */}
-                <div>
-                  <h4 className="text-sm font-semibold text-primary mb-2">Colors</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {colors.map((color) => (
-                    <button
-                      key={color.name}
-                      title={color.name}
-                      onClick={() => setSelectedColor(selectedColor === color.name ? '' : color.name)}
-                      className={`w-7 h-7 rounded-full border-2 transition-all relative flex-shrink-0 ${
-                        selectedColor === color.name ? 'ring-2 ring-offset-1 ring-gold scale-110 border-gold' : 'border-cream hover:border-gold/50'
-                      }`}
-                      style={{ backgroundColor: color.hex }}
-                    >
-                      {(color.name === 'White' || color.name === 'Butter Yellow') && (
-                        <div className="absolute inset-0 rounded-full border border-dark/20" />
-                      )}
-                    </button>
-                  ))}
-                  </div>
-                </div>
+                {/* Colors section removed */}
               </div>
 
               <div className="mt-8 pt-4 border-t border-cream flex gap-4">
