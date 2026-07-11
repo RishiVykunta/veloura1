@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Eye } from 'lucide-react';
+import { ArrowRight, Eye, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { productService } from '../services/product.service';
 import apiClient from '../services/api';
@@ -85,6 +85,16 @@ const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [newArrivals, setNewArrivals] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const newArrivalsRef = useRef(null);
+  const featuredRef = useRef(null);
+
+  const scroll = (ref, direction) => {
+    if (ref.current) {
+      const scrollAmount = direction === 'left' ? -350 : 350;
+      ref.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
 
   const loadHomepageData = async () => {
     setLoading(true);
@@ -246,10 +256,36 @@ const Home = () => {
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gold" />
             </div>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-8">
-              {newArrivals.slice(0, 4).map((p) => (
-                <ProductCard key={p.id} product={p} />
-              ))}
+            <div className="relative group/slider">
+              {/* Left Arrow */}
+              <button 
+                onClick={() => scroll(newArrivalsRef, 'left')}
+                className="absolute -left-4 top-1/2 -translate-y-1/2 z-30 bg-white/95 hover:bg-white text-primary p-2.5 rounded-full shadow-premium hover:text-gold transition-all duration-300 opacity-0 group-hover/slider:opacity-100 hidden md:flex items-center justify-center border border-cream/50 cursor-pointer"
+                aria-label="Scroll Left"
+              >
+                <ChevronLeft size={20} />
+              </button>
+
+              {/* Slider Container */}
+              <div 
+                ref={newArrivalsRef}
+                className="flex overflow-x-auto gap-4 md:gap-6 pb-6 snap-x snap-mandatory scroll-smooth hide-scrollbar -mx-3 px-3 md:-mx-8 md:px-8"
+              >
+                {newArrivals.map((p) => (
+                  <div key={p.id} className="w-[180px] sm:w-[240px] md:w-[280px] flex-shrink-0 snap-start">
+                    <ProductCard product={p} />
+                  </div>
+                ))}
+              </div>
+
+              {/* Right Arrow */}
+              <button 
+                onClick={() => scroll(newArrivalsRef, 'right')}
+                className="absolute -right-4 top-1/2 -translate-y-1/2 z-30 bg-white/95 hover:bg-white text-primary p-2.5 rounded-full shadow-premium hover:text-gold transition-all duration-300 opacity-0 group-hover/slider:opacity-100 hidden md:flex items-center justify-center border border-cream/50 cursor-pointer"
+                aria-label="Scroll Right"
+              >
+                <ChevronRight size={20} />
+              </button>
             </div>
           )}
         </div>
@@ -374,10 +410,36 @@ const Home = () => {
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gold" />
             </div>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-8">
-              {featuredProducts.slice(0, 4).map((p) => (
-                <ProductCard key={p.id} product={p} />
-              ))}
+            <div className="relative group/slider">
+              {/* Left Arrow */}
+              <button 
+                onClick={() => scroll(featuredRef, 'left')}
+                className="absolute -left-4 top-1/2 -translate-y-1/2 z-30 bg-white/95 hover:bg-white text-primary p-2.5 rounded-full shadow-premium hover:text-gold transition-all duration-300 opacity-0 group-hover/slider:opacity-100 hidden md:flex items-center justify-center border border-cream/50 cursor-pointer"
+                aria-label="Scroll Left"
+              >
+                <ChevronLeft size={20} />
+              </button>
+
+              {/* Slider Container */}
+              <div 
+                ref={featuredRef}
+                className="flex overflow-x-auto gap-4 md:gap-6 pb-6 snap-x snap-mandatory scroll-smooth hide-scrollbar -mx-3 px-3 md:-mx-8 md:px-8"
+              >
+                {featuredProducts.map((p) => (
+                  <div key={p.id} className="w-[180px] sm:w-[240px] md:w-[280px] flex-shrink-0 snap-start">
+                    <ProductCard product={p} />
+                  </div>
+                ))}
+              </div>
+
+              {/* Right Arrow */}
+              <button 
+                onClick={() => scroll(featuredRef, 'right')}
+                className="absolute -right-4 top-1/2 -translate-y-1/2 z-30 bg-white/95 hover:bg-white text-primary p-2.5 rounded-full shadow-premium hover:text-gold transition-all duration-300 opacity-0 group-hover/slider:opacity-100 hidden md:flex items-center justify-center border border-cream/50 cursor-pointer"
+                aria-label="Scroll Right"
+              >
+                <ChevronRight size={20} />
+              </button>
             </div>
           )}
         </div>
