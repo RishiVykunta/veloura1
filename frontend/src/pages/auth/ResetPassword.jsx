@@ -46,7 +46,7 @@ const ResetPassword = () => {
         <div className="flex justify-center mb-6">
           <Link to="/">
             <img
-              src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1783666640/Screenshot_2026-07-10_122640_aswgmm.png"
+              src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1783769446/file_00000000127c7207b3a2d83730c1e4d6_vpogqc.png"
               alt="Veloura"
               className="h-12 w-auto object-contain rounded-sm shadow-sm"
             />
