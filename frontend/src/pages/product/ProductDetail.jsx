@@ -234,32 +234,6 @@ const ProductDetail = () => {
 
             {/* Selector Options */}
             <div className="py-6 space-y-6">
-              {/* Color swatches */}
-              {uniqueColors.length > 0 && (
-                <div>
-                  <h3 className="text-xs font-bold text-primary uppercase tracking-wider mb-3">
-                    Color: <span className="text-dark/70 font-normal">{selectedColor}</span>
-                  </h3>
-                  <div className="flex gap-3">
-                    {uniqueColors.map((color) => (
-                      <button
-                        key={color.name}
-                        onClick={() => setSelectedColor(color.name)}
-                        className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all ${
-                          selectedColor === color.name ? 'ring-2 ring-gold scale-105' : 'border-cream'
-                        }`}
-                        style={{ backgroundColor: color.hex }}
-                        title={color.name}
-                      >
-                        {selectedColor === color.name && (
-                          <Check size={14} className={color.name === 'White' || color.name === 'Cream' ? 'text-dark' : 'text-white'} />
-                        )}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-
               {/* Size Selectors */}
               {uniqueSizes.length > 0 && (
                 <div>
