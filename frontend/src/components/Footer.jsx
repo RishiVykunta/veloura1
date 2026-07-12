@@ -21,7 +21,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Brand Info */}
           <div>
-            <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1783769446/file_00000000127c7207b3a2d83730c1e4d6_vpogqc.png" alt="Veloura" className="h-10 mb-4 rounded-sm shadow-sm" />
+            <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1783849537/IMG_20260712_151425_qzsbht.png" alt="Veloura" className="h-10 mb-4 rounded-sm shadow-sm" />
             <p className="text-gray-300 mb-6 text-sm leading-relaxed">
               Premium Gen-Z women's fashion brand offering elegant feminine aesthetics with modern designs.
             </p>

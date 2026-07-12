@@ -105,7 +105,7 @@ const Navbar = () => {
 
           {/* Logo - centered on mobile, left-aligned on desktop */}
           <Link to="/" className="flex items-center md:static absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0 md:top-auto">
-            <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1783769446/file_00000000127c7207b3a2d83730c1e4d6_vpogqc.png" alt="Veloura" className="h-8 md:h-11 w-auto object-contain rounded-sm shadow-sm" />
+            <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1783849537/IMG_20260712_151425_qzsbht.png" alt="Veloura" className="h-8 md:h-11 w-auto object-contain rounded-sm shadow-sm" />
           </Link>
 
           {/* Desktop Nav */}
@@ -158,7 +158,7 @@ const Navbar = () => {
               className="fixed top-0 left-0 bottom-0 w-[280px] bg-white z-50 shadow-2xl flex flex-col md:hidden"
             >
               <div className="p-4 flex justify-between items-center border-b border-cream">
-                <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1783769446/file_00000000127c7207b3a2d83730c1e4d6_vpogqc.png" alt="Veloura" className="h-10 object-contain" />
+                <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1783849537/IMG_20260712_151425_qzsbht.png" alt="Veloura" className="h-10 object-contain" />
                 <button onClick={() => setMobileMenuOpen(false)} className="text-dark p-1">
                   <X size={24} />
                 </button>
