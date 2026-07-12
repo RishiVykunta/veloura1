@@ -317,7 +317,7 @@ const Home = () => {
               {/* Top wide card */}
               <Link to="/shop?category=tops" className="group relative overflow-hidden bg-cream rounded-2xl lg:rounded-[20px] shadow-sm aspect-[16/7] lg:aspect-auto lg:h-[275px]">
                 <div className="absolute inset-0 z-10 bg-[linear-gradient(to_top,rgba(0,0,0,.55),rgba(0,0,0,.15),transparent)] transition-colors duration-[450ms] group-hover:bg-[linear-gradient(to_top,rgba(0,0,0,.65),rgba(0,0,0,.2),transparent)]" />
-                <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328447/download_wrtkxn.jpg" alt="Tops" className="absolute inset-0 h-full w-full object-cover object-[50%_15%] transition-transform duration-[450ms] ease-out group-hover:scale-[1.06]" />
+                <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1783848884/Screenshot_2026-07-12_150344_mxch50.png" alt="Tops" className="absolute inset-0 h-full w-full object-cover object-[50%_15%] transition-transform duration-[450ms] ease-out group-hover:scale-[1.06]" />
                 <div className="absolute bottom-5 left-6 right-6 z-20 flex items-center justify-between text-white">
                   <h3 className="font-heading font-bold text-white text-2xl lg:text-[1.6rem] drop-shadow-lg">Tops</h3>
                   <span className="w-12 h-12 rounded-full border border-white/70 bg-white/10 backdrop-blur-md flex items-center justify-center transition-transform duration-[450ms] ease-out group-hover:scale-105">
