@@ -366,7 +366,7 @@ const Home = () => {
 
             <Link to="/shop?category=tops" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm aspect-[3/4]">
               <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
-              <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328447/download_wrtkxn.jpg" alt="Tops" className="absolute inset-0 w-full h-full object-cover object-center" />
+              <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1783848277/Screenshot_2026-07-12_145411_bsachc.png" alt="Tops" className="absolute inset-0 w-full h-full object-cover object-center" />
               <div className="absolute bottom-3 left-3 z-20">
                 <h3 className="font-heading font-bold text-base text-white drop-shadow-md mb-2">Tops</h3>
                 <span className="bg-white text-primary text-[10px] font-bold rounded-full px-3 py-1 flex items-center gap-1 w-fit shadow-sm">Explore <ArrowRight size={10} /></span>
