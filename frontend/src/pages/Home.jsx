@@ -303,7 +303,7 @@ const Home = () => {
             {/* Left tall card */}
             <Link to="/shop?category=sharara" className="group relative overflow-hidden bg-cream rounded-2xl lg:rounded-[20px] shadow-sm aspect-[4/5] lg:aspect-auto lg:h-[610px]">
               <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/55 via-black/15 to-transparent lg:bg-[linear-gradient(to_top,rgba(0,0,0,.55),rgba(0,0,0,.15),transparent)] transition-colors duration-[450ms] group-hover:from-black/65" />
-              <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328123/Blue_Sharara_Suit_for_Girls___Elegant_Ethnic_Look_for_Functions_uttyeg.jpg" alt="Sharara" className="absolute inset-0 h-full w-full object-cover object-[center_28%] transition-transform duration-[450ms] ease-out group-hover:scale-[1.06]" />
+              <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1783847614/Screenshot_2026-07-12_144019_aabhja.png" alt="Sharara" className="absolute inset-0 h-full w-full object-cover object-[center_28%] transition-transform duration-[450ms] ease-out group-hover:scale-[1.06]" />
               <div className="absolute bottom-6 left-6 right-6 z-20 flex items-center justify-between text-white">
                 <h3 className="font-heading font-bold text-white text-3xl lg:text-[2rem] drop-shadow-lg">Sharara</h3>
                 <span className="w-12 h-12 rounded-full border border-white/70 bg-white/10 backdrop-blur-md flex items-center justify-center transition-transform duration-[450ms] ease-out group-hover:scale-105">
@@ -357,7 +357,7 @@ const Home = () => {
           <div className="md:hidden grid grid-cols-2 gap-2 mt-4">
             <Link to="/shop?category=sharara" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm aspect-[3/4]">
               <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
-              <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1780328123/Blue_Sharara_Suit_for_Girls___Elegant_Ethnic_Look_for_Functions_uttyeg.jpg" alt="Sharara" className="absolute inset-0 w-full h-full object-cover object-center" />
+              <img src="https://res.cloudinary.com/dqcxekzxn/image/upload/v1783847614/Screenshot_2026-07-12_144019_aabhja.png" alt="Sharara" className="absolute inset-0 w-full h-full object-cover object-center" />
               <div className="absolute bottom-3 left-3 z-20">
                 <h3 className="font-heading font-bold text-base text-white drop-shadow-md mb-2">Sharara</h3>
                 <span className="bg-white text-primary text-[10px] font-bold rounded-full px-3 py-1 flex items-center gap-1 w-fit shadow-sm">Explore <ArrowRight size={10} /></span>
