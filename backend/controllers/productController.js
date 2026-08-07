@@ -25,9 +25,33 @@ function mapProductRowToCamel(row) {
     isActive: row.is_active,
     averageRating: row.average_rating ? parseFloat(row.average_rating) : 0,
     totalReviews: row.total_reviews,
-    createdAt: row.created_at,
     updatedAt: row.updated_at
   };
+}
+
+// Generate unique slug by checking database for duplicates
+async function generateUniqueSlug(name, currentProductId = null) {
+  const baseSlug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+  let slug = baseSlug;
+  let counter = 1;
+
+  while (true) {
+    let checkQuery = 'SELECT id FROM products WHERE slug = $1';
+    let params = [slug];
+
+    if (currentProductId) {
+      checkQuery += ' AND id != $2';
+      params.push(currentProductId);
+    }
+
+    const { rows } = await query(checkQuery, params);
+    if (rows.length === 0) {
+      break;
+    }
+    counter++;
+    slug = `${baseSlug}-${counter}`;
+  }
+  return slug;
 }
 
 // Helper to compile a full product object (with images, variants, features, tags) from database
@@ -337,30 +361,58 @@ const getNewArrivals = asyncHandler(async (req, res) => {
 // @access  Private/Admin
 const createProduct = asyncHandler(async (req, res) => {
   const { name, description, price, discountPrice, sku, categoryId, images, variants, features, tags, isActive, isNewArrival, isFeatured, shippingInfo, material } = req.body;
-  const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+  let slug = await generateUniqueSlug(name);
 
   try {
-    const { rows } = await query(
-      `INSERT INTO products (name, slug, description, sku, category_id, price, discount_price, stock_quantity, is_active, is_featured, is_new_arrival, shipping_info, material)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *`,
-      [
-        name, 
-        slug, 
-        description, 
-        sku, 
-        categoryId, 
-        price ? parseFloat(price) : 0, 
-        discountPrice ? parseFloat(discountPrice) : null,
-        100, 
-        isActive !== false, 
-        !!isFeatured, 
-        !!isNewArrival,
-        shippingInfo || null,
-        material || null
-      ]
-    );
+    let product;
+    let attempts = 0;
+    while (attempts < 5) {
+      try {
+        // Log details before insert as requested
+        const { rows: existing } = await query('SELECT * FROM products WHERE slug = $1', [slug]);
+        console.log('[BEFORE INSERT] Product Name:', name);
+        console.log('[BEFORE INSERT] Generated Slug:', slug);
+        console.log('[BEFORE INSERT] SKU:', sku);
+        if (existing.length > 0) {
+          console.log('[BEFORE INSERT] Existing product with same slug:', { id: existing[0].id, name: existing[0].name, slug: existing[0].slug });
+        } else {
+          console.log('[BEFORE INSERT] No existing product with same slug.');
+        }
 
-    const product = rows[0];
+        const { rows } = await query(
+          `INSERT INTO products (name, slug, description, sku, category_id, price, discount_price, stock_quantity, is_active, is_featured, is_new_arrival, shipping_info, material)
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *`,
+          [
+            name, 
+            slug, 
+            description, 
+            sku, 
+            categoryId || null, 
+            price ? parseFloat(price) : 0, 
+            discountPrice ? parseFloat(discountPrice) : null,
+            100, 
+            isActive !== false, 
+            !!isFeatured, 
+            !!isNewArrival,
+            shippingInfo || null,
+            material || null
+          ]
+        );
+        product = rows[0];
+        break;
+      } catch (error) {
+        if (error.code === '23505' && error.constraint === 'products_slug_key') {
+          attempts++;
+          slug = await generateUniqueSlug(name);
+        } else {
+          throw error;
+        }
+      }
+    }
+
+    if (!product) {
+      throw new Error('Could not create product after maximum attempts due to slug collisions.');
+    }
 
     // Images
     if (images && images.length > 0) {
@@ -399,30 +451,10 @@ const createProduct = asyncHandler(async (req, res) => {
       data: product
     });
   } catch (error) {
-    // If DB fails, simulate successful creation
-    console.warn('DB write failed during product creation, simulating response:', error.message);
-    const newMockProduct = {
-      id: `mock-${Date.now()}`,
-      name,
-      slug,
-      description,
-      sku,
-      price: parseFloat(price),
-      categoryId,
-      shippingInfo,
-      material,
-      images: images ? images.map(url => ({ imageUrl: url, isPrimary: url === images[0] })) : [],
-      variants: variants || [],
-      features: features || [],
-      tags: tags || []
-    };
-
-    mockProducts.push(newMockProduct);
-
-    res.status(201).json({
-      success: true,
-      message: 'Product created successfully (Mock Offline Mode)',
-      data: newMockProduct
+    console.error('DB write failed during product creation:', error.message);
+    return res.status(400).json({
+      success: false,
+      message: error.message || 'Database error while creating product'
     });
   }
 });
@@ -433,44 +465,66 @@ const createProduct = asyncHandler(async (req, res) => {
 const updateProduct = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { name, description, price, discountPrice, sku, categoryId, images, variants, features, tags, isActive, isNewArrival, isFeatured, shippingInfo, material } = req.body;
-  const slug = name ? name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '') : undefined;
+  let slug;
+  if (name) {
+    slug = await generateUniqueSlug(name, id);
+  }
 
   try {
-    const { rows } = await query(
-      `UPDATE products 
-       SET name = $1, 
-           slug = $2, 
-           description = $3, 
-           sku = $4, 
-           category_id = $5, 
-           price = $6,
-           discount_price = $7,
-           is_active = $8,
-           is_featured = $9,
-           is_new_arrival = $10,
-           shipping_info = $11,
-           material = $12
-       WHERE id = $13 RETURNING *`,
-      [
-        name, 
-        slug, 
-        description, 
-        sku, 
-        categoryId, 
-        price ? parseFloat(price) : 0,
-        discountPrice ? parseFloat(discountPrice) : null,
-        isActive !== false,
-        !!isFeatured,
-        !!isNewArrival,
-        shippingInfo || null,
-        material || null,
-        id
-      ]
-    );
+    let product;
+    let attempts = 0;
+    while (attempts < 5) {
+      try {
+        const { rows } = await query(
+          `UPDATE products 
+           SET name = $1, 
+               slug = $2, 
+               description = $3, 
+               sku = $4, 
+               category_id = $5, 
+               price = $6,
+               discount_price = $7,
+               is_active = $8,
+               is_featured = $9,
+               is_new_arrival = $10,
+               shipping_info = $11,
+               material = $12
+           WHERE id = $13 RETURNING *`,
+          [
+            name, 
+            slug, 
+            description, 
+            sku, 
+            categoryId || null, 
+            price ? parseFloat(price) : 0,
+            discountPrice ? parseFloat(discountPrice) : null,
+            isActive !== false,
+            !!isFeatured,
+            !!isNewArrival,
+            shippingInfo || null,
+            material || null,
+            id
+          ]
+        );
 
-    if (rows.length === 0) {
-      res.status(404);
-      throw new Error('Product not found in database');
+        if (rows.length === 0) {
+          res.status(404);
+          throw new Error('Product not found in database');
+        }
+        product = rows[0];
+        break;
+      } catch (error) {
+        if (error.code === '23505' && error.constraint === 'products_slug_key' && name) {
+          attempts++;
+          slug = await generateUniqueSlug(name, id);
+        } else {
+          throw error;
+        }
+      }
+    }
+
+    if (!product) {
+      throw new Error('Could not update product after maximum attempts due to slug collisions.');
     }
 
     // Clear old images and insert new ones

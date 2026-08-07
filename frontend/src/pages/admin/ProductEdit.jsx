@@ -29,7 +29,8 @@ const ProductEdit = () => {
   const [sku, setSku] = useState('');
   const [price, setPrice] = useState('');
   const [discountPrice, setDiscountPrice] = useState('');
-  const [categoryId, setCategoryId] = useState('c1111111-1111-1111-1111-111111111111');
+  const [categoryId, setCategoryId] = useState('');
+  const [categories, setCategories] = useState([]);
   const [tagsText, setTagsText] = useState('Festive, Silk, Green');
   const [shippingInfo, setShippingInfo] = useState('');
   const [material, setMaterial] = useState('');
@@ -57,6 +58,22 @@ const ProductEdit = () => {
   const [loading, setLoading] = useState(false);
   const [successMsg, setSuccessMsg] = useState('');
 
+  // Fetch categories
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1'}/categories`);
+        const result = await response.json();
+        if (result.success && result.data) {
+          setCategories(result.data);
+        }
+      } catch (err) {
+        console.error('Error fetching categories:', err);
+      }
+    };
+    fetchCategories();
+  }, []);
+
   // Fetch product details for edit mode
   useEffect(() => {
     if (isEditMode) {
@@ -71,7 +88,7 @@ const ProductEdit = () => {
             setSku(p.sku || '');
             setPrice(p.price?.toString() || '');
             setDiscountPrice(p.discountPrice?.toString() || '');
-            setCategoryId(p.categoryId || 'c1111111-1111-1111-1111-111111111111');
+            setCategoryId(p.categoryId || '');
             setTagsText(p.tags ? p.tags.join(', ') : '');
             setShippingInfo(p.shippingInfo || '');
             setMaterial(p.material || '');
@@ -212,22 +229,9 @@ const ProductEdit = () => {
 
       if (res.success) {
         setSuccessMsg(`Product "${name}" successfully ${isEditMode ? 'updated' : 'created'}!`);
-        if (!isEditMode) {
-          // Reset form
-          setName('');
-          setShortDescription('');
-          setDescription('');
-          setSku('');
-          setPrice('');
-          setDiscountPrice('');
-          setImages([]);
-          setShippingInfo('');
-          setMaterial('');
-        } else {
-          setTimeout(() => {
-            navigate('/admin/products');
-          }, 2000);
-        }
+        setTimeout(() => {
+          navigate('/admin/products');
+        }, 2000);
       }
     } catch (err) {
       console.error('Error saving product:', err);
@@ -563,10 +567,10 @@ const ProductEdit = () => {
                   onChange={(e) => setCategoryId(e.target.value)}
                   className="w-full border border-gray-300 rounded-lg px-4 py-2 text-xs focus:outline-none focus:border-gold bg-white text-dark font-medium"
                 >
-                  <option value="c1111111-1111-1111-1111-111111111111">Sharara</option>
-                  <option value="c2222222-2222-2222-2222-222222222222">Tops</option>
-                  <option value="c3333333-3333-3333-3333-333333333333">Short Kurti</option>
-                  <option value="c4444444-4444-4444-4444-444444444444">Long Kurti</option>
+                  <option value="">-- Select Category (Optional) --</option>
+                  {categories.map((cat) => (
+                    <option key={cat.id} value={cat.id}>{cat.name}</option>
+                  ))}
                 </select>
               </div>
               <div>
