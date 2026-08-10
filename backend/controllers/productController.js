@@ -571,7 +571,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     res.status(200).json({
       success: true,
       message: 'Product updated successfully',
-      data: rows[0]
+      data: product
     });
   } catch (error) {
     console.error('DB update failed:', error.message);
