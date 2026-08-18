@@ -135,11 +135,12 @@ const Home = () => {
     return () => window.clearTimeout(scrollTimer);
   }, [location.hash]);
 
-  const heroBanner = banners[0] || {
-    title: "Elegance Reimagined",
-    subtitle: "New Collection 2026 — Soft Luxury & Editorial Outfits",
+  const defaultBanner = banners[0] || {};
+  const heroBanner = {
+    title: defaultBanner.title || "Elegance Reimagined",
+    subtitle: defaultBanner.subtitle || "New Collection 2026 — Soft Luxury & Editorial Outfits",
     desktopImageUrl: "https://res.cloudinary.com/rdk6gzoj/image/upload/v1787027158/WhatsApp_Image_2026-08-18_at_9.53.58_AM.jpg",
-    redirectUrl: "/shop"
+    redirectUrl: defaultBanner.redirectUrl || "/shop"
   };
 
   return (
