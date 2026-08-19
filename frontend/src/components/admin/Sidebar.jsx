@@ -30,9 +30,9 @@ const Sidebar = ({ isOpen, setIsOpen, isMobile }) => {
   const content = (
     <div className="h-full flex flex-col bg-white border-r border-cream shadow-premium">
       <div className="p-6 flex justify-between items-center border-b border-cream">
-        <span className="text-2xl font-heading font-bold text-primary tracking-wide">
-          <span className="text-gold">V</span>eloura Admin
-        </span>
+        <div className="flex items-center">
+          <img src="https://res.cloudinary.com/rdk6gzoj/image/upload/v1787112618/WhatsApp_Image_2026-08-19_at_9.31.16_AM.png" alt="Veloura Admin" className="h-10 w-auto object-contain" />
+        </div>
         {isMobile && (
           <button onClick={() => setIsOpen(false)} className="text-dark p-1 rounded-full hover:bg-cream">
             <X size={20} />
