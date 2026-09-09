@@ -354,6 +354,42 @@ const Home = () => {
             </div>
           </div>
 
+          {/* Desktop Layout - New Categories */}
+          <div className="hidden md:grid md:grid-cols-3 gap-4 lg:gap-5 mt-4 lg:mt-5">
+            <Link to="/shop?category=suitset" className="block group relative overflow-hidden bg-cream rounded-2xl lg:rounded-[20px] shadow-sm aspect-[4/3] lg:aspect-auto lg:h-[420px]">
+              <div className="absolute inset-0 z-10 bg-[linear-gradient(to_top,rgba(0,0,0,.55),rgba(0,0,0,.15),transparent)] transition-colors duration-[450ms] group-hover:bg-[linear-gradient(to_top,rgba(0,0,0,.65),rgba(0,0,0,.2),transparent)]" />
+              <img src="/images/suitset.jpg" alt="Suit Set" className="absolute inset-0 h-full w-full object-cover object-[center_35%] transition-transform duration-[450ms] ease-out group-hover:scale-[1.06]" />
+              <div className="absolute bottom-6 left-6 right-6 z-20 flex items-center justify-between text-white">
+                <h3 className="font-heading font-bold text-white text-2xl lg:text-[1.8rem] drop-shadow-lg">Suit Set</h3>
+                <span className="w-12 h-12 rounded-full border border-white/70 bg-white/10 backdrop-blur-md flex items-center justify-center transition-transform duration-[450ms] ease-out group-hover:scale-105">
+                  <ArrowRight size={18} className="text-white transition-transform duration-[450ms] ease-out group-hover:translate-x-[6px]" />
+                </span>
+              </div>
+            </Link>
+
+            <Link to="/shop?category=lahenga" className="block group relative overflow-hidden bg-cream rounded-2xl lg:rounded-[20px] shadow-sm aspect-[4/3] lg:aspect-auto lg:h-[420px]">
+              <div className="absolute inset-0 z-10 bg-[linear-gradient(to_top,rgba(0,0,0,.55),rgba(0,0,0,.15),transparent)] transition-colors duration-[450ms] group-hover:bg-[linear-gradient(to_top,rgba(0,0,0,.65),rgba(0,0,0,.2),transparent)]" />
+              <img src="/images/lahenga.jpg" alt="Lahenga" className="absolute inset-0 h-full w-full object-cover object-[center_20%] transition-transform duration-[450ms] ease-out group-hover:scale-[1.06]" />
+              <div className="absolute bottom-6 left-6 right-6 z-20 flex items-center justify-between text-white">
+                <h3 className="font-heading font-bold text-white text-2xl lg:text-[1.8rem] drop-shadow-lg">Lahenga</h3>
+                <span className="w-12 h-12 rounded-full border border-white/70 bg-white/10 backdrop-blur-md flex items-center justify-center transition-transform duration-[450ms] ease-out group-hover:scale-105">
+                  <ArrowRight size={18} className="text-white transition-transform duration-[450ms] ease-out group-hover:translate-x-[6px]" />
+                </span>
+              </div>
+            </Link>
+
+            <Link to="/shop?category=anarkali" className="block group relative overflow-hidden bg-cream rounded-2xl lg:rounded-[20px] shadow-sm aspect-[4/3] lg:aspect-auto lg:h-[420px]">
+              <div className="absolute inset-0 z-10 bg-[linear-gradient(to_top,rgba(0,0,0,.55),rgba(0,0,0,.15),transparent)] transition-colors duration-[450ms] group-hover:bg-[linear-gradient(to_top,rgba(0,0,0,.65),rgba(0,0,0,.2),transparent)]" />
+              <img src="/images/anarkali.jpg" alt="Anarkali" className="absolute inset-0 h-full w-full object-cover object-[center_20%] transition-transform duration-[450ms] ease-out group-hover:scale-[1.06]" />
+              <div className="absolute bottom-6 left-6 right-6 z-20 flex items-center justify-between text-white">
+                <h3 className="font-heading font-bold text-white text-2xl lg:text-[1.8rem] drop-shadow-lg">Anarkali</h3>
+                <span className="w-12 h-12 rounded-full border border-white/70 bg-white/10 backdrop-blur-md flex items-center justify-center transition-transform duration-[450ms] ease-out group-hover:scale-105">
+                  <ArrowRight size={18} className="text-white transition-transform duration-[450ms] ease-out group-hover:translate-x-[6px]" />
+                </span>
+              </div>
+            </Link>
+          </div>
+
           {/* Mobile layout - uniform 2x2 grid */}
           <div className="md:hidden grid grid-cols-2 gap-2 mt-4">
             <Link to="/shop?category=sharara" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm aspect-[3/4]">
@@ -388,6 +424,33 @@ const Home = () => {
               <img src="https://res.cloudinary.com/rdk6gzoj/image/upload/v1787026536/IMG_0861.png" alt="Short Kurti" className="absolute inset-0 w-full h-full object-cover object-center" />
               <div className="absolute bottom-3 left-3 z-20">
                 <h3 className="font-heading font-bold text-base text-white drop-shadow-md mb-2">Short Kurti</h3>
+                <span className="bg-white text-primary text-[10px] font-bold rounded-full px-3 py-1 flex items-center gap-1 w-fit shadow-sm">Explore <ArrowRight size={10} /></span>
+              </div>
+            </Link>
+
+            <Link to="/shop?category=suitset" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm aspect-[3/4]">
+              <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
+              <img src="/images/suitset.jpg" alt="Suit Set" className="absolute inset-0 w-full h-full object-cover object-center" />
+              <div className="absolute bottom-3 left-3 z-20">
+                <h3 className="font-heading font-bold text-base text-white drop-shadow-md mb-2">Suit Set</h3>
+                <span className="bg-white text-primary text-[10px] font-bold rounded-full px-3 py-1 flex items-center gap-1 w-fit shadow-sm">Explore <ArrowRight size={10} /></span>
+              </div>
+            </Link>
+
+            <Link to="/shop?category=lahenga" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm aspect-[3/4]">
+              <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
+              <img src="/images/lahenga.jpg" alt="Lahenga" className="absolute inset-0 w-full h-full object-cover object-center" />
+              <div className="absolute bottom-3 left-3 z-20">
+                <h3 className="font-heading font-bold text-base text-white drop-shadow-md mb-2">Lahenga</h3>
+                <span className="bg-white text-primary text-[10px] font-bold rounded-full px-3 py-1 flex items-center gap-1 w-fit shadow-sm">Explore <ArrowRight size={10} /></span>
+              </div>
+            </Link>
+
+            <Link to="/shop?category=anarkali" className="group relative overflow-hidden bg-cream rounded-lg shadow-sm aspect-[3/4]">
+              <div className="absolute inset-0 bg-primary/20 z-10 transition-colors group-hover:bg-primary/40 duration-500" />
+              <img src="/images/anarkali.jpg" alt="Anarkali" className="absolute inset-0 w-full h-full object-cover object-center" />
+              <div className="absolute bottom-3 left-3 z-20">
+                <h3 className="font-heading font-bold text-base text-white drop-shadow-md mb-2">Anarkali</h3>
                 <span className="bg-white text-primary text-[10px] font-bold rounded-full px-3 py-1 flex items-center gap-1 w-fit shadow-sm">Explore <ArrowRight size={10} /></span>
               </div>
             </Link>

@@ -40,6 +40,30 @@ const targetCategories = [
     description: 'Elegant and flowing long kurtis and suits.',
     imageUrl: 'https://res.cloudinary.com/dqcxekzxn/image/upload/v1779815830/WhatsApp_Image_2026-05-26_at_10.36.46_PM_re74eo.jpg',
     isActive: true
+  },
+  {
+    id: 'c5555555-5555-5555-5555-555555555555',
+    name: 'Suit Set',
+    slug: 'suitset',
+    description: 'Beautifully crafted suit sets for every occasion.',
+    imageUrl: '/images/suitset.jpg',
+    isActive: true
+  },
+  {
+    id: 'c6666666-6666-6666-6666-666666666666',
+    name: 'Lahenga',
+    slug: 'lahenga',
+    description: 'Stunning designer lahengas for weddings and festivals.',
+    imageUrl: '/images/lahenga.jpg',
+    isActive: true
+  },
+  {
+    id: 'c7777777-7777-7777-7777-777777777777',
+    name: 'Anarkali',
+    slug: 'anarkali',
+    description: 'Regal and flowing Anarkali suits for a timeless look.',
+    imageUrl: '/images/anarkali.jpg',
+    isActive: true
   }
 ];
 

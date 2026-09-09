@@ -118,7 +118,10 @@ const Navbar = () => {
                 <Link to="/shop?category=sharara" className="px-5 py-3 text-sm font-medium text-dark hover:text-gold hover:bg-cream/20 transition-colors border-b border-cream/30">Sharara</Link>
                 <Link to="/shop?category=tops" className="px-5 py-3 text-sm font-medium text-dark hover:text-gold hover:bg-cream/20 transition-colors border-b border-cream/30">Tops</Link>
                 <Link to="/shop?category=short-kurti" className="px-5 py-3 text-sm font-medium text-dark hover:text-gold hover:bg-cream/20 transition-colors border-b border-cream/30">Short Kurti</Link>
-                <Link to="/shop?category=long-kurti" className="px-5 py-3 text-sm font-medium text-dark hover:text-gold hover:bg-cream/20 transition-colors">Long Kurti</Link>
+                <Link to="/shop?category=long-kurti" className="px-5 py-3 text-sm font-medium text-dark hover:text-gold hover:bg-cream/20 transition-colors border-b border-cream/30">Long Kurti</Link>
+                <Link to="/shop?category=suitset" className="px-5 py-3 text-sm font-medium text-dark hover:text-gold hover:bg-cream/20 transition-colors border-b border-cream/30">Suit Set</Link>
+                <Link to="/shop?category=lahenga" className="px-5 py-3 text-sm font-medium text-dark hover:text-gold hover:bg-cream/20 transition-colors border-b border-cream/30">Lahenga</Link>
+                <Link to="/shop?category=anarkali" className="px-5 py-3 text-sm font-medium text-dark hover:text-gold hover:bg-cream/20 transition-colors">Anarkali</Link>
               </div>
             </div>
             <Link to={homeSectionLink('about')} className="text-white hover:text-gold transition-colors font-medium">About</Link>
@@ -173,6 +176,9 @@ const Navbar = () => {
                     <Link to="/shop?category=tops" className="text-dark/80 hover:text-gold text-base" onClick={() => setMobileMenuOpen(false)}>Tops</Link>
                     <Link to="/shop?category=short-kurti" className="text-dark/80 hover:text-gold text-base" onClick={() => setMobileMenuOpen(false)}>Short Kurti</Link>
                     <Link to="/shop?category=long-kurti" className="text-dark/80 hover:text-gold text-base" onClick={() => setMobileMenuOpen(false)}>Long Kurti</Link>
+                    <Link to="/shop?category=suitset" className="text-dark/80 hover:text-gold text-base" onClick={() => setMobileMenuOpen(false)}>Suit Set</Link>
+                    <Link to="/shop?category=lahenga" className="text-dark/80 hover:text-gold text-base" onClick={() => setMobileMenuOpen(false)}>Lahenga</Link>
+                    <Link to="/shop?category=anarkali" className="text-dark/80 hover:text-gold text-base" onClick={() => setMobileMenuOpen(false)}>Anarkali</Link>
                   </div>
                 </div>
                 <Link to={homeSectionLink('about')} className="text-lg text-dark py-2 border-b border-cream" onClick={() => setMobileMenuOpen(false)}>About</Link>
