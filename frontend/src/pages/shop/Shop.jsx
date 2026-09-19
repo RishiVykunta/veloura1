@@ -32,7 +32,10 @@ const Shop = () => {
     { name: 'Sharara', slug: 'sharara' },
     { name: 'Tops', slug: 'tops' },
     { name: 'Short Kurti', slug: 'short-kurti' },
-    { name: 'Long Kurti', slug: 'long-kurti' }
+    { name: 'Long Kurti', slug: 'long-kurti' },
+    { name: 'Suit Set', slug: 'suitset' },
+    { name: 'Lahenga', slug: 'lahenga' },
+    { name: 'Anarkali', slug: 'anarkali' }
   ];
   const sizes = ['XS', 'S', 'M', 'L', 'XL'];
 
@@ -121,15 +124,15 @@ const Shop = () => {
             </div>
 
             {/* Categories */}
-            <div>
-              <h4 className="text-sm font-semibold text-primary mb-3">Categories</h4>
-              <div className="space-y-2">
+            <div className="pt-2">
+              <h4 className="font-heading font-bold text-[22px] text-primary mb-5">Categories</h4>
+              <div className="space-y-4">
                 {categories.map((cat) => (
                   <button
                     key={cat.slug}
                     onClick={() => setSelectedCategory(cat.slug)}
-                    className={`block text-xs font-medium transition-colors ${
-                      selectedCategory === cat.slug ? 'text-gold underline' : 'text-dark/75 hover:text-gold'
+                    className={`block text-[17px] font-medium transition-colors text-left ${
+                      selectedCategory === cat.slug ? 'text-gold underline decoration-1 underline-offset-4' : 'text-dark/75 hover:text-gold'
                     }`}
                   >
                     {cat.name}
@@ -139,10 +142,10 @@ const Shop = () => {
             </div>
 
             {/* Price Filter */}
-            <div>
-              <div className="flex justify-between text-sm font-semibold text-primary mb-3">
-                <span>Max Price</span>
-                <span className="text-gold font-bold">₹{priceRange}</span>
+            <div className="pt-6">
+              <div className="flex justify-between items-center mb-6">
+                <span className="font-bold text-[22px] text-primary">Max Price</span>
+                <span className="text-gold font-bold text-[22px]">₹{priceRange}</span>
               </div>
               <input
                 type="range"
@@ -151,7 +154,10 @@ const Shop = () => {
                 step="100"
                 value={priceRange}
                 onChange={(e) => setPriceRange(parseInt(e.target.value))}
-                className="w-full accent-gold bg-cream h-1 rounded-lg cursor-pointer"
+                className="w-full h-1.5 rounded-lg cursor-pointer appearance-none outline-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-[18px] [&::-webkit-slider-thumb]:h-[18px] [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#D4AF37] [&::-moz-range-thumb]:w-[18px] [&::-moz-range-thumb]:h-[18px] [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-[#D4AF37] [&::-moz-range-thumb]:border-none"
+                style={{
+                  background: `linear-gradient(to right, #D4AF37 0%, #D4AF37 ${((priceRange - 500) / 5500) * 100}%, rgba(212, 175, 55, 0.4) ${((priceRange - 500) / 5500) * 100}%, rgba(212, 175, 55, 0.4) 100%)`
+                }}
               />
             </div>
 
@@ -359,17 +365,17 @@ const Shop = () => {
                 </div>
 
                 {/* Categories */}
-                <div>
-                  <h4 className="text-sm font-semibold text-primary mb-2">Categories</h4>
-                  <div className="space-y-1.5">
+                <div className="pt-2">
+                  <h4 className="font-heading font-bold text-xl text-primary mb-4">Categories</h4>
+                  <div className="space-y-3">
                     {categories.map((cat) => (
                       <button
                         key={cat.slug}
                         onClick={() => {
                           setSelectedCategory(cat.slug);
                         }}
-                        className={`block text-xs ${
-                          selectedCategory === cat.slug ? 'text-gold underline font-bold' : 'text-dark/70'
+                        className={`block text-base font-medium text-left ${
+                          selectedCategory === cat.slug ? 'text-gold underline decoration-1 underline-offset-4' : 'text-dark/75 hover:text-gold'
                         }`}
                       >
                         {cat.name}
@@ -379,10 +385,10 @@ const Shop = () => {
                 </div>
 
                 {/* Price */}
-                <div>
-                  <div className="flex justify-between text-xs font-semibold text-primary mb-2">
-                    <span>Max Price</span>
-                    <span className="text-gold">₹{priceRange}</span>
+                <div className="pt-4">
+                  <div className="flex justify-between items-center mb-4">
+                    <span className="font-bold text-xl text-primary">Max Price</span>
+                    <span className="text-gold font-bold text-xl">₹{priceRange}</span>
                   </div>
                   <input
                     type="range"
@@ -391,7 +397,10 @@ const Shop = () => {
                     step="100"
                     value={priceRange}
                     onChange={(e) => setPriceRange(parseInt(e.target.value))}
-                    className="w-full accent-gold bg-cream h-1 rounded-lg"
+                    className="w-full h-1.5 rounded-lg cursor-pointer appearance-none outline-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-[18px] [&::-webkit-slider-thumb]:h-[18px] [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#D4AF37] [&::-moz-range-thumb]:w-[18px] [&::-moz-range-thumb]:h-[18px] [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-[#D4AF37] [&::-moz-range-thumb]:border-none"
+                    style={{
+                      background: `linear-gradient(to right, #D4AF37 0%, #D4AF37 ${((priceRange - 500) / 5500) * 100}%, rgba(212, 175, 55, 0.4) ${((priceRange - 500) / 5500) * 100}%, rgba(212, 175, 55, 0.4) 100%)`
+                    }}
                   />
                 </div>
 

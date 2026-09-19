@@ -156,9 +156,12 @@ const getProducts = asyncHandler(async (req, res) => {
 
     const { rows } = await query(sqlQuery, params);
 
-    // Only fall back to mock data when the database itself is completely empty (no filters applied)
-    if (rows.length === 0 && !category && !search && !size && !color && !collection) {
-      throw new Error('Database is empty');
+    // Check if the database itself is completely empty to fall back to mock data
+    if (rows.length === 0) {
+      const { rows: checkRows } = await query('SELECT id FROM products LIMIT 1');
+      if (checkRows.length === 0) {
+        throw new Error('Database is empty');
+      }
     }
 
     // Load full details (images, variants) for each product

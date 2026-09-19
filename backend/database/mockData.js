@@ -1,36 +1,14 @@
 const mockCategories = [
-  {
-    id: "f",
-    name: "Dresses",
-    slug: "dresses",
-    description: "Sleek silhouettes, romantic slips, and effortless daywear.",
-    imageUrl: "https://res.cloudinary.com/dqcxekzxn/image/upload/v1779815830/WhatsApp_Image_2026-05-26_at_10.36.46_PM_re74eo.jpg",
-    isActive: true
-  },
-  {
-    id: "f",
-    name: "Tops",
-    slug: "tops",
-    description: "Premium basics, tailored shirts, and statement corsets.",
-    imageUrl: "https://res.cloudinary.com/dqcxekzxn/image/upload/v1779815830/WhatsApp_Image_2026-05-26_at_10.36.46_PM_re74eo.jpg",
-    isActive: true
-  },
-  {
-    id: "f",
-    name: "Bottoms",
-    slug: "bottoms",
-    description: "Tailored trousers, structured denim, and linen skirts.",
-    imageUrl: "https://res.cloudinary.com/dqcxekzxn/image/upload/v1779815830/WhatsApp_Image_2026-05-26_at_10.36.46_PM_re74eo.jpg",
-    isActive: true
-  },
-  {
-    id: "f",
-    name: "Accessories",
-    slug: "accessories",
-    description: "Finishing touches, sculptural jewelry, and leather goods.",
-    imageUrl: "https://res.cloudinary.com/dqcxekzxn/image/upload/v1779815830/WhatsApp_Image_2026-05-26_at_10.36.46_PM_re74eo.jpg",
-    isActive: true
-  }
+  { id: "c1", name: "Sharara", slug: "sharara", description: "Beautiful Shararas", isActive: true },
+  { id: "c2", name: "Tops", slug: "tops", description: "Premium tops", isActive: true },
+  { id: "c3", name: "Short Kurti", slug: "short-kurti", description: "Short Kurtis", isActive: true },
+  { id: "c4", name: "Long Kurti", slug: "long-kurti", description: "Long Kurtis", isActive: true },
+  { id: "c5", name: "Suit Set", slug: "suitset", description: "Suit Sets", isActive: true },
+  { id: "c6", name: "Lahenga", slug: "lahenga", description: "Lahengas", isActive: true },
+  { id: "c7", name: "Anarkali", slug: "anarkali", description: "Anarkalis", isActive: true },
+  { id: "c8", name: "Dresses", slug: "dresses", description: "Dresses", isActive: true },
+  { id: "c9", name: "Bottoms", slug: "bottoms", description: "Bottoms", isActive: true },
+  { id: "c10", name: "Accessories", slug: "accessories", description: "Accessories", isActive: true }
 ];
 
 const mockBanners = [
@@ -60,13 +38,13 @@ const mockBanners = [
 
 const mockProducts = [
   {
-    id: "f",
+    id: "p1",
     name: "Aurelia Satin Slip Dress",
     slug: "aurelia-satin-slip-dress",
     shortDescription: "A liquid-like cowl neck satin slip dress designed for golden hour.",
     description: "The Aurelia Slip Dress is crafted from a heavy-weight, high-shine satin that drapes beautifully over the body. Features an adjustable cross-back detail, double lining for security, and a elegant side slit. Perfect for evening dinners, cocktails, or romantic lookbooks.",
     sku: "VEL-DR-AUR-001",
-    categoryId: "f",
+    categoryId: "c8",
     price: 3499.00,
     discountPrice: 2999.00,
     stockQuantity: 24,
@@ -99,13 +77,13 @@ const mockProducts = [
     tags: ["slip dress", "satin", "evening", "gold"]
   },
   {
-    id: "f",
+    id: "p2",
     name: "Seraphina Tailored Trousers",
     slug: "seraphina-tailored-trousers",
     shortDescription: "High-rise pleated trousers with a wide-leg fluid drape.",
     description: "The Seraphina pleated trousers offer an effortless blend of workwear structure and relaxed tailoring. Designed with a wide leg, double pleats at the waist, functional side pockets, and a clean belt loop waistband. Made from a fluid linen-rayon blend.",
     sku: "VEL-BT-SER-002",
-    categoryId: "f",
+    categoryId: "c9",
     price: 2499.00,
     discountPrice: null,
     stockQuantity: 15,
@@ -137,13 +115,13 @@ const mockProducts = [
     tags: ["trousers", "pleated", "wide leg", "cream"]
   },
   {
-    id: "f",
+    id: "p3",
     name: "Lyra Linen Ribbed Crop Top",
     slug: "lyra-linen-ribbed-crop-top",
     shortDescription: "A minimalist knit ribbed crop top with clean shoulder straps.",
     description: "Breathable and stretch-fit, the Lyra Crop Top is knitted with organic linen yarns for a luxurious rib texture. High neckline, fitted bodice, and crop length makes it the perfect coordinate for high-waisted linen trousers or skirts.",
     sku: "VEL-TP-LYR-003",
-    categoryId: "f",
+    categoryId: "c2",
     price: 1599.00,
     discountPrice: 1299.00,
     stockQuantity: 40,
@@ -176,13 +154,13 @@ const mockProducts = [
     tags: ["crop top", "ribbed", "linen", "sage"]
   },
   {
-    id: "f",
+    id: "p4",
     name: "Baroque Pearl Drop Earrings",
     slug: "baroque-pearl-drop-earrings",
     shortDescription: "Irregular sculptural freshwater baroque pearls on 18k gold plated hoops.",
     description: "Each Baroque Pearl Drop Earring is completely unique, highlighting natural organic contours. Features sculptural 18k gold plated sterling silver huggie hoops, lightweight design, and removable pearl charms. Made for everyday luxury accessorizing.",
     sku: "VEL-AC-PRL-004",
-    categoryId: "f",
+    categoryId: "c10",
     price: 1899.00,
     discountPrice: 1699.00,
     stockQuantity: 50,
@@ -211,13 +189,13 @@ const mockProducts = [
     tags: ["earrings", "pearl", "gold", "jewelry"]
   },
   {
-    id: "f",
+    id: "p5",
     name: "Selene Linen Vest & Trousers Set",
     slug: "selene-linen-vest-trousers-set",
     shortDescription: "Coordinating tailored vest and high-waist trousers in soft oat linen.",
     description: "The Selene Set is the ultimate editorial summer suit. Comprises a fitted, button-up waistcoat with a V-neckline and pointed hem, and matching tailored linen trousers. Lightweight, fully lined vest, and relaxed trouser drape.",
     sku: "VEL-CO-SEL-005",
-    categoryId: "f",
+    categoryId: "c5",
     price: 5299.00,
     discountPrice: 4599.00,
     stockQuantity: 12,
@@ -246,6 +224,108 @@ const mockProducts = [
       "Breathable pure linen construction"
     ],
     tags: ["linen", "co-ord set", "vest", "oat"]
+  },
+  {
+    id: "p6",
+    name: "Golden Embroidered Sharara",
+    slug: "golden-embroidered-sharara",
+    shortDescription: "Exquisite golden embroidered sharara for festive occasions.",
+    description: "Make a statement with this heavily embroidered Sharara set, featuring intricate golden threadwork on premium georgette fabric. Comes with a matching dupatta.",
+    sku: "VEL-SH-GLD-006",
+    categoryId: "c1",
+    price: 4999.00,
+    discountPrice: 3599.00,
+    stockQuantity: 10,
+    material: "Georgette",
+    shippingInfo: "Free express shipping.",
+    occasionType: "Festive",
+    collectionType: "Festive Collection",
+    isFeatured: true,
+    isBestSeller: false,
+    isNewArrival: true,
+    isActive: true,
+    averageRating: 5.0,
+    totalReviews: 2,
+    images: [
+      { imageUrl: "https://res.cloudinary.com/rdk6gzoj/image/upload/v1787026543/IMG_0860.png", isPrimary: true }
+    ],
+    variants: [
+      { id: "v6-1", size: "M", color: "Gold", colorHex: "#D4AF37", stock: 5, sku: "VEL-SH-GLD-006-M" }
+    ],
+    features: ["Heavy embroidery", "Premium georgette", "Matching dupatta"],
+    tags: ["sharara", "gold", "festive"]
+  },
+  {
+    id: "p7",
+    name: "Classic Short Kurti",
+    slug: "classic-short-kurti",
+    shortDescription: "A breathable cotton short kurti for everyday wear.",
+    description: "Designed for comfort, this short kurti features a relaxed fit and elegant prints.",
+    sku: "VEL-SK-007",
+    categoryId: "c3",
+    price: 1299.00,
+    discountPrice: null,
+    stockQuantity: 20,
+    material: "Cotton",
+    isActive: true,
+    images: [{ imageUrl: "https://res.cloudinary.com/rdk6gzoj/image/upload/v1787026536/IMG_0861.png", isPrimary: true }],
+    variants: [{ id: "v7-1", size: "M", color: "Blue", colorHex: "#0000FF", stock: 10, sku: "VEL-SK-007-M" }],
+    features: ["Cotton", "Everyday wear"],
+    tags: ["short kurti"]
+  },
+  {
+    id: "p8",
+    name: "Elegant Long Kurti",
+    slug: "elegant-long-kurti",
+    shortDescription: "A graceful long kurti with side slits.",
+    description: "Perfect for work or casual outings, featuring delicate embroidery on the neckline.",
+    sku: "VEL-LK-008",
+    categoryId: "c4",
+    price: 1999.00,
+    discountPrice: 1799.00,
+    stockQuantity: 15,
+    material: "Rayon",
+    isActive: true,
+    images: [{ imageUrl: "https://res.cloudinary.com/rdk6gzoj/image/upload/v1787026540/IMG_0859.png", isPrimary: true }],
+    variants: [{ id: "v8-1", size: "L", color: "Red", colorHex: "#FF0000", stock: 5, sku: "VEL-LK-008-L" }],
+    features: ["Rayon", "Side slits"],
+    tags: ["long kurti"]
+  },
+  {
+    id: "p9",
+    name: "Bridal Velvet Lahenga",
+    slug: "bridal-velvet-lahenga",
+    shortDescription: "A rich velvet lahenga for bridal and festive wear.",
+    description: "Features heavy zardozi work and comes with a beautiful net dupatta.",
+    sku: "VEL-LH-009",
+    categoryId: "c6",
+    price: 5499.00,
+    discountPrice: 4999.00,
+    stockQuantity: 5,
+    material: "Velvet",
+    isActive: true,
+    images: [{ imageUrl: "/images/lahenga.jpg", isPrimary: true }],
+    variants: [{ id: "v9-1", size: "O/S", color: "Maroon", colorHex: "#800000", stock: 5, sku: "VEL-LH-009-OS" }],
+    features: ["Velvet", "Zardozi work", "Bridal"],
+    tags: ["lahenga", "bridal"]
+  },
+  {
+    id: "p10",
+    name: "Silk Flowy Anarkali",
+    slug: "silk-flowy-anarkali",
+    shortDescription: "A floor-length silk anarkali suit.",
+    description: "Elegant and regal, this anarkali provides a majestic flare and includes a churidar and dupatta.",
+    sku: "VEL-AN-010",
+    categoryId: "c7",
+    price: 5999.00,
+    discountPrice: null,
+    stockQuantity: 8,
+    material: "Silk",
+    isActive: true,
+    images: [{ imageUrl: "/images/anarkali.jpg", isPrimary: true }],
+    variants: [{ id: "v10-1", size: "M", color: "Green", colorHex: "#008000", stock: 4, sku: "VEL-AN-010-M" }],
+    features: ["Silk", "Floor length"],
+    tags: ["anarkali", "silk"]
   }
 ];
 
