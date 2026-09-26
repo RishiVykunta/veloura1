@@ -13,7 +13,9 @@ app.enable('trust proxy');
 
 // Check Cloudinary config on startup in production
 // Security and utility middlewares
-app.use(helmet());
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: "cross-origin" }
+}));
 app.use(cors({
   origin: true,
   credentials: true,

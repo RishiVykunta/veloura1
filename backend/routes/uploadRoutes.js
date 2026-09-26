@@ -24,7 +24,8 @@ const storage = multer.diskStorage({
     cb(null, uploadDir);
   },
   filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`);
+    const sanitizedName = file.originalname.replace(/[^a-zA-Z0-9.\-_]/g, '');
+    cb(null, `${Date.now()}-${sanitizedName}`);
   }
 });
 
@@ -36,13 +37,18 @@ const upload = multer({
 const router = express.Router();
 
 router.post('/image', upload.single('image'), asyncHandler(async (req, res) => {
+  console.log('UPLOAD HIT!');
+  console.log('Content-Type:', req.headers['content-type']);
+  console.log('Body:', req.body);
+  console.log('File:', req.file);
+  
   if (!req.file) {
     res.status(400);
     throw new Error('Please upload an image file');
   }
 
   // We return a path pointing to our server's static folder dynamically
-  const relativeUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+  const relativeUrl = `${req.protocol}://${req.get('host')}/uploads/${encodeURIComponent(req.file.filename)}`;
   
   return res.status(200).json({
     success: true,
