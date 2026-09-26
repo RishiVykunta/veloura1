@@ -6,11 +6,8 @@ export const uploadService = {
     formData.append('image', file);
     formData.append('folder', folder);
 
-    const response = await apiClient.post('/uploads/image', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+    // Let axios automatically set the Content-Type with the correct boundary
+    const response = await apiClient.post('/uploads/image', formData);
     return response.data;
   },
 
@@ -21,11 +18,7 @@ export const uploadService = {
     });
     formData.append('folder', folder);
 
-    const response = await apiClient.post('/uploads/multiple', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+    const response = await apiClient.post('/uploads/multiple', formData);
     return response.data;
   },
 
@@ -34,11 +27,7 @@ export const uploadService = {
     formData.append('video', file);
     formData.append('folder', folder);
 
-    const response = await apiClient.post('/uploads/video', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+    const response = await apiClient.post('/uploads/video', formData);
     return response.data;
   }
 };

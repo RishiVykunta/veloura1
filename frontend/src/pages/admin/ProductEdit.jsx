@@ -132,6 +132,8 @@ const ProductEdit = () => {
       alert(`Upload failed: ${errMsg}`);
     } finally {
       setUploading(false);
+      // Reset the file input so the same file can be selected again
+      e.target.value = null;
     }
   };
 
