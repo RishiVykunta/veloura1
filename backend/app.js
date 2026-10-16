@@ -26,7 +26,12 @@ const uploadDir = process.env.VERCEL
   ? path.join(os.tmpdir(), 'uploads')
   : path.join(__dirname, 'uploads');
 
-app.use('/uploads', express.static(uploadDir));
+app.use('/uploads', (req, res, next) => {
+  res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS');
+  next();
+}, express.static(uploadDir));
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));

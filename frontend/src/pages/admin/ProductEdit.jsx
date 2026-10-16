@@ -113,18 +113,22 @@ const ProductEdit = () => {
     }
   }, [id, isEditMode]);
 
+  const [isDragging, setIsDragging] = useState(false);
+
   // Handle image upload to Cloudinary/Local
   const handleImageFileChange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
 
     setUploading(true);
     try {
-      const res = await uploadService.uploadImage(file);
-      if (res.success && res.url) {
-        setImages((prev) => [...prev, res.url]);
-      } else {
-        alert('Image upload failed: response was unsuccessful');
+      for (const file of files) {
+        const res = await uploadService.uploadImage(file);
+        if (res.success && res.url) {
+          setImages((prev) => [...prev, res.url]);
+        } else {
+          alert(`Image upload failed for "${file.name}": ${res.message || 'unsuccessful'}`);
+        }
       }
     } catch (err) {
       console.error('Error uploading image file:', err);
@@ -134,6 +138,45 @@ const ProductEdit = () => {
       setUploading(false);
       // Reset the file input so the same file can be selected again
       e.target.value = null;
+    }
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  };
+
+  const handleDrop = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+
+    const files = Array.from(e.dataTransfer.files || []).filter(f => f.type.startsWith('image/'));
+    if (files.length === 0) return;
+
+    setUploading(true);
+    try {
+      for (const file of files) {
+        const res = await uploadService.uploadImage(file);
+        if (res.success && res.url) {
+          setImages((prev) => [...prev, res.url]);
+        } else {
+          alert(`Image upload failed for "${file.name}": ${res.message || 'unsuccessful'}`);
+        }
+      }
+    } catch (err) {
+      console.error('Error uploading dropped file:', err);
+      const errMsg = err.response?.data?.message || err.message || 'server connection error';
+      alert(`Upload failed: ${errMsg}`);
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -385,18 +428,26 @@ const ProductEdit = () => {
             {/* Option B: Upload File */}
             <div className="mb-6">
               <label className="block text-[10px] font-bold text-primary uppercase mb-2">
-                Option 2: Upload Image File (Local server storage)
+                Option 2: Upload Image File (From your computer)
               </label>
               <input 
                 type="file" 
                 accept="image/*"
+                multiple
                 onChange={handleImageFileChange}
                 className="hidden" 
                 id="admin-image-upload-file" 
               />
               <label
                 htmlFor="admin-image-upload-file"
-                className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:bg-cream transition-colors cursor-pointer flex flex-col items-center justify-center"
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+                className={`border-2 border-dashed rounded-xl p-6 text-center transition-all cursor-pointer flex flex-col items-center justify-center ${
+                  isDragging 
+                    ? 'border-gold bg-cream/40 scale-[1.01]' 
+                    : 'border-gray-300 hover:bg-cream/20 hover:border-gold/60'
+                }`}
               >
                 <div className="w-10 h-10 bg-primary/5 rounded-full flex items-center justify-center mb-2">
                   {uploading ? (
@@ -405,7 +456,10 @@ const ProductEdit = () => {
                     <Upload size={20} className="text-primary" />
                   )}
                 </div>
-                <p className="font-semibold text-xs text-dark">Click to browse from your computer</p>
+                <p className="font-semibold text-xs text-dark">
+                  {uploading ? 'Uploading image...' : 'Click to browse or drag and drop photos here'}
+                </p>
+                <p className="text-[10px] text-dark/40 mt-1">PNG, JPG, WEBP up to 25MB (multiple files allowed)</p>
               </label>
             </div>
 
@@ -413,16 +467,23 @@ const ProductEdit = () => {
             {images.length > 0 && (
               <div className="flex flex-wrap gap-4 mt-6 border-t border-gray-100 pt-6">
                 {images.map((url, index) => (
-                  <div key={index} className="w-20 aspect-[3/4] border border-cream rounded overflow-hidden relative shadow-sm">
-                    <img src={url} alt={`upload-${index}`} className="w-full h-full object-cover" />
+                  <div key={index} className="w-20 aspect-[3/4] border border-cream rounded overflow-hidden relative shadow-sm bg-gray-50 flex items-center justify-center">
+                    <img 
+                      src={url} 
+                      alt={`Product ${index + 1}`} 
+                      className="w-full h-full object-cover" 
+                      crossOrigin="anonymous"
+                    />
                     <button 
+                      type="button"
                       onClick={() => removeImage(index)}
-                      className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-0.5 hover:bg-red-600"
+                      className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors shadow"
+                      title="Delete image"
                     >
                       <X size={12} />
                     </button>
                     {index === 0 && (
-                      <span className="absolute bottom-0 left-0 right-0 bg-gold text-white text-[8px] text-center font-bold uppercase py-0.5">
+                      <span className="absolute bottom-0 left-0 right-0 bg-gold text-white text-[8px] text-center font-bold uppercase py-0.5 tracking-wider">
                         Cover
                       </span>
                     )}
