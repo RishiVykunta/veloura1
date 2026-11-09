@@ -50,7 +50,7 @@ const ContactUs = () => {
                 <div className="rounded-xl bg-white border border-cream-dark p-4">
                   <p className="text-xs uppercase tracking-[0.25em] text-gold mb-2">WhatsApp</p>
                   <a
-                    href="https://wa.me/916261802019"
+                    href="https://wa.me/918320187353"
                     target="_blank"
                     rel="noreferrer"
                     onClick={handleWhatsAppClick}
